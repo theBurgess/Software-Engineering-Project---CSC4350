@@ -1,7 +1,7 @@
 Software Engineering Project
 CSc 4350 – Fall 2017
 
-Group: B.F.L.O.P
+Group: B.L.O.P
 
 
 Project Topic: Hotel Management System
