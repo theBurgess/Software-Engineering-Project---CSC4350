@@ -13,12 +13,10 @@ Group Coordinator:
 
 Group Members:
 
-	Glenn Fausti
 	Johnathan Lackwood
 	Smit Patel
 	Stephen Burgess
 	
-Date: 09/08/17
 
 
 
