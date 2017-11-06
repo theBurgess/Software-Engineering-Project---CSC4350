@@ -1,0 +1,1 @@
+For any gui pages instead of "extends JFrame" use "extends SuperPage" so it inherits the piece of code that can connect to db
