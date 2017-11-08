@@ -1,19 +1,18 @@
 package hotelSystem;
 
 import java.sql.*;
-import javax.swing.*;
-import java.awt.event.*;
+//import javax.swing.*;
+//import java.awt.event.*;
 
-public class SuperPage extends JFrame {
+public class SuperPage {
 
-	public SuperPage(String name) {
-		setSize(600,400);
-		setLocation(600,300);
+		
+	public void run(String name) {
 		
 	}
 	
 	//connects to database.
-	protected final Connection connect(String name) {
+	protected static final Connection connect(String name) {
 		String dbLoc = "jdbc:sqlite:db/"+name;
 		Connection conn = null;
 		try {

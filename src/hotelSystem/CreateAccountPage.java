@@ -1,5 +1,6 @@
 package hotelSystem;
 
+import java.util.*;
 import java.sql.*;
 import javax.swing.*;
 import java.awt.event.*;
@@ -7,32 +8,34 @@ import java.awt.event.*;
 	//This page will be used to add new user accounts to the database
 	public class CreateAccountPage extends SuperPage {
 		
-		JPanel panel = new JPanel();
-		JLabel label1 = new JLabel("Welcome to B.L.O.P - Hotel Management System.");
-		JLabel label2 = new JLabel("Username: ");
-		JTextField username = new JTextField(20);
-		JLabel label3 = new JLabel("Password:  ");
-		JPasswordField password = new JPasswordField(15);
-		JLabel label4 = new JLabel("First Name: ");
-		JTextField firstName= new JTextField(20);
-		JLabel label5 = new JLabel("Last Name: ");
-		JTextField lastName = new JTextField(20);
-		JLabel label6 = new JLabel("Address: ");
-		JTextField address = new JTextField(20);
-		JLabel label7= new JLabel("Phone: ");
-		JTextField phone1 = new JTextField(3);
-		JTextField phone2 = new JTextField(3);
-		JTextField phone3 = new JTextField(4);
-		JButton button = new JButton("Ok");
+		static JFrame frame = new JFrame("Login");
+		static JPanel panel = new JPanel();
+		static JLabel label1 = new JLabel("Welcome to B.L.O.P - Hotel Management System.");
+		static JLabel label2 = new JLabel("Username: ");
+		static JTextField username = new JTextField(20);
+		static JLabel label3 = new JLabel("Password:  ");
+		static JPasswordField password = new JPasswordField(15);
+		static JLabel label4 = new JLabel("First Name: ");
+		static JTextField firstName= new JTextField(20);
+		static JLabel label5 = new JLabel("Last Name: ");
+		static JTextField lastName = new JTextField(20);
+		static JLabel label6 = new JLabel("Address: ");
+		static JTextField address = new JTextField(20);
+		static JLabel label7= new JLabel("Phone: ");
+		static JTextField phone1 = new JTextField(3);
+		static JTextField phone2 = new JTextField(3);
+		static JTextField phone3 = new JTextField(4);
+		static JButton button = new JButton("Ok");
 		
 		
 		
-		//Constructor
-		/**Creates an object of the customer with their information
+		//opens the page
+		/**
 		*/
-		public CreateAccountPage(){
-			super("Create User");			
-			
+		public static void run(){
+						
+			frame.setSize(600,350);
+			frame.setLocation(600,300);
 			panel.setLayout(null);
 			label1.setBounds(5,5,300,20);
 			label2.setBounds(10,40,150,20);
@@ -56,19 +59,19 @@ import java.awt.event.*;
 			panel.add(lastName);
 			panel.add(button);
 			
-			getContentPane().add(panel);
-			setVisible(true);
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.getContentPane().add(panel);
+			frame.setVisible(true);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			username.requestFocus();
 			button.addActionListener(new myActionListener());
 		
 		}
 		
-		private class myActionListener implements ActionListener {
+		private static class myActionListener implements ActionListener {
 			
 			public void actionPerformed(ActionEvent event){
 				String user = username.getText();
-				String pass = password.getText(); //need to convert to char[]
+				char[] pass = password.getPassword(); 
 				String first = firstName.getText();
 				String last = lastName.getText();
 				if(checkUsername(user)==true) {
@@ -78,15 +81,15 @@ import java.awt.event.*;
 					username.requestFocus();
 				}
 				insertData(user,pass,first,last);
-				dispose();
+				frame.dispose();
 			
 			}
 		}
 				
 		//queries database and returns true if user name is already in use.
-		private Boolean checkUsername(String username) {
-			String sql = "SELECT username FROM userAccounts";
-			try(Connection conn = this.connect("BLOP.db");
+		private static Boolean checkUsername(String username) {
+			String sql = "SELECT username FROM staffAccounts";
+			try(Connection conn = connect("BLOP.db");
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql)){
 				
@@ -103,14 +106,14 @@ import java.awt.event.*;
 			return false;
 		}
 		//adds new userAccount data to the database
-		private void insertData(String user,String pass,String first,String last) {
-			String sql = "INSERT INTO userAccounts(username,password,firstName,lastName)VALUES(?,?,?,?)";
+		private static void insertData(String user,char[] pass,String first,String last) {
+			String sql = "INSERT INTO staffAccounts(username,password,firstName,lastName)VALUES(?,?,?,?)";
 			
-			try(Connection conn = this.connect("BLOP.db");
+			try(Connection conn = connect("BLOP.db");
 				PreparedStatement pstmt = conn.prepareStatement(sql)){
 				
 				pstmt.setString(1, user);
-				pstmt.setString(2, pass);
+				pstmt.setString(2, Arrays.toString(pass)); //time permitting: encrypt passwords
 				pstmt.setString(3, first);
 				pstmt.setString(4, last);
 				pstmt.executeUpdate();

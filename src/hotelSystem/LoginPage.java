@@ -1,27 +1,28 @@
 package hotelSystem;
 
 import java.sql.*;
+import java.util.Arrays;
+
 import javax.swing.*;
 import java.awt.event.*;
 
 public class LoginPage extends SuperPage{
 
 
-	
-	JPanel panel = new JPanel();
-	JLabel label1 = new JLabel("Welcome to B.L.O.P - Hotel Management System.");
-	JLabel label2 = new JLabel("Username: ");
-	JTextField username = new JTextField(20);
-	JLabel label3 = new JLabel("Password:  ");
-	JPasswordField password = new JPasswordField(15);
-	JButton button1 = new JButton("Login");
-	
-	
-	public LoginPage() {
-		super("Login:");
+	static JFrame frame = new JFrame("Login");
+	static JPanel panel = new JPanel();
+	static JLabel label1 = new JLabel("Welcome to B.L.O.P - Hotel Management System.");
+	static JLabel label2 = new JLabel("Username: ");
+	static JTextField username = new JTextField(20);
+	static JLabel label3 = new JLabel("Password:  ");
+	static JPasswordField password = new JPasswordField(15);
+	static JButton button1 = new JButton("Login");
 		
-		setSize(300,250);
-		setLocation(600,300);
+	
+	public static void run() {
+	
+		frame.setSize(300,250);
+		frame.setLocation(600,300);
 		panel.setLayout(null);
 		
 		label1.setBounds(5,5,300,20);
@@ -40,22 +41,22 @@ public class LoginPage extends SuperPage{
 		panel.add(button1);
 		
 		
-		getContentPane().add(panel);
-		setVisible(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().add(panel);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		username.requestFocus();
-		getRootPane().setDefaultButton(button1);
+		frame.getRootPane().setDefaultButton(button1); //makes enter key = push button
 		button1.addActionListener(new myActionListener());
 		
 	}
-	
+		
 	//describes what happens when button is clicked
-	private class myActionListener implements ActionListener {
+	private static class myActionListener implements ActionListener {
 		
 		public void actionPerformed(ActionEvent event){
 						
 			String u = username.getText();
-			String p = password.getText(); //need to convert to char[]
+			char[] p = password.getPassword();
 			int i = isUser(u,p);
 			if(i == 0){
 				JOptionPane.showMessageDialog(null,"Username not found.");
@@ -69,9 +70,8 @@ public class LoginPage extends SuperPage{
 				password.requestFocus();
 			}
 			else{
-				String name = "name here.";
-				HomePage HP = new HomePage(name);
-				dispose();
+				HomePage.run();
+				frame.dispose();
 			}		
 		}
 	}
@@ -81,15 +81,15 @@ public class LoginPage extends SuperPage{
 	 * queries database for matching username and password
 	 * returns userid
 	 */
-	public int isUser(String user, String pass) {
-		String sql = "SELECT userid, username, password FROM userAccounts";
-		try(Connection conn = this.connect("BLOP.db");
+	public static int isUser(String user, char[] pass) {
+		String sql = "SELECT userid, username, password FROM staffAccounts";
+		try(Connection conn = connect("BLOP.db");
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql)){
 			
 			while(rs.next()) {
 				if(rs.getString("username").equals(user)) {
-					if(rs.getString("password").equals(pass)) {
+					if(rs.getString("password").equals(Arrays.toString(pass))) {
 						return rs.getInt(1);
 					}
 					else {
