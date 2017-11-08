@@ -1,3 +1,9 @@
+default admin userAccount:
+	username: administrator
+	password: admin1234
+
+
+
 Software Engineering Project
 CSc 4350 – Fall 2017
 
