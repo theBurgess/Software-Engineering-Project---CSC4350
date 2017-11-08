@@ -2,16 +2,18 @@ package hotelSystem;
 
 import java.sql.*;
 
-import javax.swing.JFrame;
 
 import java.io.File;
 
 public class Console {
-
+		
+	/**
+	 * 
+	 * @this class contains the main method that dictates what happens each time the program is executed
+	 */
 	public static void main(String[] args) {
 		
-		JFrame frame = new JFrame();
-		frame.setSize(1,2);
+		
 		String dbName = "BLOP.db"; //what the database is called
 		
 		/** if the program is being run for the first time the database will be built

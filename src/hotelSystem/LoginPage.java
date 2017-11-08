@@ -5,6 +5,13 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.event.*;
 
+
+/** 
+ * 
+ * first page that should appear when program is run. will match input username and password with database and log in 
+ * the input user
+ *
+ */
 public class LoginPage extends SuperPage{
 
 	static JFrame frame = new JFrame("Hotel Management System");

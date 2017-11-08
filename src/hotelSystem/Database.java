@@ -3,7 +3,13 @@ package hotelSystem;
 import java.sql.*;
 
 public class Database {
-		
+	
+	
+		/**
+		 * 
+		 * this will be run when the program is run for the first time and will build the database and add all appropriate tables
+		 * that represent state of all the main classes
+		 */
 		public static void build(String dbName) { //builds database
 			
 			dbCreate(dbName);

@@ -3,6 +3,13 @@ package hotelSystem;
 import javax.swing.*;
 import java.awt.event.*;
 
+
+/**
+ * 
+ * this page should be the main hub for staff type users to access all functions of the program. 
+ * so far, have added create user account, and log out function
+ *
+ */
 public class HomePage extends SuperPage {
 	
 	

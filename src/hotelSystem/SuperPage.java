@@ -3,6 +3,13 @@ package hotelSystem;
 import java.sql.*;
 import javax.swing.*;
 
+
+/**
+ * 
+ * this is a superclass for all page type classes that share common behaviour like connecting to the database. 
+ * any gui page type class should extend this as a superclass 
+ *
+ */
 public class SuperPage {
 	
 	static int userID;
@@ -30,19 +37,19 @@ public class SuperPage {
 	}
 	
 	//changes value of boolean logged in in database;
-		public static void setLoggedIn(Boolean b,int i) {
-			String sql = "UPDATE staffAccounts SET loggedIn = ? where userid = ?";
+	public static void setLoggedIn(Boolean b,int i) {
+		String sql = "UPDATE staffAccounts SET loggedIn = ? where userid = ?";
+		
+		try(Connection conn = connect("BLOP.db");
+			PreparedStatement pstmt = conn.prepareStatement(sql)){
 			
-			try(Connection conn = connect("BLOP.db");
-				PreparedStatement pstmt = conn.prepareStatement(sql)){
-				
-				pstmt.setBoolean(1, b);
-				pstmt.setInt(2, i);
-				pstmt.executeUpdate();
-			}
-			catch(SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}	
+			pstmt.setBoolean(1, b);
+			pstmt.setInt(2, i);
+			pstmt.executeUpdate();
+		}
+		catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}	
 	
 }

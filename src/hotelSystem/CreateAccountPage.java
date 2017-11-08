@@ -5,7 +5,7 @@ import java.sql.*;
 import javax.swing.*;
 import java.awt.event.*;
 
-//This page will be used to add new user accounts to the database
+//This page will be a superclass to add new user accounts for both customer and staff accounts to the database
 public class CreateAccountPage extends SuperPage {
 		
 	static JFrame frame = new JFrame("Hotel Management System");
