@@ -9,6 +9,8 @@ public class Database {
 			dbCreate(dbName);
 			staffAccountsTable("staffAccounts");
 			customerAccountsTable("customerAccounts");
+			guestRoomsTable("guestRooms");
+			functionRoomsTable("functionRooms");
 			
 		}
 				
@@ -58,7 +60,7 @@ public class Database {
 			String dbLoc = "jdbc:sqlite:db/BLOP.db";
 			
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
-					+" userid INTEGER PRIMARY KEY NOT NULL, \n"
+					+" userId INTEGER PRIMARY KEY NOT NULL, \n"
 					+" loggedIn BOOLEAN NOT NULL DEFAULT(0), \n"
 					+" username text NOT NULL, \n"
 					+" password text NOT NULL, \n"
@@ -80,7 +82,6 @@ public class Database {
 		//adds row with default administrator account to staffAccounts table.
 		private static void createAdmin() {
 			
-			
 				String sql = "INSERT INTO staffAccounts(username,password,firstName,lastName)VALUES(?,?,?,?)";
 				
 				try(Connection conn = connect("BLOP.db");
@@ -95,7 +96,7 @@ public class Database {
 				catch(SQLException e) {
 					System.out.println(e.getMessage());
 				}
-				System.out.println("userAccount: administrator - added to table: userAccounts.");
+				System.out.println("userAccount: administrator - added to table: staffAccounts.");
 		}
 		
 		
@@ -106,7 +107,7 @@ public class Database {
 			String dbLoc = "jdbc:sqlite:db/BLOP.db";
 			
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
-					+" userid INTEGER PRIMARY KEY NOT NULL, \n"
+					+" userId INTEGER PRIMARY KEY NOT NULL, \n"
 					+" loggedIn BOOLEAN NOT NULL DEFAULT(0), \n"
 					+" username text NOT NULL, \n"
 					+" password text NOT NULL, \n"
@@ -116,6 +117,58 @@ public class Database {
 					+" payment text NOT NULL\n"
 					+");";
 			
+			try(Connection conn = DriverManager.getConnection(dbLoc);
+					Statement stmt = conn.createStatement()){
+				stmt.execute(sql);
+			}
+			catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
+		}
+		
+		//this will add a table representing guest Rooms
+		private static void guestRoomsTable(String tableName) {
+			String dbLoc = "jdbc:sqlite:db/BLOP.db";
+			
+			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
+					+" roomId INTEGER PRIMARY KEY NOT NULL, \n"
+					+" isOccupied BOOLEAN NOT NULL DEFAULT(0), \n"
+					+" needsHousekeeping BOOLEAN NOT NULL DEFAULT(0), \n"
+					+" roomType INTEGER NOT NULL, \n"					
+					+" roomNumber text NOT NULL, \n"
+					+" periodLength INTEGER NOT NULL, \n"
+					+" basePrice Double NOT NULL, \n"
+					+" priceMult Double NOT NULL, \n"
+					+" roomPrice Double NOT NULL\n"
+					+");";
+				
+			try(Connection conn = DriverManager.getConnection(dbLoc);
+					Statement stmt = conn.createStatement()){
+				stmt.execute(sql);
+			}
+			catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
+		}
+		
+		//this will add a table representing function Rooms
+		private static void functionRoomsTable(String tableName) {
+			String dbLoc = "jdbc:sqlite:db/BLOP.db";
+			
+			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
+					+" roomId INTEGER PRIMARY KEY NOT NULL, \n"
+					+" isOccupied BOOLEAN NOT NULL DEFAULT(0), \n"
+					+" roomType INTEGER NOT NULL, \n"	
+					+" occupancy INTEGER NOT NULL, \n"
+					+" roomNumber text NOT NULL, \n"
+					+" periodLength INTEGER NOT NULL, \n"
+					+" basePrice Double NOT NULL, \n"
+					+" priceMult Double NOT NULL, \n"
+					+" roomPrice Double NOT NULL\n"
+					+");";
+				
 			try(Connection conn = DriverManager.getConnection(dbLoc);
 					Statement stmt = conn.createStatement()){
 				stmt.execute(sql);
