@@ -1,40 +1,40 @@
 package hotelSystem;
 
 import java.sql.*;
-import java.util.Arrays;
-
+import java.util.*;
 import javax.swing.*;
 import java.awt.event.*;
 
 public class LoginPage extends SuperPage{
 
-
-	static JFrame frame = new JFrame("Login");
+	static JFrame frame = new JFrame("Hotel Management System");
 	static JPanel panel = new JPanel();
-	static JLabel label1 = new JLabel("Welcome to B.L.O.P - Hotel Management System.");
-	static JLabel label2 = new JLabel("Username: ");
+	static JLabel label1 = new JLabel("Username: ");
 	static JTextField username = new JTextField(20);
 	static JLabel label3 = new JLabel("Password:  ");
 	static JPasswordField password = new JPasswordField(15);
 	static JButton button1 = new JButton("Login");
-		
+	
+	
 	
 	public static void run() {
-	
-		frame.setSize(300,250);
-		frame.setLocation(600,300);
-		panel.setLayout(null);
 		
-		label1.setBounds(5,5,300,20);
-		label2.setBounds(10,40,150,20);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		
+		panel.setSize(200,200);
+		panel.setLocation(0,0);
+		
+		
+		label1.setBounds(10,40,150,20);
 		username.setBounds(100,40,150,20);
 		label3.setBounds(10,80,150,20);
 		password.setBounds(100,80,150,20);
+		
 		button1.setBounds(115, 120, 65, 20);
+		button1.addActionListener(new myActionListener());
 		
 		
 		panel.add(label1);
-		panel.add(label2);
 		panel.add(username);
 		panel.add(label3);
 		panel.add(password);
@@ -42,11 +42,13 @@ public class LoginPage extends SuperPage{
 		
 		
 		frame.getContentPane().add(panel);
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		username.requestFocus();
 		frame.getRootPane().setDefaultButton(button1); //makes enter key = push button
-		button1.addActionListener(new myActionListener());
+		
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+		
+		username.requestFocus(); //where cursor appears
+		
 		
 	}
 		
@@ -70,8 +72,10 @@ public class LoginPage extends SuperPage{
 				password.requestFocus();
 			}
 			else{
-				HomePage.run();
 				frame.dispose();
+				setLoggedIn(true,i); //mark userid as logged in
+				HomePage.run(i);
+				
 			}		
 		}
 	}
@@ -90,7 +94,7 @@ public class LoginPage extends SuperPage{
 			while(rs.next()) {
 				if(rs.getString("username").equals(user)) {
 					if(rs.getString("password").equals(Arrays.toString(pass))) {
-						return rs.getInt(1);
+						return rs.getInt("userid");
 					}
 					else {
 						return -1;
@@ -104,5 +108,6 @@ public class LoginPage extends SuperPage{
 		}
 		return 0;
 	}
-
+	
+	
 }

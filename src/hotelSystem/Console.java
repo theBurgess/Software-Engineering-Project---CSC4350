@@ -27,8 +27,7 @@ public class Console {
 		}
 		
 		//first action when program is run:
-		//LoginPage.run();
-		CreateAccountPage.run();
+		LoginPage.run();
 		
 	}
 	//connects to database.
