@@ -81,7 +81,7 @@ public class LoginPage extends SuperPage{
 			else{
 				frame.dispose();
 				setLoggedIn(true,i); //mark userid as logged in
-				HomePage.run(i);
+				HomePage.run(i); //opens homepage and passes the userid as parameter
 				
 			}		
 		}

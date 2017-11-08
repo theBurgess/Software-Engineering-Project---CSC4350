@@ -68,7 +68,7 @@ public class CreateAccountPage extends SuperPage {
 			
 		public void actionPerformed(ActionEvent event){
 			String user = username.getText();
-			char[] pass = password.getPassword(); 
+			char[] pass = password.getPassword(); 				//to do: add methods to ensure password contains uppercase, lowercase, numbers etc...
 			String first = firstName.getText();
 			String last = lastName.getText();
 			if(checkUsername(user)==true) {
@@ -110,7 +110,7 @@ public class CreateAccountPage extends SuperPage {
 			PreparedStatement pstmt = conn.prepareStatement(sql)){
 			
 			pstmt.setString(1, user);
-			pstmt.setString(2, Arrays.toString(pass)); //time permitting: encrypt passwords
+			pstmt.setString(2, Arrays.toString(pass)); //to do: time permitting: encrypt passwords.
 			pstmt.setString(3, first);
 			pstmt.setString(4, last);
 			pstmt.executeUpdate();
