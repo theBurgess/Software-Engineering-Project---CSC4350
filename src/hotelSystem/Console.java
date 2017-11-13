@@ -5,6 +5,7 @@ import java.sql.*;
 
 import java.io.File;
 
+
 public class Console {
 		
 	/**
@@ -29,7 +30,12 @@ public class Console {
 		}
 		
 		//first action when program is run:
-		LoginPage.run();
+		//LoginPage.run();
+		//HomePage.run(1);
+	
+		CreateAccountSuperPage.run();
+		
+		
 		
 	}
 	//connects to database.

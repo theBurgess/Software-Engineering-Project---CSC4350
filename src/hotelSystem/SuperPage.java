@@ -15,9 +15,9 @@ public class SuperPage {
 	static int userID;
 	static JFrame frame = new JFrame("Hotel Management System");
 		
-	public static void run() {
+	public static void run(int userId) {
 		
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);   //maximizes the window automatically
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);

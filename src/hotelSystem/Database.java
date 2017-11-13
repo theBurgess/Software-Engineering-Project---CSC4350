@@ -119,7 +119,10 @@ public class Database {
 					+" password text NOT NULL, \n"
 					+" firstName text NOT NULL, \n"
 					+" lastName text NOT NULL, \n"
-					+" address text NOT NULL, \n"
+					+" mailingAddressLine1 text NOT NULL, \n"
+					+" mailingAddressLine2 text, \n"
+					+" stateCode text NOT NULL, \n"
+					+" zipCode text NOT NULL, \n"
 					+" payment text NOT NULL\n"
 					+");";
 			

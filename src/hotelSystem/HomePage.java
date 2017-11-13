@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.event.*;
 
 
+
 /**
  * 
  * this page should be the main hub for staff type users to access all functions of the program. 
@@ -17,7 +18,7 @@ public class HomePage extends SuperPage {
 	static JPanel panel = new JPanel();
 	static JLabel label1 = new JLabel("Choose Action: ");
 	static JButton button1 = new JButton("Log Out");
-	static JButton button2 = new JButton("Create Account");
+	static JButton button2 = new JButton("Customer Accounts");
 	static JButton button3 = new JButton("Services");
 	
 	public static void run(int userId) {
@@ -26,10 +27,10 @@ public class HomePage extends SuperPage {
 	
 		panel.setLayout(null);
 		
-		label1.setBounds(50,-100,500,300);
+		label1.setBounds(10,40,150,20);
 		button1.setBounds(10, 70, 120, 20);
 		button1.addActionListener(new myActionListener(userId));
-		button2.setBounds(155, 70, 125, 20);
+		button2.setBounds(155, 70, 150, 20);
 		button2.addActionListener(new myActionListener(userId));
 		button3.setBounds(10, 100, 120, 20);
 		
@@ -48,7 +49,7 @@ public class HomePage extends SuperPage {
 	}
 	
 	//describes what happens when button is clicked
-		private static class myActionListener implements ActionListener {
+		private static class myActionListener implements ActionListener  {
 			int id;
 			public myActionListener(int i) {
 				id = i;
@@ -61,10 +62,8 @@ public class HomePage extends SuperPage {
 				}
 				else if(event.getSource() == button2) {
 					frame.dispose();	
-					CreateAccountPage.run();
-				}
-				
-					
+					CreateAccountSuperPage.run();	
+				}		
 			}
 		}
 		
