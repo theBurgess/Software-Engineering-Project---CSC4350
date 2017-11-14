@@ -12,11 +12,9 @@ import java.io.File;
 public class Console {
 		
 	/**
-	 * 
-	 * @this class contains the main method that dictates what happens each time the program is executed
+	 * this class contains the main method that dictates what happens each time the program is executed
 	 */
 	public static void main(String[] args) {
-		
 		
 		String dbName = "BLOP.db"; //what the database is called
 		
@@ -33,11 +31,11 @@ public class Console {
 		}
 		
 		//first action when program is run:
-		
-		Home.run(false);	
-		
+		//Login.setLoggedIn(false, 1);
+		Home.run(-1);	
 		
 	}
+	
 	//connects to database.
 	private static Connection connect(String name) {
 		String dbLoc = "jdbc:sqlite:db/"+name;

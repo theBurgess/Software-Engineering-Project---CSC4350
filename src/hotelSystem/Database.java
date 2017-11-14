@@ -54,7 +54,7 @@ public class Database {
 		}
 		
 		//connects to database.
-		private static Connection connect(String name) {
+		public static Connection connect(String name) {
 			String dbLoc = "jdbc:sqlite:db/"+name;
 			Connection conn = null;
 			try {
@@ -64,6 +64,7 @@ public class Database {
 				System.out.println(e.getMessage());
 			}
 			return conn;
+			
 		}
 		
 		//this will add a table representing staff accounts
