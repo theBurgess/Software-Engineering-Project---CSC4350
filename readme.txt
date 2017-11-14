@@ -1,3 +1,10 @@
+!!!!!!!!! To add project to eclipse download this repository and extract folder. 
+!!!!! Then rename folder from CSC4350-BFLOP-master to CSC4350.
+!!! In eclipse go to, file>import>general>existing java project> and add folder
+
+
+
+
 default admin userAccount:
 	username: administrator
 	password: admin1234
