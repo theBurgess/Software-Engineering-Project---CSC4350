@@ -1,6 +1,9 @@
 package hotelSystem;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.DriverManager;
+
 
 
 import java.io.File;
@@ -30,11 +33,8 @@ public class Console {
 		}
 		
 		//first action when program is run:
-		//LoginPage.run();
-		//HomePage.run(1);
-	
-		CreateAccountSuperPage.run();
 		
+		Home.run(false);	
 		
 		
 	}

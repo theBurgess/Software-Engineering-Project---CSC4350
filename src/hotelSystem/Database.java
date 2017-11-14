@@ -1,6 +1,11 @@
 package hotelSystem;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.DatabaseMetaData;
+import java.sql.Statement;
 
 public class Database {
 	
@@ -113,7 +118,7 @@ public class Database {
 			String dbLoc = "jdbc:sqlite:db/BLOP.db";
 			
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
-					+" userId INTEGER PRIMARY KEY NOT NULL, \n"
+					+" customerId INTEGER PRIMARY KEY NOT NULL, \n"
 					+" loggedIn BOOLEAN NOT NULL DEFAULT(0), \n"
 					+" username text NOT NULL, \n"
 					+" password text NOT NULL, \n"
@@ -123,7 +128,7 @@ public class Database {
 					+" mailingAddressLine2 text, \n"
 					+" stateCode text NOT NULL, \n"
 					+" zipCode text NOT NULL, \n"
-					+" payment text NOT NULL\n"
+					+" payment text\n"
 					+");";
 			
 			try(Connection conn = DriverManager.getConnection(dbLoc);

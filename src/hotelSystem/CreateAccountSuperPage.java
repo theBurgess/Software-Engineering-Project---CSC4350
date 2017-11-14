@@ -1,10 +1,24 @@
 package hotelSystem;
 
-import java.io.*;
-import java.util.*;
-import java.sql.*;
-import javax.swing.*;
-import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.util.Arrays;
+import java.util.Scanner;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JOptionPane;
+import javax.swing.JComboBox;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CreateAccountSuperPage extends SuperPage {
 	
@@ -31,7 +45,7 @@ public class CreateAccountSuperPage extends SuperPage {
 	static JButton button = new JButton("Ok");
 		
 	
-	public static void run(){		//this is where specific page layout goes
+	public static void run(int id){		//this is where specific page layout goes
 		
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
@@ -83,7 +97,7 @@ public class CreateAccountSuperPage extends SuperPage {
 		button.addActionListener(new myActionListener());
 		
 		frame.getContentPane().add(panel);
-		
+		System.out.println("correct");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		
@@ -119,6 +133,7 @@ public class CreateAccountSuperPage extends SuperPage {
 			String maddress2 = address2.getText();
 			String state = comboBox1.getItemAt(comboBox1.getSelectedIndex());
 			String zip = zipCode.getText();
+			
 			if(checkUsername(user)==true) {
 				JOptionPane.showMessageDialog(null,"Username is already in use.");
 				username.setText("");
