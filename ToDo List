@@ -1,0 +1,6 @@
+To DO:
+
+for createAccount.class
+  > myActionListener
+  
+   >> add methods to test all fields to make sure they are valid entries. eg valid zip code etc...
