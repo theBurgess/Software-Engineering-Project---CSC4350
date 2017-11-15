@@ -77,6 +77,8 @@ public class Login  {
 		else {
 			loginPanel.setVisible(false);
 			Home.activePanel.setVisible(true);
+			Home.name = StaffAccount.getInfo("firstName",Home.AccountId)+" "+StaffAccount.getInfo("lastName",Home.AccountId);
+			Home.nameLabel.setText("Current User: "+Home.name+":");
 			CustomerAccount.customersPanel.setVisible(true);
 			Home.frame.repaint();
 		}
@@ -106,6 +108,7 @@ public class Login  {
 	private static int run(String username, char[] password) {
 		int i = confirmLogin(username,password);
 		if(!(i == 0 || i == -1)) {
+			
 			setLoggedIn(true, i);
 			setPreviousLogin(i);
 		}
@@ -145,7 +148,7 @@ public class Login  {
 	
 	//checks database to see if userAccount exists and is not currently logged in
 	private static int confirmLogin(String username, char[] password) {
-		String sql = "SELECT AccountId,  username, password FROM staffAccounts";
+		String sql = "SELECT AccountId, username, password FROM staffAccounts";
 		try(Connection conn = Database.connect("BLOP.db")){
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);

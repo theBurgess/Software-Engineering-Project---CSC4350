@@ -67,9 +67,10 @@ public class CustomerAccount {
 		
 		int AccountId = CustomerAccount.searchCustomer(searchCustomerField.getText());
 		customerNameLabel.setText("Name: "+CustomerAccount.getInfo("firstName", AccountId)+" "+CustomerAccount.getInfo("lastName", AccountId));
-		customerAddressArea.setText("Mailing Address: "+CustomerAccount.getInfo("mailingAddressLine1", AccountId)+",\n"
-				+CustomerAccount.getInfo("mailingAddressLine2", AccountId)+", "
-				+CustomerAccount.getInfo("stateCode", AccountId)+", "+CustomerAccount.getInfo("zipCode", AccountId));
+		customerAddressArea.setText("Mailing Address: "+CustomerAccount.getInfo("street", AccountId)+",\n"
+				+CustomerAccount.getInfo("city", AccountId)+", "
+				+CustomerAccount.getInfo("stateCode", AccountId)+", "+CustomerAccount.getInfo("zipCode", AccountId)+"\n"
+				+"Phone: "+CustomerAccount.getInfo("phone", AccountId));
 		customerAddressArea.setLineWrap(true);
 		customerAddressArea.setWrapStyleWord(true);
 	}

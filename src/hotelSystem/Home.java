@@ -30,7 +30,7 @@ public class Home {
 		static JPanel activePanel = new JPanel();
 			
 			static String name;
-			static JLabel nameLabel;
+			static JLabel nameLabel = new JLabel();;
 			static JButton logOutButton = new JButton("Log out");
 		
 		
@@ -106,11 +106,10 @@ public class Home {
 		activePanel.setLayout(null);
 		activePanel.setBackground(bisque);
 		activePanel.setBounds(0,0,1920,40);
-		
-			name = StaffAccount.getInfo("firstName",AccountId)+" "+StaffAccount.getInfo("lastName",AccountId);
-			nameLabel = new JLabel("Current User: "+name+":");
+			
+			
 			nameLabel.setBounds(10,5,360,25);
-			nameLabel.setFont(Login.usernameLabel.getFont().deriveFont(20f));
+			nameLabel.setFont(nameLabel.getFont().deriveFont(20f));
 			logOutButton.setBackground(Color.white);
 			logOutButton.setBounds(370,8,80,25);
 			logOutButton.addActionListener(new myActionListener());
