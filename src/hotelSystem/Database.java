@@ -164,7 +164,7 @@ public class Database {
 					+" city text, \n"
 					+" stateCode text NOT NULL, \n"
 					+" zipCode text NOT NULL, \n"
-					+" payment text\n"
+					+" phone text NOT NULL\n"
 					+");";
 			
 			try(Connection conn = DriverManager.getConnection(dbLoc);

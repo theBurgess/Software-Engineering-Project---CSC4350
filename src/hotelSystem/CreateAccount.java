@@ -26,23 +26,25 @@ public class CreateAccount {
 	
 	static JPanel createAccountPanel = new JPanel();
 		static JLabel usernameLabel = new JLabel("E-mail: ");
-		static JTextField usernameField = new JTextField(20);
+		static JTextField usernameField = new JTextField();
 		static JLabel passwordLabel = new JLabel("Password:  ");
-		static JPasswordField passwordField = new JPasswordField(20);
+		static JPasswordField passwordField = new JPasswordField();
 		static JLabel firstNameLabel = new JLabel("First Name: ");
-		static JTextField firstNameField = new JTextField(20);
+		static JTextField firstNameField = new JTextField();
 		static JLabel lastNameLabel = new JLabel("Last Name: ");
-		static JTextField lastNameField = new JTextField(20);
+		static JTextField lastNameField = new JTextField();
 		static JLabel mailingAddressLabel = new JLabel("Mailing Address: ");
 		static JLabel streetLabel = new JLabel("Street: ");
 		static JLabel cityLabel = new JLabel("Town/City: ");
-		static JTextField streetField = new JTextField(50);
-		static JTextField cityField = new JTextField(50);
+		static JTextField streetField = new JTextField();
+		static JTextField cityField = new JTextField();
 		static JLabel stateLabel = new JLabel("State: ");
-		static String[] states = new String[50];
+		static String[] states = new String[57];
 		static JComboBox<String> stateComboBox;
 		static JLabel zipCodeLabel = new JLabel("ZIP Code: ");
-		static JTextField zipCodeField = new JTextField(10);
+		static JTextField zipCodeField = new JTextField();
+		static JLabel phoneLabel = new JLabel("Phone: ");
+		static JTextField phoneField = new JTextField();
 		static JButton createButton = new JButton("Create");
 	
 	public static void createAccountPanel() {
@@ -82,7 +84,10 @@ public class CreateAccount {
 			zipCodeLabel.setBounds(15,340,180,25);
 			zipCodeLabel.setFont(zipCodeLabel.getFont().deriveFont(20f));
 			zipCodeField.setBounds(125,340,80,25);
-			createButton.setBounds(15, 400, 100, 20);
+			phoneLabel.setBounds(15,380,180,25);
+			phoneLabel.setFont(phoneLabel.getFont().deriveFont(20f));
+			phoneField.setBounds(125,380,240,25);
+			createButton.setBounds(15, 420, 100, 20);
 			createButton.setBackground(Color.WHITE);
 			createButton.addActionListener(new myActionListener());
 		
@@ -103,6 +108,8 @@ public class CreateAccount {
 		createAccountPanel.add(stateComboBox);	
 		createAccountPanel.add(zipCodeLabel);
 		createAccountPanel.add(zipCodeField);
+		createAccountPanel.add(phoneLabel);
+		createAccountPanel.add(phoneField);
 		createAccountPanel.add(createButton);	
 		createAccountPanel.setVisible(false);
 	}
@@ -131,8 +138,9 @@ public class CreateAccount {
 				String city = cityField.getText();
 				String stateCode = stateComboBox.getItemAt(stateComboBox.getSelectedIndex());
 				String zipCode = zipCodeField.getText();
+				String phone = phoneField.getText();
 				
-				insertData(username,password,firstName,lastName,street,city,stateCode,zipCode);
+				insertData(username,password,firstName,lastName,street,city,stateCode,zipCode,phone);
 				createAccountPanel.setVisible(false);
 				CustomerAccount.customersPanel.setVisible(true);
 				//Home.frame.repaint();
@@ -180,8 +188,8 @@ public class CreateAccount {
 	}
 	
 	//adds new userAccount data to the database
-	private static void insertData(String username,char[] password,String firstName,String lastName,String street,String city,String stateCode,String zipCode) {
-		String sql = "INSERT INTO customerAccounts(username,password,firstName,lastName,street,city,stateCode,zipCode)VALUES(?,?,?,?,?,?,?,?)";
+	private static void insertData(String username,char[] password,String firstName,String lastName,String street,String city,String stateCode,String zipCode,String phone) {
+		String sql = "INSERT INTO customerAccounts(username,password,firstName,lastName,street,city,stateCode,zipCode,phone)VALUES(?,?,?,?,?,?,?,?,?)";
 		
 		try(Connection conn = Database.connect("BLOP.db");
 			PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -194,6 +202,7 @@ public class CreateAccount {
 			pstmt.setString(6, city);
 			pstmt.setString(7, stateCode);
 			pstmt.setString(8, zipCode);
+			pstmt.setString(9, phone);
 			
 			pstmt.executeUpdate();
 		}

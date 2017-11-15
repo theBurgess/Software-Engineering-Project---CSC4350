@@ -14,7 +14,6 @@ public class StaffAccount{
 			try(Connection conn = Database.connect("BLOP.db")){
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
-				System.out.println(sql);
 				
 				String s = rs.getString(request);
 				if(s != null) {
