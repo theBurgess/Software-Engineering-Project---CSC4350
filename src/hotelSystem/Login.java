@@ -130,7 +130,7 @@ public class Login  {
 	
 	private static int getPreviousLogin() {
 		String sql = "SELECT AccountId FROM previousLogin";
-		
+				
 		try(Connection conn = Database.connect("BLOP.db");
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql)){

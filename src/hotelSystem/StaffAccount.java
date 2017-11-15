@@ -8,19 +8,23 @@ import java.sql.Statement;
 public class StaffAccount{
 	
 	
-	
 	public static String getInfo(String request, int accountId) {
-			
-		String sql = "SELECT "+request+" FROM StaffAccounts WHERE AccountId = "+accountId;
-		try(Connection conn = Database.connect("BLOP.db")){
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			return rs.getString(request);
+		if(accountId >0) {	
+			String sql = "SELECT "+request+" FROM staffAccounts WHERE AccountId = "+accountId;
+			try(Connection conn = Database.connect("BLOP.db")){
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery(sql);
+				System.out.println(sql);
+				
+				String s = rs.getString(request);
+				if(s != null) {
+					return s;
 				}
-		catch(SQLException e) {
-			System.out.println(e.getMessage());
-				}	
+			}
+			catch(SQLException e) {
+				System.out.println(e.getMessage());
+					}
+		}
 		return "";
 		
 	}	
