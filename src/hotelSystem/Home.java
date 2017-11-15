@@ -116,6 +116,7 @@ public class Home {
 		frame.getContentPane().add(loginPanel);
 	}
 	
+	//active panel to be used when a user is logged in
 	private static void activePanel(int userId) {
 		activePanel.setLayout(null);
 		activePanel.setBackground(bisque);
@@ -145,9 +146,7 @@ public class Home {
 				loginMethod();
 			}
 			else if(event.getSource() == logOutButton) {
-				System.out.print(userId);
-				Login.setLoggedIn(false,userId);
-				run(-1);
+				logOutMethod();
 			}
 					
 		}
@@ -175,6 +174,11 @@ public class Home {
 		}
 	}
 	
+	private static void logOutMethod() {
+		Login.setLoggedIn(false,userId);
+		activePanel.setVisible(false);
+		loginPanel.setVisible(true);
+	}
 	
 	
 	

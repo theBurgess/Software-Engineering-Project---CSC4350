@@ -24,14 +24,14 @@ public class Login  {
 		try(Connection conn = Database.connect("BLOP.db")){
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
-			int userId = -2;
+			int userId = -1;
 			while(rs.next()) {
 				if(rs.getString("username").equals(username)) {
 					if(rs.getString("password").equals(Arrays.toString(password))) {
 						userId = rs.getInt("userId");					
 					}
 					else {
-						return 0;
+						return 0; //incorrect password
 					}
 				}	
 			}
@@ -43,7 +43,7 @@ public class Login  {
 		catch(SQLException e) {
 			System.out.println(e.getMessage());
 		}
-		return -1;
+		return -1; //incorrect username
 	}
 	
 	//returns true if user is currently LoggedIn
