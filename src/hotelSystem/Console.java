@@ -32,7 +32,7 @@ public class Console {
 		
 		//first action when program is run:
 		//Login.setLoggedIn(false, 1);
-		Home.run(-1);	
+		Home.run(1);	
 		
 	}
 	

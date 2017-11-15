@@ -22,6 +22,7 @@ public class Database {
 			customerAccountsTable("customerAccounts");
 			guestRoomsTable("guestRooms");
 			functionRoomsTable("functionRooms");
+			previousLoginTable("previousLogin");
 			
 		}
 				
@@ -67,12 +68,45 @@ public class Database {
 			
 		}
 		
+		//this will add a table storing the last user to log in
+		private static void previousLoginTable(String tableName) {
+			String dbLoc = "jdbc:sqlite:db/BLOP.db";
+			
+			String sql1 = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
+					+" AccountId INTEGER NOT NULL\n"
+					+");";
+			
+			String sql2 = "INSERT INTO "+tableName+"(AccountId)VALUES(?)";
+			
+			try(Connection conn = DriverManager.getConnection(dbLoc)){
+					Statement stmt = conn.createStatement();
+					stmt.execute(sql1);
+					
+					PreparedStatement pstmt = conn.prepareStatement(sql2);
+					pstmt.setString(1, "0");
+					pstmt.executeUpdate();
+						
+			}
+			catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			
+			
+			
+				
+				
+			
+			
+			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
+		}
+		
+		
 		//this will add a table representing staff accounts
 		private static void staffAccountsTable(String tableName) {
 			String dbLoc = "jdbc:sqlite:db/BLOP.db";
 			
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
-					+" userId INTEGER PRIMARY KEY NOT NULL, \n"
+					+" AccountId INTEGER PRIMARY KEY NOT NULL, \n"
 					+" loggedIn BOOLEAN NOT NULL DEFAULT(0), \n"
 					+" username text NOT NULL, \n"
 					+" password text NOT NULL, \n"
@@ -87,6 +121,7 @@ public class Database {
 			catch(SQLException e) {
 				System.out.println(e.getMessage());
 			}
+			
 			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
 			createAdmin();
 		}
@@ -119,14 +154,14 @@ public class Database {
 			String dbLoc = "jdbc:sqlite:db/BLOP.db";
 			
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
-					+" customerId INTEGER PRIMARY KEY NOT NULL, \n"
+					+" AccountId INTEGER PRIMARY KEY NOT NULL, \n"
 					+" loggedIn BOOLEAN NOT NULL DEFAULT(0), \n"
 					+" username text NOT NULL, \n"
 					+" password text NOT NULL, \n"
 					+" firstName text NOT NULL, \n"
 					+" lastName text NOT NULL, \n"
-					+" mailingAddressLine1 text NOT NULL, \n"
-					+" mailingAddressLine2 text, \n"
+					+" street text NOT NULL, \n"
+					+" city text, \n"
 					+" stateCode text NOT NULL, \n"
 					+" zipCode text NOT NULL, \n"
 					+" payment text\n"
