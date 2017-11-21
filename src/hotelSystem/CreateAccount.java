@@ -52,7 +52,7 @@ public class CreateAccount {
 	public static void createAccountPanel() {
 		
 		createAccountPanel.setLayout(null);
-		createAccountPanel.setBackground(Home.bisque);
+		createAccountPanel.setBackground(Home.myColor);
 		createAccountPanel.setBounds(50,80,380,480);
 		
 			usernameLabel.setBounds(10,10,140,25);

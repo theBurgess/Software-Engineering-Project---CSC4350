@@ -25,12 +25,15 @@ public class Console {
 		Boolean initialRun = !file.exists();	
 		if(initialRun) {
 			Database.build(dbName);
+			
 		}
 		else {
 			connect(dbName);
 		}
 		
-		//first action when program is run:
+		//populate database
+		//Demo.addAccounts();
+		//first action when program is run: Change to 1 to skip login screen
 		Home.run(-1);	
 		
 	}

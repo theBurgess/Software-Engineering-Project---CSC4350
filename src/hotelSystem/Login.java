@@ -34,15 +34,17 @@ public class Login  {
 	//login panel to be displayed when no user is logged in
 	public static void loginPanel() {
 		loginPanel.setLayout(null);
-		loginPanel.setBackground(Home.bisque);
+		loginPanel.setBackground(Home.myColor);
 		loginPanel.setBounds(0,0,1920,40);
 			
 			usernameLabel.setBounds(10,10,180,25);
 			usernameLabel.setFont(usernameLabel.getFont().deriveFont(20f));
+			usernameLabel.setForeground(Home.fontColor);
 			usernameField.setBounds(120,10,120,25);
 			usernameField.setText(StaffAccount.getInfo("username", Login.getPreviousLogin()));
 			passwordLabel.setBounds(250,10,180,25);
 			passwordLabel.setFont(passwordLabel.getFont().deriveFont(20f));
+			passwordLabel.setForeground(Home.fontColor);
 			passwordField.setBounds(360,10,120,25);
 			loginButton.setBackground(Color.white);
 			loginButton.setBounds(490,10,65,25);
@@ -80,6 +82,8 @@ public class Login  {
 			Home.name = StaffAccount.getInfo("firstName",Home.AccountId)+" "+StaffAccount.getInfo("lastName",Home.AccountId);
 			Home.nameLabel.setText("Current User: "+Home.name+":");
 			CustomerAccount.customersPanel.setVisible(true);
+			Menu.menuPanel.setVisible(true);
+			
 			Home.frame.repaint();
 		}
 	}	

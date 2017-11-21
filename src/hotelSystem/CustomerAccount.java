@@ -38,11 +38,12 @@ public class CustomerAccount {
 	public static void customersPanel() {
 		
 		customersPanel.setLayout(null);
-		customersPanel.setBackground(Home.bisque);
+		customersPanel.setBackground(Home.myColor);
 		customersPanel.setBounds(50,80,480,480);
 		
 			searchCustomerLabel.setBounds(10,10,180,25);
 			searchCustomerLabel.setFont(searchCustomerLabel.getFont().deriveFont(20f));
+			searchCustomerLabel.setForeground(Home.fontColor);
 			searchCustomerField.setBounds(190,10,280,25);
 			searchCustomerField.addActionListener(new myActionListener());
 			customerInfoPanel.setLayout(null);

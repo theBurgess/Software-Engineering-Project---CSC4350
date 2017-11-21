@@ -22,7 +22,8 @@ public class Home {
 	
 	static ImageIcon myIcon = new ImageIcon("resource/icon.png"); 			//program icon
 	static ImageIcon myBackground = new ImageIcon("resource/hotel.jpg");	//program background
-	static Color bisque= new Color(255,228,196);							//panel background color
+	static Color myColor= new Color(255,206,113);							//panel background color
+	static Color fontColor= new Color(0,0,0);								//font color
 	static JFrame frame = new JFrame("Hotel Management System");			//title bar text
 	
 		//***************************************************************************
@@ -30,7 +31,7 @@ public class Home {
 		static JPanel activePanel = new JPanel();
 			
 			static String name;
-			static JLabel nameLabel = new JLabel();;
+			static JLabel nameLabel = new JLabel();
 			static JButton logOutButton = new JButton("Log out");
 		
 		
@@ -58,6 +59,10 @@ public class Home {
 			//LOGIN SECTION:.........................................
 			Login.loginPanel();
 			frame.getContentPane().add(Login.loginPanel);
+			
+			//MENU SECTION:..........................................
+			Menu.menuPanel();
+			frame.getContentPane().add(Menu.menuPanel);
 			
 			//ACTIVE-PANEL SECTION.................................
 			activePanel();
@@ -104,12 +109,13 @@ public class Home {
 	//active panel to be used when a user is logged in
 	public static void activePanel() {
 		activePanel.setLayout(null);
-		activePanel.setBackground(bisque);
+		activePanel.setBackground(myColor);
 		activePanel.setBounds(0,0,1920,40);
 			
 			
 			nameLabel.setBounds(10,5,360,25);
 			nameLabel.setFont(nameLabel.getFont().deriveFont(20f));
+			nameLabel.setForeground(Home.fontColor);
 			logOutButton.setBackground(Color.white);
 			logOutButton.setBounds(370,8,80,25);
 			logOutButton.addActionListener(new myActionListener());
