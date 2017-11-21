@@ -46,7 +46,9 @@ public class CreateAccount {
 		static JLabel phoneLabel = new JLabel("Phone: ");
 		static JTextField phoneField = new JTextField();
 		static JButton createButton = new JButton("Create");
-	
+		static JButton backButton = new JButton("Back");
+		
+		
 	public static void createAccountPanel() {
 		
 		createAccountPanel.setLayout(null);
@@ -90,6 +92,9 @@ public class CreateAccount {
 			createButton.setBounds(15, 420, 100, 20);
 			createButton.setBackground(Color.WHITE);
 			createButton.addActionListener(new myActionListener());
+			backButton.setBounds(150, 420, 100, 20);
+			backButton.setBackground(Color.WHITE);
+			backButton.addActionListener(new myActionListener());
 		
 		createAccountPanel.add(usernameLabel);
 		createAccountPanel.add(usernameField);
@@ -111,6 +116,7 @@ public class CreateAccount {
 		createAccountPanel.add(phoneLabel);
 		createAccountPanel.add(phoneField);
 		createAccountPanel.add(createButton);	
+		createAccountPanel.add(backButton);
 		createAccountPanel.setVisible(false);
 	}
 	
@@ -118,6 +124,7 @@ public class CreateAccount {
 		CustomerAccount.customersPanel.setVisible(false);
 		createAccountPanel.setVisible(true);
 	}
+	
 	
 	private static class myActionListener implements ActionListener {
 		
@@ -130,7 +137,7 @@ public class CreateAccount {
 				passwordField.setText("");
 				usernameField.requestFocus();
 			}
-			else {
+			else if(event.getSource() == createButton){
 				char[] password = passwordField.getPassword(); 				//to do: add methods to ensure password contains uppercase, lowercase, numbers etc...
 				String firstName = firstNameField.getText();
 				String lastName = lastNameField.getText();
@@ -143,9 +150,12 @@ public class CreateAccount {
 				insertData(username,password,firstName,lastName,street,city,stateCode,zipCode,phone);
 				createAccountPanel.setVisible(false);
 				CustomerAccount.customersPanel.setVisible(true);
-				//Home.frame.repaint();
-				
+				//Home.frame.repaint();	
 			}		
+			else if(event.getSource() == backButton) {
+				createAccountPanel.setVisible(false);
+				CustomerAccount.customersPanel.setVisible(true);
+			}
 		
 		}
 	}
