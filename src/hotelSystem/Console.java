@@ -34,7 +34,7 @@ public class Console {
 		//populate database
 		//Demo.addAccounts();
 		//first action when program is run: Change to 1 to skip login screen
-		Home.run(1);
+		Home.run(-1);
 		AddReservation.addReservationPanel.setVisible(true);
 		
 	}
