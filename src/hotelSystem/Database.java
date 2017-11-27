@@ -18,11 +18,13 @@ public class Database {
 		public static void build(String dbName) { //builds database
 			
 			dbCreate(dbName);
+			reservationsTable("reservations");
 			staffAccountsTable("staffAccounts");
 			customerAccountsTable("customerAccounts");
 			guestRoomsTable("guestRooms");
 			functionRoomsTable("functionRooms");
 			previousLoginTable("previousLogin");
+			ReservationTable_resturant("restaurant");
 			
 		}
 				
@@ -68,6 +70,28 @@ public class Database {
 			
 		}
 		
+		//this will add a table representing staff accounts
+				private static void reservationsTable(String tableName) {
+					String dbLoc = "jdbc:sqlite:db/BLOP.db";
+					
+					String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
+							+" AccountId INTEGER PRIMARY KEY NOT NULL, \n"
+							+" roomId BOOLEAN NOT NULL DEFAULT(0), \n"
+							+" checkInDate text NOT NULL, \n"
+							+" checkOutDate text NOT NULL, \n"
+							+" boardBasis text NOT NULL\n"
+							+");";
+					
+					try(Connection conn = DriverManager.getConnection(dbLoc);
+							Statement stmt = conn.createStatement()){
+						stmt.execute(sql);
+					}
+					catch(SQLException e) {
+						System.out.println(e.getMessage());
+					}
+					
+					System.out.println("Table: "+tableName+" - added to database: BLOP.db");
+				}
 		//this will add a table storing the last user to log in
 		private static void previousLoginTable(String tableName) {
 			String dbLoc = "jdbc:sqlite:db/BLOP.db";
@@ -221,6 +245,35 @@ public class Database {
 				System.out.println(e.getMessage());
 			}
 			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
+		}
+		
+		private static void ReservationTable_resturant(String tableName) {
+			String dbLoc = "jdbc:sqlite:db/BLOP.db";
+
+			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
+					+" AccountId INTEGER PRIMARY KEY NOT NULL, \n"
+					+" loggedIn BOOLEAN NOT NULL DEFAULT(0), \n"
+					+" username text NOT NULL, \n"
+					+" password text NOT NULL, \n"
+					+" firstName text NOT NULL, \n"
+					+" lastName text NOT NULL, \n"
+					+" street text NOT NULL, \n"
+					+" city text, \n"
+					+" stateCode text NOT NULL, \n"
+					+" zipCode text NOT NULL, \n"
+					+" phone text NOT NULL\n"
+					+");";
+
+			try(Connection conn = DriverManager.getConnection(dbLoc);
+					Statement stmt = conn.createStatement()){
+				stmt.execute(sql);
+			}
+			catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
+
+
 		}
 	
 }

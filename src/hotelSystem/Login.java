@@ -79,11 +79,12 @@ public class Login  {
 		else {
 			loginPanel.setVisible(false);
 			Home.activePanel.setVisible(true);
+			
+			//this gets name of the active user
 			Home.name = StaffAccount.getInfo("firstName",Home.AccountId)+" "+StaffAccount.getInfo("lastName",Home.AccountId);
 			Home.nameLabel.setText("Current User: "+Home.name+":");
-			CustomerAccount.customersPanel.setVisible(true);
 			Menu.menuPanel.setVisible(true);
-			
+			CheckIn.checkInPanel.setVisible(true);
 			Home.frame.repaint();
 		}
 	}	
@@ -93,8 +94,12 @@ public class Login  {
 		passwordField.setText("");
 		passwordField.requestFocus();
 		Home.activePanel.setVisible(false);
+		CheckIn.checkInPanel.setVisible(false);
 		CustomerAccount.customersPanel.setVisible(false);
 		CreateAccount.createAccountPanel.setVisible(false);
+		AddReservation.addReservationPanel.setVisible(false);
+		
+		Menu.menuPanel.setVisible(false);
 		loginPanel.setVisible(true);
 		Home.frame.repaint();
 		

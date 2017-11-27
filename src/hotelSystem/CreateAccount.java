@@ -53,7 +53,7 @@ public class CreateAccount {
 		
 		createAccountPanel.setLayout(null);
 		createAccountPanel.setBackground(Home.myColor);
-		createAccountPanel.setBounds(50,80,380,480);
+		createAccountPanel.setBounds(170,100,480,480);
 		
 			usernameLabel.setBounds(10,10,140,25);
 			usernameLabel.setFont(usernameLabel.getFont().deriveFont(20f));

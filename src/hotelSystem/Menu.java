@@ -4,43 +4,78 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+
 public class Menu {
 
-	
+		static Color transparent = new Color(0,0,0,0);	
 		static JPanel menuPanel = new JPanel();
 		
-			static JButton reservationsButton = new JButton();
-			static JButton restaurantButton = new JButton();
-			static JButton housekeepingButton = new JButton();
+			static ImageIcon checkInIcon = new ImageIcon("resource/checkIn.png"); 
+			static ImageIcon customersIcon = new ImageIcon("resource/customers.png"); 
+			static ImageIcon reservationsIcon = new ImageIcon("resource/reservations.png"); 
+			static ImageIcon housekeepingIcon = new ImageIcon("resource/housekeeping.png");
+			static ImageIcon roomServiceIcon = new ImageIcon("resource/roomService.png");
+			static ImageIcon restaurantIcon = new ImageIcon("resource/restaurant.png"); 
+			
+			
+			static JButton checkInButton = new JButton(checkInIcon);
+			static JButton customersButton = new JButton(customersIcon);
+			static JButton reservationsButton = new JButton(reservationsIcon);
+			static JButton housekeepingButton = new JButton(housekeepingIcon);
+			static JButton roomServiceButton = new JButton(roomServiceIcon);
+			static JButton restaurantButton = new JButton(restaurantIcon);
+			
+			
 	
 			
 		public static void menuPanel() {
 			
 			menuPanel.setLayout(null);
-			menuPanel.setBackground(Home.myColor);
-			menuPanel.setBounds(1620,0,300,1080);
+			menuPanel.setBackground(transparent);
+			menuPanel.setBounds(0,40,110,975);
 				
-				reservationsButton.setBackground(Color.white);
-				reservationsButton.setFont(reservationsButton.getFont().deriveFont(20f));
-				reservationsButton.setBounds(25,80,250,40);
-				reservationsButton.setText("Reservations");
+				checkInButton.setBackground(Home.myColor);
+				checkInButton.setBounds(5,60,100,100);
+				checkInButton.setToolTipText("Check-in Manager");
+				checkInButton.addActionListener(new myActionListener());
+			
+				customersButton.setBackground(Home.myColor);
+				customersButton.setBounds(5,210,100,100);
+				customersButton.setToolTipText("Customer Manager");
+				customersButton.addActionListener(new myActionListener());
+			
+				reservationsButton.setBackground(Home.myColor);
+				reservationsButton.setBounds(5,360,100,100);
+				reservationsButton.setToolTipText("Reservation Manager");
+				reservationsButton.addActionListener(new myActionListener());
+
+				housekeepingButton.setBackground(Home.myColor);
+				housekeepingButton.setBounds(5,510,100,100);
+				housekeepingButton.setToolTipText("Housekeeping");
+				housekeepingButton.addActionListener(new myActionListener());
 				
-				restaurantButton.setBackground(Color.white);
-				restaurantButton.setFont(restaurantButton.getFont().deriveFont(20f));
-				restaurantButton.setBounds(25,150,250,40);
-				restaurantButton.setText("Restaurant");
+				roomServiceButton.setBackground(Home.myColor);
+				roomServiceButton.setBounds(5,660,100,100);
+				roomServiceButton.setToolTipText("Room Service");
+				roomServiceButton.addActionListener(new myActionListener());
+							
+				restaurantButton.setBackground(Home.myColor);
+				restaurantButton.setBounds(5,810,100,100);
+				restaurantButton.setToolTipText("Restaurant Manager");
+				restaurantButton.addActionListener(new myActionListener());
 				
-				housekeepingButton.setBackground(Color.white);
-				housekeepingButton.setFont(housekeepingButton.getFont().deriveFont(20f));
-				housekeepingButton.setBounds(25,230,250,40);
-				housekeepingButton.setText("Housekeeping");
 				
-			menuPanel.add(restaurantButton);
-			menuPanel.add(reservationsButton);
+				
+			menuPanel.add(checkInButton);
+			menuPanel.add(customersButton);
+			menuPanel.add(reservationsButton);	
 			menuPanel.add(housekeepingButton);
+			menuPanel.add(roomServiceButton);
+			menuPanel.add(restaurantButton);
 			menuPanel.setVisible(false);
 			
 			
@@ -50,10 +85,56 @@ public class Menu {
 			
 			public void actionPerformed(ActionEvent event){
 				
-				if(event.getSource() == restaurantButton) {
-					//Restaurant.restaurantPanel.setVisible(true);
+				if(event.getSource() == checkInButton) {
+					CheckIn.checkInPanel.setVisible(true);
+					CustomerAccount.customersPanel.setVisible(false);
+					Reservations.reservationsPanel.setVisible(false);
+					AddReservation.addReservationPanel.setVisible(false);
+					Restaurant.roomService.setVisible(false);
+					Restaurant.restaurantPanel.setVisible(false);
 				}
-			
+				else if(event.getSource() == customersButton) {
+					CheckIn.checkInPanel.setVisible(false);
+					CustomerAccount.customersPanel.setVisible(true);
+					CustomerAccount.searchCustomerField.requestFocus();
+					Reservations.reservationsPanel.setVisible(false);
+					AddReservation.addReservationPanel.setVisible(false);
+					Restaurant.roomService.setVisible(false);
+					Restaurant.restaurantPanel.setVisible(false);
+				}
+				else if(event.getSource() == reservationsButton) {
+					CheckIn.checkInPanel.setVisible(false);
+					CustomerAccount.customersPanel.setVisible(false);
+					Reservations.reservationsPanel.setVisible(true);
+					AddReservation.addReservationPanel.setVisible(false);
+					Reservations.searchCustomerField.requestFocus();
+					Restaurant.roomService.setVisible(false);
+					Restaurant.restaurantPanel.setVisible(false);
+				}
+				else if(event.getSource() == housekeepingButton) {
+					CheckIn.checkInPanel.setVisible(false);
+					CustomerAccount.customersPanel.setVisible(false);
+					Reservations.reservationsPanel.setVisible(false);
+					AddReservation.addReservationPanel.setVisible(false);
+					Restaurant.roomService.setVisible(false);
+					Restaurant.restaurantPanel.setVisible(false);
+				}
+				else if(event.getSource() == roomServiceButton) {
+					CheckIn.checkInPanel.setVisible(false);
+					CustomerAccount.customersPanel.setVisible(false);
+					Reservations.reservationsPanel.setVisible(false);
+					AddReservation.addReservationPanel.setVisible(false);
+					Restaurant.roomService.setVisible(true);
+					Restaurant.restaurantPanel.setVisible(false);
+				}
+				else if(event.getSource() == restaurantButton) {
+					CheckIn.checkInPanel.setVisible(false);
+					CustomerAccount.customersPanel.setVisible(false);
+					Reservations.reservationsPanel.setVisible(false);
+					AddReservation.addReservationPanel.setVisible(false);
+					Restaurant.roomService.setVisible(false);
+					Restaurant.restaurantPanel.setVisible(true);
+				}			
 			}
 		}
 }

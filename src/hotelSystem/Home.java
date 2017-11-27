@@ -22,7 +22,7 @@ public class Home {
 	
 	static ImageIcon myIcon = new ImageIcon("resource/icon.png"); 			//program icon
 	static ImageIcon myBackground = new ImageIcon("resource/hotel.jpg");	//program background
-	static Color myColor= new Color(255,206,113);							//panel background color
+	static Color myColor= new Color(204,225,255);							//panel background color
 	static Color fontColor= new Color(0,0,0);								//font color
 	static JFrame frame = new JFrame("Hotel Management System");			//title bar text
 	
@@ -33,6 +33,8 @@ public class Home {
 			static String name;
 			static JLabel nameLabel = new JLabel();
 			static JButton logOutButton = new JButton("Log out");
+			static ImageIcon settingsIcon = new ImageIcon("resource/settings.png");
+			static JButton settingsButton = new JButton(settingsIcon);
 		
 		
 		
@@ -75,6 +77,23 @@ public class Home {
 			//CREATE ACCOUNT SECTION
 			CreateAccount.createAccountPanel();
 			frame.getContentPane().add(CreateAccount.createAccountPanel);
+			
+			//RESERVATIONS SECTION
+			Reservations.reservationsPanel();
+			frame.getContentPane().add(Reservations.reservationsPanel);
+			AddReservation.addReservationPanel();
+			frame.getContentPane().add(AddReservation.addReservationPanel);
+			
+			//CHECK-IN SECTION
+			CheckIn.checkInPanel();
+			frame.getContentPane().add(CheckIn.checkInPanel);
+			
+			//RESTAURANT SECTION
+			Restaurant.restaurantPanel();
+			frame.getContentPane().add(Restaurant.restaurantPanel);
+			
+			Restaurant.roomServicePanel();
+			frame.getContentPane().add(Restaurant.roomService);
 
 				
 		//if no user is logged in: (ON PROGRAM START)..............
@@ -87,7 +106,7 @@ public class Home {
 		//if user is logged in
 		else{
 			activePanel.setVisible(true);
-			CustomerAccount.customersPanel.setVisible(true);
+			Menu.menuPanel.setVisible(true);
 		}
 		//.....................................................
 			
@@ -100,9 +119,9 @@ public class Home {
 	public static class myActionListener implements ActionListener {
 			
 		public void actionPerformed(ActionEvent event){
-						
+			if(event.getSource() == logOutButton) {		
 				Login.logOutMethod();
-					
+			}		
 		}
 	}
 	
@@ -119,9 +138,14 @@ public class Home {
 			logOutButton.setBackground(Color.white);
 			logOutButton.setBounds(370,8,80,25);
 			logOutButton.addActionListener(new myActionListener());
+			settingsButton.setBackground(Home.myColor);
+			settingsButton.setBounds(1875,0,40,40);
+			settingsButton.setToolTipText("Settings");
+			settingsButton.addActionListener(new myActionListener());
 		
 		activePanel.add(nameLabel);
 		activePanel.add(logOutButton);
+		activePanel.add(settingsButton);
 		activePanel.setVisible(false);	
 	}
 	
