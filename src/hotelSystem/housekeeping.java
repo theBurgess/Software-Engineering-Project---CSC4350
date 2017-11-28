@@ -1,4 +1,4 @@
-package Housekeeping;
+package hotelSystem;
 
 import java.awt.EventQueue;
 
@@ -16,7 +16,7 @@ import javax.swing.Box;
 import java.awt.SystemColor;
 import java.awt.ScrollPane;
 
-public class housekeeping {
+public class Housekeeping {
 
 	private JFrame frame;
 	private JTextField txtHousekeeping;
