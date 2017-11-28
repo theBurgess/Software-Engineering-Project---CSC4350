@@ -1,4 +1,4 @@
-package housekeeping;
+package Housekeeping;
 
 import java.awt.EventQueue;
 
