@@ -24,7 +24,7 @@ public class Database {
 			guestRoomsTable("guestRooms");
 			functionRoomsTable("functionRooms");
 			previousLoginTable("previousLogin");
-			ReservationTable_resturant("restaurant");
+			ReservationTable_resturant("reserveRest");
 			
 		}
 				
@@ -251,17 +251,13 @@ public class Database {
 			String dbLoc = "jdbc:sqlite:db/BLOP.db";
 
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
-					+" AccountId INTEGER PRIMARY KEY NOT NULL, \n"
-					+" loggedIn BOOLEAN NOT NULL DEFAULT(0), \n"
-					+" username text NOT NULL, \n"
-					+" password text NOT NULL, \n"
+					
 					+" firstName text NOT NULL, \n"
 					+" lastName text NOT NULL, \n"
-					+" street text NOT NULL, \n"
-					+" city text, \n"
-					+" stateCode text NOT NULL, \n"
-					+" zipCode text NOT NULL, \n"
-					+" phone text NOT NULL\n"
+					+" seats int NOT NULL, \n"
+					+" date text NOT NULL, \n"
+					+" time text NOT NULL, \n"
+					+" time2 text\n"
 					+");";
 
 			try(Connection conn = DriverManager.getConnection(dbLoc);
@@ -271,6 +267,31 @@ public class Database {
 			catch(SQLException e) {
 				System.out.println(e.getMessage());
 			}
+			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
+
+
+		}
+		
+		private static void ReservationTable_reservation(String tableName) {
+			String dbLoc = "jdbc:sqlite:db/BLOP.db";
+
+			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
+					+" firstName text NOT NULL, \n"
+					+" lastName text NOT NULL, \n"
+					+" seats int NOT NULL, \n"
+					+" date text NOT NULL, \n"
+					+" time text NOT NULL, \n"
+					+" time2 text\n"
+					+");";
+
+			try(Connection conn = DriverManager.getConnection(dbLoc);
+					Statement stmt = conn.createStatement()){
+				stmt.execute(sql);
+			}
+			catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			
 			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
 
 

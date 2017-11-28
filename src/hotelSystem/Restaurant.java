@@ -1,11 +1,17 @@
 package hotelSystem;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -13,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+
 import org.jdesktop.swingx.JXDatePicker;
 
 public class Restaurant {
@@ -92,6 +99,7 @@ public class Restaurant {
 		roomSelect = new JComboBox<String>(rooms);
 		
 		AddOrder.addActionListener(new myActionListener2());
+		order.addActionListener(new myActionListener3());
 		
 		roomServiceTitle.setBounds(115, 0, 140, 25);
 		menuTitle.setBounds(10, 130, 140, 25);
@@ -220,10 +228,10 @@ public class Restaurant {
 	}
 	
 	private static class myActionListener implements ActionListener{
-
-		@Override
+		
+	
 		public void actionPerformed(ActionEvent event) {
-			// TODO Auto-generated method stub
+			
 			String firstName = ReservationName.getText();
 			String lastName = ReservationName2.getText();
 			Integer seats = ReservationSeats.getItemAt(ReservationSeats.getSelectedIndex());
@@ -231,15 +239,17 @@ public class Restaurant {
 			String time = ReservationTime.getItemAt(ReservationTime.getSelectedIndex());
 			String time2 = ReservationTime2.getItemAt(ReservationTime2.getSelectedIndex());
 			
+			insertData(firstName,lastName,seats,date,time,time2);
+			
 		}
-		
+			
 	}
 	
 	private static class myActionListener2 implements ActionListener{
 
-		@Override
+		
 		public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
+
 			selectedItems = menu.getSelectedIndices();
 			
 			for(int iter = 0; iter < selectedItems.length; iter++) {
@@ -250,10 +260,92 @@ public class Restaurant {
 		
 	}
 	
+	private static class myActionListener3 implements ActionListener{
+
+		
+		public void actionPerformed(ActionEvent arg0) {
+			
+			
+			JFrame pop = new JFrame();
+			JLabel txt = new JLabel("Reservation for Room : "+floorSelect.getItemAt(floorSelect.getSelectedIndex()) +""+ roomSelect.getItemAt(roomSelect.getSelectedIndex())+ " Successful !!!");
+			txt.setFont(lableSeats.getFont().deriveFont(20f));
+			JButton close = new JButton("Close");
+			
+			pop.setVisible(true);
+			pop.setSize(300, 300);
+			pop.setLayout(new BorderLayout());
+			
+			close.addActionListener(new ActionListener() {
+
+				
+				public void actionPerformed(ActionEvent arg0) {
+					// TODO Auto-generated method stub
+					pop.dispose();
+				}
+				
+			});
+			
+			//txt.setBounds(100, 150, 140, 25);
+			//close.setBounds(250,200, 100,100);
+			
+			pop.add(txt, BorderLayout.CENTER);
+			pop.add(close, BorderLayout.PAGE_END);
+			
+			
+			
+			
+			
+		}
+		
+	}
 	
-	
-	
-	
-	
+	private static void insertData(String firstName,String lastName,Integer seats,String date,String time,String time2) {
+		String sql = "INSERT INTO reserveRest(firstName,lastName,seats,date,time,time2)VALUES(?,?,?,?,?,?)";
+		
+		try(Connection conn = Database.connect("BLOP.db");
+			PreparedStatement pstmt = conn.prepareStatement(sql)){
+			
+			pstmt.setString(1, firstName);
+			pstmt.setString(2, lastName); //to do: time permitting: encrypt passwords.
+			pstmt.setInt(3, seats);
+			pstmt.setString(4, date);
+			pstmt.setString(5, time);
+			pstmt.setString(5, time2);
+			
+			
+			int  count = pstmt.executeUpdate();
+			if(count > 0) {
+				JFrame pop = new JFrame();
+				JLabel txt = new JLabel("Reservation for : "+ lastName+ " Successful !!!");
+				txt.setFont(lableSeats.getFont().deriveFont(20f));
+				JButton close = new JButton("Close");
+				
+				pop.setVisible(true);
+				pop.setSize(300, 300);
+				pop.setLayout(new BorderLayout());
+				
+				close.addActionListener(new ActionListener() {
+
+					@Override
+					public void actionPerformed(ActionEvent arg0) {
+						pop.dispose();
+					}
+					
+				});
+				
+				//txt.setBounds(100, 150, 140, 25);
+				//close.setBounds(250,200, 100,100);
+				
+				pop.add(txt, BorderLayout.CENTER);
+				pop.add(close, BorderLayout.PAGE_END);
+				
+				
+			}
+			
+		}
+		catch(SQLException e) {
+		System.out.println(e.getMessage());
+		}
+	}	
 
 }

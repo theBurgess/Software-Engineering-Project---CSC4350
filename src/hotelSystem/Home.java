@@ -88,10 +88,11 @@ public class Home {
 			CheckIn.checkInPanel();
 			frame.getContentPane().add(CheckIn.checkInPanel);
 			
-			//RESTAURANT SECTION
+			//CREATE RESTAURANT SECTION   <<<
 			Restaurant.restaurantPanel();
 			frame.getContentPane().add(Restaurant.restaurantPanel);
 			
+			//CREATE ROOM SERVICE SECTION <<<
 			Restaurant.roomServicePanel();
 			frame.getContentPane().add(Restaurant.roomService);
 
