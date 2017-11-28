@@ -300,7 +300,7 @@ public class Restaurant {
 	}
 	
 	private static void insertData(String firstName,String lastName,Integer seats,String date,String time,String time2) {
-		String sql = "INSERT INTO reserveRest(firstName,lastName,seats,date,time,time2)VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO restaurantReservations(firstName,lastName,seats,date,time,time2)VALUES(?,?,?,?,?,?)";
 		
 		try(Connection conn = Database.connect("BLOP.db");
 			PreparedStatement pstmt = conn.prepareStatement(sql)){

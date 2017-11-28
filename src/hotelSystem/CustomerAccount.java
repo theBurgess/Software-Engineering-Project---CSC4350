@@ -160,7 +160,7 @@ public class CustomerAccount {
 					CreateAccount.createAccountMethod();
 				}
 				else if(event.getSource() == editAccountButton) {
-					//EditAccount.editAccountMethod();
+					CreateAccount.editAccountMethod();
 				}
 				else if(event.getSource() == deleteAccountButton) {
 					resultsScrollPane.setVisible(false);

@@ -22,7 +22,7 @@ public class Home {
 	
 	static ImageIcon myIcon = new ImageIcon("resource/icon.png"); 			//program icon
 	static ImageIcon myBackground = new ImageIcon("resource/hotel.jpg");	//program background
-	static Color myColor= new Color(204,225,255);							//panel background color
+	static Color myColor= new Color(255,228,196);							//panel background color
 	static Color fontColor= new Color(0,0,0);								//font color
 	static JFrame frame = new JFrame("Hotel Management System");			//title bar text
 	
@@ -95,6 +95,11 @@ public class Home {
 			//CREATE ROOM SERVICE SECTION <<<
 			Restaurant.roomServicePanel();
 			frame.getContentPane().add(Restaurant.roomService);
+			
+			//Housekeeping SECTION
+			Housekeeping.housekeepingPanel();
+			frame.getContentPane().add(Housekeeping.housekeepingPanel);
+			
 
 				
 		//if no user is logged in: (ON PROGRAM START)..............

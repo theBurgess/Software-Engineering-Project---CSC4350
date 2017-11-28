@@ -18,9 +18,18 @@ public class Console {
 		
 		String dbName = "BLOP.db"; //what the database is called
 		
+		try {
+			Class.forName("org.sqlite.JDBC");
+		}
+		catch(ClassNotFoundException e){
+			System.out.println("class not found");
+		} 
+	
 		/** if the program is being run for the first time the database will be built
 		 * 
 		 */
+		
+		
 		File file = new File("db/"+dbName);
 		Boolean initialRun = !file.exists();	
 		if(initialRun) {
@@ -32,16 +41,17 @@ public class Console {
 		}
 		
 		//populate database
-		//Demo.addAccounts();
+			//Demo.addAccounts();
 		//first action when program is run: Change to 1 to skip login screen
 		Home.run(-1);
+		//Housekeeping.housekeepingPanel.setVisible(true);
 		//AddReservation.addReservationPanel.setVisible(true);
 		
 	}
 	
 	//connects to database.
 	private static Connection connect(String name) {
-		String dbLoc = "jdbc:sqlite:db/"+name;
+		String dbLoc = "jdbc:sqlite:db/BLOP.db";
 		Connection conn = null;
 		try {
 			conn = DriverManager.getConnection(dbLoc);

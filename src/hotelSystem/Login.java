@@ -84,7 +84,7 @@ public class Login  {
 			Home.name = StaffAccount.getInfo("firstName",Home.AccountId)+" "+StaffAccount.getInfo("lastName",Home.AccountId);
 			Home.nameLabel.setText("Current User: "+Home.name+":");
 			Menu.menuPanel.setVisible(true);
-			CheckIn.checkInPanel.setVisible(true);
+			//CheckIn.checkInPanel.setVisible(true);
 			Home.frame.repaint();
 		}
 	}	

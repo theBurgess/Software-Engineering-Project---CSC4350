@@ -90,6 +90,7 @@ public class Menu {
 					CustomerAccount.customersPanel.setVisible(false);
 					Reservations.reservationsPanel.setVisible(false);
 					AddReservation.addReservationPanel.setVisible(false);
+					Housekeeping.housekeepingPanel.setVisible(false);
 					Restaurant.roomService.setVisible(false);
 					Restaurant.restaurantPanel.setVisible(false);
 				}
@@ -99,6 +100,7 @@ public class Menu {
 					CustomerAccount.searchCustomerField.requestFocus();
 					Reservations.reservationsPanel.setVisible(false);
 					AddReservation.addReservationPanel.setVisible(false);
+					Housekeeping.housekeepingPanel.setVisible(false);
 					Restaurant.roomService.setVisible(false);
 					Restaurant.restaurantPanel.setVisible(false);
 				}
@@ -108,6 +110,7 @@ public class Menu {
 					Reservations.reservationsPanel.setVisible(true);
 					AddReservation.addReservationPanel.setVisible(false);
 					Reservations.searchCustomerField.requestFocus();
+					Housekeeping.housekeepingPanel.setVisible(false);
 					Restaurant.roomService.setVisible(false);
 					Restaurant.restaurantPanel.setVisible(false);
 				}
@@ -116,6 +119,7 @@ public class Menu {
 					CustomerAccount.customersPanel.setVisible(false);
 					Reservations.reservationsPanel.setVisible(false);
 					AddReservation.addReservationPanel.setVisible(false);
+					Housekeeping.housekeepingPanel.setVisible(true);
 					Restaurant.roomService.setVisible(false);
 					Restaurant.restaurantPanel.setVisible(false);
 				}
@@ -124,6 +128,7 @@ public class Menu {
 					CustomerAccount.customersPanel.setVisible(false);
 					Reservations.reservationsPanel.setVisible(false);
 					AddReservation.addReservationPanel.setVisible(false);
+					Housekeeping.housekeepingPanel.setVisible(false);
 					Restaurant.roomService.setVisible(true);
 					Restaurant.restaurantPanel.setVisible(false);
 				}
@@ -132,6 +137,7 @@ public class Menu {
 					CustomerAccount.customersPanel.setVisible(false);
 					Reservations.reservationsPanel.setVisible(false);
 					AddReservation.addReservationPanel.setVisible(false);
+					Housekeeping.housekeepingPanel.setVisible(false);
 					Restaurant.roomService.setVisible(false);
 					Restaurant.restaurantPanel.setVisible(true);
 				}			

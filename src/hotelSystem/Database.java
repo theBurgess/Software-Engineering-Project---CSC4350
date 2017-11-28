@@ -18,13 +18,14 @@ public class Database {
 		public static void build(String dbName) { //builds database
 			
 			dbCreate(dbName);
-			reservationsTable("reservations");
+			customerResTable("customerReservations");
+			roomResTable("roomReservations");
 			staffAccountsTable("staffAccounts");
 			customerAccountsTable("customerAccounts");
 			guestRoomsTable("guestRooms");
 			functionRoomsTable("functionRooms");
 			previousLoginTable("previousLogin");
-			ReservationTable_resturant("reserveRest");
+			ReservationTable_resturant("restaurantReservations");
 			
 		}
 				
@@ -70,16 +71,62 @@ public class Database {
 			
 		}
 		
-		//this will add a table representing staff accounts
-				private static void reservationsTable(String tableName) {
+		private static void guestRoomsTable(String tableName) {
+			String dbLoc = "jdbc:sqlite:db/BLOP.db";
+			
+			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
+					+" roomNumber INTEGER PRIMARY KEY NOT NULL, \n"
+					+" roomType text NOT NULL, \n"
+					+" isOccupied BOOLEAN NOT NULL DEFAULT(0), \n"
+					+" housekeeping BOOLEAN NOT NULL DEFAULT(0), \n"
+					+" capacity INTEGER NOT NULL\n"
+					+");";
+			
+			try(Connection conn = DriverManager.getConnection(dbLoc);
+					Statement stmt = conn.createStatement()){
+				stmt.execute(sql);
+			}
+			catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			
+			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
+		}
+		
+		//this will add a table representing customer reservations
+		private static void customerResTable(String tableName) {
+			String dbLoc = "jdbc:sqlite:db/BLOP.db";
+			
+			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
+					+" AccountId INTEGER PRIMARY KEY NOT NULL, \n"
+					+" roomsBooked text NOT NULL DEFAULT(0), \n"
+					+" checkIn text NOT NULL, \n"
+					+" checkOut text NOT NULL, \n"
+					+" nights INTEGER NOT NULL\n"
+					+");";
+			
+			try(Connection conn = DriverManager.getConnection(dbLoc);
+					Statement stmt = conn.createStatement()){
+				stmt.execute(sql);
+			}
+			catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			
+			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
+		}
+		
+		//this will add a table representing rooms added to a reservation
+				private static void roomResTable(String tableName) {
 					String dbLoc = "jdbc:sqlite:db/BLOP.db";
 					
 					String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
-							+" AccountId INTEGER PRIMARY KEY NOT NULL, \n"
-							+" roomId BOOLEAN NOT NULL DEFAULT(0), \n"
-							+" checkInDate text NOT NULL, \n"
-							+" checkOutDate text NOT NULL, \n"
-							+" boardBasis text NOT NULL\n"
+							+" roomResId INTEGER PRIMARY KEY NOT NULL, \n"
+							+" roomNumber INTEGER NOT NULL DEFAULT(0), \n"
+							+" boardBasis text NOT NULL, \n"
+							+" roomType text NOT NULL, \n"
+							+" adults INTEGER NOT NULL, \n"
+							+" children INTEGER NOT NULL\n"
 							+");";
 					
 					try(Connection conn = DriverManager.getConnection(dbLoc);
@@ -92,6 +139,8 @@ public class Database {
 					
 					System.out.println("Table: "+tableName+" - added to database: BLOP.db");
 				}
+				
+				
 		//this will add a table storing the last user to log in
 		private static void previousLoginTable(String tableName) {
 			String dbLoc = "jdbc:sqlite:db/BLOP.db";
@@ -195,31 +244,6 @@ public class Database {
 			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
 		}
 		
-		//this will add a table representing guest Rooms
-		private static void guestRoomsTable(String tableName) {
-			String dbLoc = "jdbc:sqlite:db/BLOP.db";
-			
-			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
-					+" roomId INTEGER PRIMARY KEY NOT NULL, \n"
-					+" isOccupied BOOLEAN NOT NULL DEFAULT(0), \n"
-					+" needsHousekeeping BOOLEAN NOT NULL DEFAULT(0), \n"
-					+" roomType INTEGER NOT NULL, \n"					
-					+" roomNumber text NOT NULL, \n"
-					+" periodLength INTEGER NOT NULL, \n"
-					+" basePrice Double NOT NULL, \n"
-					+" priceMult Double NOT NULL, \n"
-					+" roomPrice Double NOT NULL\n"
-					+");";
-				
-			try(Connection conn = DriverManager.getConnection(dbLoc);
-					Statement stmt = conn.createStatement()){
-				stmt.execute(sql);
-			}
-			catch(SQLException e) {
-				System.out.println(e.getMessage());
-			}
-			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
-		}
 		
 		//this will add a table representing function Rooms
 		private static void functionRoomsTable(String tableName) {
@@ -272,7 +296,7 @@ public class Database {
 
 		}
 		
-		private static void ReservationTable_reservation(String tableName) {
+		/**private static void ReservationTable_reservation(String tableName) {
 			String dbLoc = "jdbc:sqlite:db/BLOP.db";
 
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
@@ -296,5 +320,5 @@ public class Database {
 
 
 		}
-	
+	*/
 }
