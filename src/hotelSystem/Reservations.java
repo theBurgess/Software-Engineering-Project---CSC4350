@@ -1,6 +1,8 @@
 package hotelSystem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -18,7 +20,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
@@ -33,6 +34,8 @@ public class Reservations {
 	
 	
 	static int selectedAccountId = 0;
+	static ArrayList<String> reservations = new ArrayList<String>();				//list of reservations for this customer
+	static ArrayList<String> roomList = new ArrayList<String>();              //list of rooms under this reservation
 	//***********************************************************************************
 	// Attributes used by reservationsPanel
 	
@@ -61,7 +64,9 @@ public class Reservations {
 					
 				static JPanel customerReservationsPanel = new JPanel();
 					static JLabel customerReservationsLabel = new JLabel("Current Reservations: ");
-					static JList<String> reservationsList = new JList<String>(listModel);
+					static DefaultListModel<String> listModel2 = new DefaultListModel<String>();
+					static JList<String> reservationsList = new JList<String>(listModel2);
+					static ListSelectionModel lsm2 = resultsList.getSelectionModel();
 					static JScrollPane reservationsScrollPane = new JScrollPane(reservationsList);
 					
 				
@@ -173,18 +178,68 @@ public class Reservations {
 		
 		public void valueChanged(ListSelectionEvent event) {
 			
-			
-			selectedAccountId = searchResults.get(lsm.getLeadSelectionIndex());
-			customerInfoPanel.setVisible(true);
-			customerNameLabel.setText("Name: "+CustomerAccount.getInfo("firstName", selectedAccountId)+" "+CustomerAccount.getInfo("lastName", selectedAccountId));
-			customerAddressArea.setText("Mailing Address: "+CustomerAccount.getInfo("street", selectedAccountId)+",\n"
-					+CustomerAccount.getInfo("city", selectedAccountId)+", "
-					+CustomerAccount.getInfo("stateCode", selectedAccountId)+", "+CustomerAccount.getInfo("zipCode", selectedAccountId)+"\n"
-					+"Phone: "+CustomerAccount.getInfo("phone", selectedAccountId));
-			customerAddressArea.setLineWrap(true);
-			customerAddressArea.setWrapStyleWord(true);
+			if(event.getSource() == lsm) {
+				selectedAccountId = searchResults.get(lsm.getLeadSelectionIndex());
+				customerInfoPanel.setVisible(true);
+				customerNameLabel.setText("Name: "+CustomerAccount.getInfo("firstName", selectedAccountId)+" "+CustomerAccount.getInfo("lastName", selectedAccountId));
+				customerAddressArea.setText("Mailing Address: "+CustomerAccount.getInfo("street", selectedAccountId)+",\n"
+						+CustomerAccount.getInfo("city", selectedAccountId)+", "
+						+CustomerAccount.getInfo("stateCode", selectedAccountId)+", "+CustomerAccount.getInfo("zipCode", selectedAccountId)+"\n"
+						+"Phone: "+CustomerAccount.getInfo("phone", selectedAccountId));
+				customerAddressArea.setLineWrap(true);
+				customerAddressArea.setWrapStyleWord(true);
+				getReservations();
+				String[] r = new String[reservations.size()];
+				for(int i=0;i<r.length;i++) {
+					r[i] = reservations.get(i);
+				}
+				System.out.println(Arrays.toString(r));
+				System.out.println("check");
+				reservationsList.setListData(r);
+			}
+			else if(event.getSource() == reservationsList) {
+				
+			}
 			
 		}
+	}
+	
+	private static void getReservations() {
+		if(!reservations.isEmpty()) {
+			reservations.clear();
+			roomList.clear();
+		}
+		String sql = "SELECT roomsBooked, checkIn, checkOut, nights FROM customerReservations WHERE AccountId = "+selectedAccountId;
+		try(Connection conn = Database.connect()){
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			
+			while(rs.next()) {
+				String roomsBooked = rs.getString("roomsBooked");
+					roomsBooked = roomsBooked.substring(1,roomsBooked.length()-1);
+				Scanner scan = new Scanner(roomsBooked);
+				scan.useDelimiter(", ");
+				for(int i = 0; i<50;i++) {
+					String r = scan.next();
+					if(!r.equals("0")) {
+						System.out.print(r+" ");
+						roomList.add(r);
+					}
+				}
+				scan.close();
+				reservations.add(reservationToString(rs.getString("checkIn"),rs.getString("checkOut"),rs.getString("nights"),roomList.size()));
+			}
+		}
+		catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	private static String reservationToString(String checkIn, String checkOut, String nights,int roomsBooked) {
+		String name = CustomerAccount.getInfo("firstName", selectedAccountId)+" "+CustomerAccount.getInfo("lastName", selectedAccountId);
+		return name+": "+checkIn+" - "+checkOut+". Nights: "+nights+". Rooms: "+roomsBooked+".";
+		
 	}
 	
 	//describes what happens when button is clicked
@@ -222,16 +277,16 @@ public class Reservations {
 			ResultSet rs = stmt.executeQuery(sql)){
 			
 			while(rs.next()) {
-				if(rs.getString("username").equals(s)) {
+				if(rs.getString("username").equalsIgnoreCase(s)) {
 					searchResults.add(rs.getInt("AccountId"));
 				}
-				else if(rs.getString("firstName").equals(s)) {
+				else if(rs.getString("firstName").equalsIgnoreCase(s)) {
 					searchResults.add(rs.getInt("AccountId"));
 				}
-				else if(rs.getString("lastName").equals(s)) {
+				else if(rs.getString("lastName").equalsIgnoreCase(s)) {
 					searchResults.add(rs.getInt("AccountId"));
 				}
-				else if(rs.getString("phone").equals(s)) {
+				else if(rs.getString("phone").equalsIgnoreCase(s)) {
 					searchResults.add(rs.getInt("AccountId"));
 				}
 			}

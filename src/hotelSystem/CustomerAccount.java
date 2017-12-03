@@ -111,7 +111,7 @@ public class CustomerAccount {
 			customerInfoPanel.add(customerAddressArea);
 			customerInfoPanel.add(buttonPanel);
 			
-			buttonPanel.setLayout(new FlowLayout(5,160,FlowLayout.LEADING));
+			buttonPanel.setLayout(new FlowLayout(5,60,FlowLayout.LEADING));
 			buttonPanel.setBackground(Home.myColor);
 			buttonPanel.setBorder(border);
 				editAccountButton.setBackground(Color.WHITE);
@@ -266,16 +266,16 @@ public class CustomerAccount {
 			ResultSet rs = stmt.executeQuery(sql)){
 			
 			while(rs.next()) {
-				if(rs.getString("username").equals(s)) {
+				if(rs.getString("username").equalsIgnoreCase(s)) {
 					searchResults.add(rs.getInt("AccountId"));
 				}
-				else if(rs.getString("firstName").equals(s)) {
+				else if(rs.getString("firstName").equalsIgnoreCase(s)) {
 					searchResults.add(rs.getInt("AccountId"));
 				}
-				else if(rs.getString("lastName").equals(s)) {
+				else if(rs.getString("lastName").equalsIgnoreCase(s)) {
 					searchResults.add(rs.getInt("AccountId"));
 				}
-				else if(rs.getString("phone").equals(s)) {
+				else if(rs.getString("phone").equalsIgnoreCase(s)) {
 					searchResults.add(rs.getInt("AccountId"));
 				}
 			}
