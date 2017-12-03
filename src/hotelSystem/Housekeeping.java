@@ -25,28 +25,6 @@ public class Housekeeping {
 	 * Launch the application.
 	 */
 	
-	
-	/**public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Housekeeping window = new Housekeeping();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}*/
-
-	/**
-	 * Create the application.
-	 */
-	
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	public static void housekeepingPanel() {
 		
 		housekeepingPanel.setBackground(Home.myColor);

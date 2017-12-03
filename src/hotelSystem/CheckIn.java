@@ -3,6 +3,7 @@ package hotelSystem;
 //import java.awt.event.ActionEvent;
 //import java.awt.event.ActionListener;
 import javax.swing.JPanel;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
@@ -22,15 +23,15 @@ public class CheckIn {
 			
 	public static void checkInPanel() {
 		
-		checkInPanel.setLayout(null);
+		checkInPanel.setLayout(new BoxLayout(checkInPanel,BoxLayout.PAGE_AXIS));
 		checkInPanel.setBackground(Home.myColor);
-		checkInPanel.setBounds(170,100,540,880);
+		//checkInPanel.setPreferredSize(Home.panelSize);
 			
-			checkInLabel.setBounds(5,5,270,25);
+
 			checkInLabel.setFont(checkInLabel.getFont().deriveFont(20f));
-			checkOutLabel.setBounds(260,5,270,25);
+
 			checkOutLabel.setFont(checkOutLabel.getFont().deriveFont(20f));
-			checkInSplitPane.setBounds(20,30,500,840);
+
 			checkInSplitPane.setResizeWeight(0.5);
 			
 		checkInPanel.add(checkInLabel);

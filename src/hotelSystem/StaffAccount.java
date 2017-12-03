@@ -11,7 +11,7 @@ public class StaffAccount{
 	public static String getInfo(String request, int accountId) {
 		if(accountId >0) {	
 			String sql = "SELECT "+request+" FROM staffAccounts WHERE AccountId = "+accountId;
-			try(Connection conn = Database.connect("BLOP.db")){
+			try(Connection conn = Database.connect()){
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery(sql);
 				

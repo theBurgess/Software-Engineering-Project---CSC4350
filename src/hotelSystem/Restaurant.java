@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -73,10 +74,9 @@ public class Restaurant {
 	
 	public static void roomServicePanel() {
 		// Main Panel 2
-		roomService.setLayout(null);
+		roomService.setLayout(new BoxLayout(roomService,BoxLayout.PAGE_AXIS));
 		roomService.setVisible(false);
 		roomService.setBackground(Home.myColor);
-		roomService.setBounds(170,100,480,480);
 		
 		roomServiceTitle.setFont(roomServiceTitle.getFont().deriveFont(20f));
 		menuTitle.setFont(roomServiceTitle.getFont().deriveFont(20f));
@@ -302,7 +302,7 @@ public class Restaurant {
 	private static void insertData(String firstName,String lastName,Integer seats,String date,String time,String time2) {
 		String sql = "INSERT INTO restaurantReservations(firstName,lastName,seats,date,time,time2)VALUES(?,?,?,?,?,?)";
 		
-		try(Connection conn = Database.connect("BLOP.db");
+		try(Connection conn = Database.connect();
 			PreparedStatement pstmt = conn.prepareStatement(sql)){
 			
 			pstmt.setString(1, firstName);

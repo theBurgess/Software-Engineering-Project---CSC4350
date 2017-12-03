@@ -90,8 +90,6 @@ public class AddReservation {
 		
 	public static void addReservationPanel(){
 		
-	
-		
 		addReservationPanel.setLayout(null);
 		addReservationPanel.setBackground(Home.myColor);
 		addReservationPanel.setBounds(170,100,540,540);
@@ -201,7 +199,7 @@ public class AddReservation {
 			
 		addReservationPanel.add(customerNameLabel);	
 		addReservationPanel.add(datePanel);
-		addReservationPanel.add(roomPanel);	
+		addReservationPanel.add(roomPanel);
 		
 		
 	}
@@ -321,7 +319,7 @@ public class AddReservation {
 	private static int getRoom(String[] dates) {
 		
 		String sql = "SELECT roomNumber, roomType, datesBooked FROM guestRooms";
-		try(Connection conn = Database.connect("BLOP.db");
+		try(Connection conn = Database.connect();
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql)){
 			Boolean fail = false;
@@ -332,7 +330,8 @@ public class AddReservation {
 					
 					for(int i=0;i<dates.length;i++) {
 												
-						Scanner scan = new Scanner(s).useDelimiter(",");
+						Scanner scan = new Scanner(s);
+						scan.useDelimiter(",");
 						while(scan.hasNext()&&fail==false) {
 							
 							String str = scan.next();
@@ -341,7 +340,7 @@ public class AddReservation {
 								i=dates.length;
 							}
 						}
-					scan.close();	
+						scan.close();	
 					}
 					if(fail == false) {
 						return rs.getInt("roomNumber");
@@ -349,7 +348,6 @@ public class AddReservation {
 				}		
 			}
 			return 0;
-			
 		}
 		catch(SQLException e) {
 			System.out.println(e.getMessage());
@@ -360,7 +358,7 @@ public class AddReservation {
 	private static void insertCustomerRes() {
 		String sql = "INSERT INTO customerReservations(AccountId,roomsBooked,checkIn,checkOut,nights)VALUES(?,?,?,?,?)";
 		
-		try(Connection conn = Database.connect("BLOP.db");
+		try(Connection conn = Database.connect();
 			PreparedStatement pstmt = conn.prepareStatement(sql)){
 			
 			pstmt.setInt(1, AccountId);

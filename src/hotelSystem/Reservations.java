@@ -165,7 +165,7 @@ public class Reservations {
 	public static void searchCustomer(String s) {
 		
 		String sql = "SELECT AccountId, username, firstName, lastName, phone FROM customerAccounts";
-		try(Connection conn = Database.connect("BLOP.db");
+		try(Connection conn = Database.connect();
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql)){
 			

@@ -1,8 +1,10 @@
 package hotelSystem;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,12 +12,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 
 public class Login  {
 	
@@ -23,40 +27,45 @@ public class Login  {
 		// Attributes used by loginPanel
 		static JPanel loginPanel = new JPanel();
 			
-			static JLabel usernameLabel = new JLabel("Username: ");
-			static JTextField usernameField = new JTextField();
-			static JLabel passwordLabel = new JLabel("Password:  ");
-			static JPasswordField passwordField = new JPasswordField();
+			
+			
+			static JPanel usernamePanel = new JPanel();
+			static JTextField usernameField = new JTextField(20);
+			static JPanel passwordPanel = new JPanel();
+			static JPasswordField passwordField = new JPasswordField(20);
 			static JButton loginButton = new JButton("Login");
 	//**************************************************************************
-	
 			
 	//login panel to be displayed when no user is logged in
 	public static void loginPanel() {
-		loginPanel.setLayout(null);
+		
+
+		TitledBorder lBorder = new TitledBorder(BorderFactory.createEtchedBorder(Home.fontColor,new Color(210,180,140)),"",TitledBorder.LEFT,TitledBorder.TOP,Home.Serif);
+		loginPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 		loginPanel.setBackground(Home.myColor);
-		loginPanel.setBounds(0,0,1920,40);
-			
-			usernameLabel.setBounds(10,10,180,25);
-			usernameLabel.setFont(usernameLabel.getFont().deriveFont(20f));
-			usernameLabel.setForeground(Home.fontColor);
-			usernameField.setBounds(120,10,120,25);
+		loginPanel.setBorder(lBorder);	
+		
+			TitledBorder uBorder = new TitledBorder(BorderFactory.createEtchedBorder(Home.fontColor,new Color(210,180,140)),"Username",TitledBorder.LEFT,TitledBorder.TOP,Home.Serif);
+			uBorder.setTitleColor(Home.fontColor);
+			usernamePanel.setBorder(uBorder);
+			usernamePanel.setBackground(Home.myColor);
+			usernamePanel.add(usernameField);
 			usernameField.setText(StaffAccount.getInfo("username", Login.getPreviousLogin()));
-			passwordLabel.setBounds(250,10,180,25);
-			passwordLabel.setFont(passwordLabel.getFont().deriveFont(20f));
-			passwordLabel.setForeground(Home.fontColor);
-			passwordField.setBounds(360,10,120,25);
+			
+			TitledBorder pBorder = new TitledBorder(BorderFactory.createEtchedBorder(Home.fontColor,new Color(210,180,140)),"Password",TitledBorder.LEFT,TitledBorder.TOP,Home.Serif);
+			pBorder.setTitleColor(Home.fontColor);
+			passwordPanel.setBorder(pBorder);
+			passwordPanel.setBackground(Home.myColor);
+			passwordPanel.add(passwordField);
+			
 			loginButton.setBackground(Color.white);
-			loginButton.setBounds(490,10,65,25);
+			loginButton.setFont(Home.Serif.deriveFont(20f));
+			loginButton.setForeground(Home.fontColor);
 			loginButton.addActionListener(new myActionListener());
-			
-			
-		loginPanel.add(usernameLabel);
-		loginPanel.add(usernameField);
-		loginPanel.add(passwordLabel);
-		loginPanel.add(passwordField);
+		
+		loginPanel.add(usernamePanel);
+		loginPanel.add(passwordPanel);
 		loginPanel.add(loginButton);
-		loginPanel.setVisible(false);
 		
 	}	
 	
@@ -77,15 +86,14 @@ public class Login  {
 			passwordField.requestFocus();
 		}
 		else {
-			loginPanel.setVisible(false);
+			
 			Home.activePanel.setVisible(true);
+			Home.scroll.setViewportView(Home.homePanel);
 			
 			//this gets name of the active user
 			Home.name = StaffAccount.getInfo("firstName",Home.AccountId)+" "+StaffAccount.getInfo("lastName",Home.AccountId);
-			Home.nameLabel.setText("Current User: "+Home.name+":");
+			Home.nameLabel.setText(Home.name);
 			Menu.menuPanel.setVisible(true);
-			//CheckIn.checkInPanel.setVisible(true);
-			Home.frame.repaint();
 		}
 	}	
 	
@@ -93,16 +101,7 @@ public class Login  {
 		setLoggedIn(false,Home.AccountId);
 		passwordField.setText("");
 		passwordField.requestFocus();
-		Home.activePanel.setVisible(false);
-		CheckIn.checkInPanel.setVisible(false);
-		CustomerAccount.customersPanel.setVisible(false);
-		CreateAccount.createAccountPanel.setVisible(false);
-		AddReservation.addReservationPanel.setVisible(false);
-		
-		Menu.menuPanel.setVisible(false);
-		loginPanel.setVisible(true);
-		Home.frame.repaint();
-		
+		Home.scroll.setViewportView(Home.introPanel);	
 	}
 	
 	private static class myActionListener implements ActionListener {
@@ -128,7 +127,7 @@ public class Login  {
 	private static void setPreviousLogin(int AccountId) {
 		String sql = "UPDATE previousLogin SET AccountId = ?";
 		PreparedStatement pstmt = null;
-		try(Connection conn = Database.connect("BLOP.db")){
+		try(Connection conn = Database.connect()){
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, AccountId);
@@ -141,16 +140,15 @@ public class Login  {
 	}
 	
 	private static int getPreviousLogin() {
-		String sql = "SELECT AccountId FROM previousLogin";
-				
-		try(Connection conn = Database.connect("BLOP.db");
+		String sql = "SELECT AccountId FROM previousLogin";	
+		try(Connection conn = Database.connect();
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql)){
-
 			return rs.getInt("AccountId");
 		}
 		catch(SQLException e) {
 			System.out.println(e.getMessage());
+			System.out.println("fail");
 		}
 		return 0;
 	}
@@ -158,7 +156,7 @@ public class Login  {
 	//checks database to see if userAccount exists and is not currently logged in
 	private static int confirmLogin(String username, char[] password) {
 		String sql = "SELECT AccountId, username, password FROM staffAccounts";
-		try(Connection conn = Database.connect("BLOP.db")){
+		try(Connection conn = Database.connect()){
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			int AccountId = -1;
@@ -187,7 +185,7 @@ public class Login  {
 	private static Boolean getLoggedIn(int AccountId) {
 		String sql = "SELECT LoggedIn FROM staffAccounts";
 		
-		try(Connection conn = Database.connect("BLOP.db")){
+		try(Connection conn = Database.connect()){
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
 			return rs.getBoolean("LoggedIn");
@@ -204,7 +202,7 @@ public class Login  {
 	private static void setLoggedIn(Boolean b,int i) {
 		String sql = "UPDATE staffAccounts SET loggedIn = ? WHERE AccountId = ?";
 		PreparedStatement pstmt = null;
-		try(Connection conn = Database.connect("BLOP.db")){
+		try(Connection conn = Database.connect()){
 			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setBoolean(1, b);

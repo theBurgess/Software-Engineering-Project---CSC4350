@@ -8,16 +8,18 @@ import java.sql.DatabaseMetaData;
 import java.sql.Statement;
 
 public class Database {
+		
 	
-	
+		static String dbName = "BLOP.db"; //what the database is called
+		static String dbLoc = "jdbc:sqlite:db\\"+dbName;
 		/**
 		 * 
 		 * this will be run when the program is run for the first time and will build the database and add all appropriate tables
 		 * that represent state of all the main classes
 		 */
-		public static void build(String dbName) { //builds database
+		public static void build() { //builds database
 			
-			dbCreate(dbName);
+			dbCreate();
 			customerResTable("customerReservations");
 			roomResTable("roomReservations");
 			staffAccountsTable("staffAccounts");
@@ -30,14 +32,14 @@ public class Database {
 		}
 				
 		//this will create database and confirm connection
-		private static void dbCreate(String name) {
+		private static void dbCreate() {
 			Connection conn = null;
 			try {
 				
-				String dbLoc = "jdbc:sqlite:db/"+name;
+				
 				conn = DriverManager.getConnection(dbLoc);
-				System.out.println("Database: "+name+" - created");
-				System.out.println("Connection to "+name+" - established.");
+				System.out.println("Database: "+dbName+" - created");
+				System.out.println("Connection to "+dbName+" - established.");
 				
 				DatabaseMetaData meta = conn.getMetaData();
 				System.out.println("The driver name is "+meta.getDriverName());
@@ -58,8 +60,8 @@ public class Database {
 		}
 		
 		//connects to database.
-		public static Connection connect(String name) {
-			String dbLoc = "jdbc:sqlite:db/"+name;
+		public static Connection connect() {
+			
 			Connection conn = null;
 			try {
 				conn = DriverManager.getConnection(dbLoc);
@@ -72,8 +74,7 @@ public class Database {
 		}
 		
 		private static void guestRoomsTable(String tableName) {
-			String dbLoc = "jdbc:sqlite:db/BLOP.db";
-			
+					
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
 					+" roomNumber INTEGER PRIMARY KEY NOT NULL, \n"
 					+" roomType text NOT NULL, \n"
@@ -95,7 +96,6 @@ public class Database {
 		
 		//this will add a table representing customer reservations
 		private static void customerResTable(String tableName) {
-			String dbLoc = "jdbc:sqlite:db/BLOP.db";
 			
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
 					+" AccountId INTEGER PRIMARY KEY NOT NULL, \n"
@@ -118,7 +118,6 @@ public class Database {
 		
 		//this will add a table representing rooms added to a reservation
 				private static void roomResTable(String tableName) {
-					String dbLoc = "jdbc:sqlite:db/BLOP.db";
 					
 					String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
 							+" roomResId INTEGER PRIMARY KEY NOT NULL, \n"
@@ -143,7 +142,6 @@ public class Database {
 				
 		//this will add a table storing the last user to log in
 		private static void previousLoginTable(String tableName) {
-			String dbLoc = "jdbc:sqlite:db/BLOP.db";
 			
 			String sql1 = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
 					+" AccountId INTEGER NOT NULL\n"
@@ -170,7 +168,6 @@ public class Database {
 		
 		//this will add a table representing staff accounts
 		private static void staffAccountsTable(String tableName) {
-			String dbLoc = "jdbc:sqlite:db/BLOP.db";
 			
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
 					+" AccountId INTEGER PRIMARY KEY NOT NULL, \n"
@@ -198,7 +195,7 @@ public class Database {
 			
 				String sql = "INSERT INTO staffAccounts(username,password,firstName,lastName)VALUES(?,?,?,?)";
 				
-				try(Connection conn = connect("BLOP.db");
+				try(Connection conn = connect();
 					PreparedStatement pstmt = conn.prepareStatement(sql)){
 					
 					pstmt.setString(1, "administrator");
@@ -218,7 +215,6 @@ public class Database {
 
 		//this will add a table representing customer accounts
 		private static void customerAccountsTable(String tableName) {
-			String dbLoc = "jdbc:sqlite:db/BLOP.db";
 			
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
 					+" AccountId INTEGER PRIMARY KEY NOT NULL, \n"
@@ -247,8 +243,7 @@ public class Database {
 		
 		//this will add a table representing function Rooms
 		private static void functionRoomsTable(String tableName) {
-			String dbLoc = "jdbc:sqlite:db/BLOP.db";
-			
+
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
 					+" roomId INTEGER PRIMARY KEY NOT NULL, \n"
 					+" isOccupied BOOLEAN NOT NULL DEFAULT(0), \n"
@@ -272,8 +267,7 @@ public class Database {
 		}
 		
 		private static void ReservationTable_resturant(String tableName) {
-			String dbLoc = "jdbc:sqlite:db/BLOP.db";
-
+			
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
 					
 					+" firstName text NOT NULL, \n"
@@ -297,7 +291,6 @@ public class Database {
 		}
 		
 		/**private static void ReservationTable_reservation(String tableName) {
-			String dbLoc = "jdbc:sqlite:db/BLOP.db";
 
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
 					+" firstName text NOT NULL, \n"

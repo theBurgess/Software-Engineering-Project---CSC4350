@@ -33,7 +33,7 @@ public class Demo {
 				phone = scan.next();
 				
 				
-				try(Connection conn = Database.connect("BLOP.db");
+				try(Connection conn = Database.connect();
 						PreparedStatement pstmt = conn.prepareStatement(sql)){
 						
 						pstmt.setString(1, username);

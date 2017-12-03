@@ -1,6 +1,9 @@
 package hotelSystem;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -12,7 +15,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Scanner;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -25,119 +27,177 @@ import javax.swing.JTextField;
 public class CreateAccount {
 	
 	static JPanel createAccountPanel = new JPanel();
-		static JLabel usernameLabel = new JLabel("E-mail: ");
-		static JTextField usernameField = new JTextField();
-		static JLabel passwordLabel = new JLabel("Password:  ");
-		static JPasswordField passwordField = new JPasswordField();
-		static JLabel firstNameLabel = new JLabel("First Name: ");
-		static JTextField firstNameField = new JTextField();
-		static JLabel lastNameLabel = new JLabel("Last Name: ");
-		static JTextField lastNameField = new JTextField();
-		static JLabel mailingAddressLabel = new JLabel("Mailing Address: ");
-		static JLabel streetLabel = new JLabel("Street: ");
-		static JLabel cityLabel = new JLabel("Town/City: ");
-		static JTextField streetField = new JTextField();
-		static JTextField cityField = new JTextField();
-		static JLabel stateLabel = new JLabel("State: ");
-		static String[] states = new String[57];
-		static JComboBox<String> stateComboBox;
-		static JLabel zipCodeLabel = new JLabel("ZIP Code: ");
-		static JTextField zipCodeField = new JTextField();
-		static JLabel phoneLabel = new JLabel("Phone: ");
-		static JTextField phoneField = new JTextField();
-		static JButton createButton = new JButton("Create");
-		static JButton updateButton = new JButton("Update");
-		static JButton backButton = new JButton("Back");
+		static JPanel titlePanel = new JPanel();
+			static JLabel titleLabel = new JLabel("Account Details: ");
+		static JPanel userPanel = new JPanel();
+			static JLabel usernameLabel = new JLabel("E-mail: ");
+			static JTextField usernameField = new JTextField();
+			static JLabel passwordLabel = new JLabel("Password:  ");
+			static JPasswordField passwordField = new JPasswordField();
+		static JPanel namePanel = new JPanel();
+			static JLabel firstNameLabel = new JLabel("First Name: ");
+			static JTextField firstNameField = new JTextField();
+			static JLabel lastNameLabel = new JLabel("Last Name: ");
+			static JTextField lastNameField = new JTextField();
+		static JPanel addressPanel = new JPanel();
+			static JLabel mailingAddressLabel = new JLabel("Mailing Address: ");
+		static JPanel streetPanel = new JPanel();
+			static JLabel streetLabel = new JLabel("Street: ");
+			static JTextField streetField = new JTextField();
+			static JLabel cityLabel = new JLabel("Town/City: ");
+			static JTextField cityField = new JTextField();
+		static JPanel statePanel = new JPanel();
+			static JLabel stateLabel = new JLabel("State: ");
+			static String[] states = new String[57];
+			static JComboBox<String> stateComboBox;
+		static JPanel zipPanel = new JPanel();	
+			static JLabel zipCodeLabel = new JLabel("ZIP Code: ");
+			static JTextField zipCodeField = new JTextField();
+		static JPanel phonePanel = new JPanel();
+			static JLabel phoneLabel = new JLabel("Phone: ");
+			static JTextField phoneField = new JTextField();
+		static JPanel buttonPanel = new JPanel();	
+			static JButton createButton = new JButton("Create");
+			static JButton updateButton = new JButton("Update");
+			static JButton backButton = new JButton("Back");
 		
 		
 	public static void createAccountPanel() {
+		Dimension labelSize = new Dimension(120,25);
 		
-		createAccountPanel.setLayout(null);
+		createAccountPanel.setLayout(new GridLayout(8,2,0,5));
 		createAccountPanel.setBackground(Home.myColor);
-		createAccountPanel.setBounds(170,100,480,480);
+		createAccountPanel.setBorder(CustomerAccount.border);
+			
+			titlePanel.setBackground(Home.myColor);
+			titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+			titlePanel.setBorder(CustomerAccount.border);
+				titleLabel.setFont(Home.Serif.deriveFont(25f));
+				titleLabel.setForeground(Home.fontColor);
+			titlePanel.add(titleLabel);
+			
+			userPanel.setBackground(Home.myColor);
+			userPanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
+				usernameLabel.setFont(Home.Serif.deriveFont(20f));
+				usernameLabel.setForeground(Home.fontColor);
+				usernameLabel.setPreferredSize(labelSize);
+				usernameField.requestFocus();
+				usernameField.setPreferredSize(new Dimension(200,25));
+				passwordLabel.setFont(Home.Serif.deriveFont(20f));
+				passwordLabel.setForeground(Home.fontColor);
+				passwordLabel.setPreferredSize(labelSize);
+				passwordField.setPreferredSize(new Dimension(200,25));
+			userPanel.add(usernameLabel);
+			userPanel.add(usernameField);
+			userPanel.add(passwordLabel);
+			userPanel.add(passwordField);	
+			
+			namePanel.setBackground(Home.myColor);
+			namePanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
+				firstNameLabel.setFont(Home.Serif.deriveFont(20f));
+				firstNameLabel.setForeground(Home.fontColor);
+				firstNameLabel.setPreferredSize(labelSize);
+				firstNameField.setPreferredSize(new Dimension(200,25));
+				lastNameLabel.setFont(Home.Serif.deriveFont(20f));
+				lastNameLabel.setForeground(Home.fontColor);
+				lastNameLabel.setPreferredSize(labelSize);
+				lastNameField.setPreferredSize(new Dimension(200,25));
+			namePanel.add(firstNameLabel);
+			namePanel.add(firstNameField);
+			namePanel.add(lastNameLabel);
+			namePanel.add(lastNameField);
+			
+			addressPanel.setBackground(Home.myColor);
+			addressPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+				mailingAddressLabel.setFont(Home.Serif.deriveFont(20f));
+				mailingAddressLabel.setForeground(Home.fontColor);
+			addressPanel.add(mailingAddressLabel);
+			
+			streetPanel.setBackground(Home.myColor);
+			streetPanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
+				streetLabel.setFont(Home.Serif.deriveFont(20f));
+				streetLabel.setForeground(Home.fontColor);
+				streetLabel.setPreferredSize(labelSize);
+				streetField.setPreferredSize(new Dimension(200,25));
+				cityLabel.setFont(Home.Serif.deriveFont(20f));
+				cityLabel.setForeground(Home.fontColor);
+				cityLabel.setPreferredSize(labelSize);
+				cityField.setPreferredSize(new Dimension(200,25));
+			streetPanel.add(streetLabel);
+			streetPanel.add(streetField);
+			streetPanel.add(cityLabel);
+			streetPanel.add(cityField);
+			
+			statePanel.setBackground(Home.myColor);
+			statePanel.setLayout(new FlowLayout(5,5,FlowLayout.LEFT));
+				stateLabel.setFont(Home.Serif.deriveFont(20f));
+				stateLabel.setForeground(Home.fontColor);
+				getStates(states);
+				stateComboBox = new JComboBox<String>(states);
+				stateComboBox.setSelectedIndex(-1);
+				stateComboBox.setMaximumRowCount(4);
+			statePanel.add(stateLabel);
+			statePanel.add(stateComboBox);	
+			
+			zipPanel.setBackground(Home.myColor);
+			zipPanel.setLayout(new FlowLayout(5,15,FlowLayout.LEFT));
+				zipCodeLabel.setFont(Home.Serif.deriveFont(20f));
+				zipCodeLabel.setForeground(Home.fontColor);
+				zipCodeField.setPreferredSize(new Dimension(100,25));
+			zipPanel.add(statePanel);	
+			zipPanel.add(zipCodeLabel);
+			zipPanel.add(zipCodeField);
+			
+			phonePanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
+			phonePanel.setBackground(Home.myColor);	
+				phoneLabel.setFont(phoneLabel.getFont().deriveFont(20f));
+				phoneLabel.setForeground(Home.fontColor);
+				phoneField.setPreferredSize(new Dimension(200,25));
+			phonePanel.add(phoneLabel);
+			phonePanel.add(phoneField);
+			
+			buttonPanel.setBackground(Home.myColor);
+			buttonPanel.setBorder(CustomerAccount.border);
+			buttonPanel.setLayout(new FlowLayout(20,200,FlowLayout.LEADING));
+				createButton.setBackground(Color.WHITE);
+				createButton.setPreferredSize(labelSize);
+				createButton.addActionListener(new myActionListener());
+				updateButton.setBackground(Color.WHITE);
+				updateButton.setPreferredSize(labelSize);
+				updateButton.addActionListener(new myActionListener());
+				backButton.setBackground(Color.WHITE);
+				backButton.setPreferredSize(labelSize);
+				backButton.addActionListener(new myActionListener());
+			buttonPanel.add(createButton);
+			buttonPanel.add(updateButton);
+			buttonPanel.add(backButton);
 		
-			usernameLabel.setBounds(10,10,140,25);
-			usernameLabel.setFont(usernameLabel.getFont().deriveFont(20f));
-			usernameField.setBounds(125,10,200,25);
-			usernameField.requestFocus();
-			passwordLabel.setBounds(10,50,140,25);
-			passwordLabel.setFont(passwordLabel.getFont().deriveFont(20f));
-			passwordField.setBounds(125,50,200,25);
-			firstNameLabel.setBounds(10,100,140,25);
-			firstNameLabel.setFont(firstNameLabel.getFont().deriveFont(20f));
-			firstNameField.setBounds(125,100,200,25);
-			lastNameLabel.setBounds(10,140,140,25);
-			lastNameLabel.setFont(lastNameLabel.getFont().deriveFont(20f));
-			lastNameField.setBounds(125,140,200,25);
-			mailingAddressLabel.setBounds(10,180,180,25);
-			mailingAddressLabel.setFont(mailingAddressLabel.getFont().deriveFont(20f));
-			streetLabel.setBounds(15,220,140,25);
-			streetLabel.setFont(streetLabel.getFont().deriveFont(20f));
-			streetField.setBounds(125,220,200,25);
-			cityLabel.setBounds(15,260,140,25);
-			cityLabel.setFont(cityLabel.getFont().deriveFont(20f));
-			cityField.setBounds(125,260,200,25);
-			stateLabel.setBounds(15,300,180,25);
-			stateLabel.setFont(stateLabel.getFont().deriveFont(20f));
-			getStates(states);
-			stateComboBox = new JComboBox<String>(states);
-			stateComboBox.setSelectedIndex(-1);
-			stateComboBox.setMaximumRowCount(4);
-			stateComboBox.setBounds(125,300,50,25);
-			zipCodeLabel.setBounds(15,340,180,25);
-			zipCodeLabel.setFont(zipCodeLabel.getFont().deriveFont(20f));
-			zipCodeField.setBounds(125,340,80,25);
-			phoneLabel.setBounds(15,380,180,25);
-			phoneLabel.setFont(phoneLabel.getFont().deriveFont(20f));
-			phoneField.setBounds(125,380,240,25);
-			createButton.setBounds(15, 420, 100, 20);
-			createButton.setBackground(Color.WHITE);
-			createButton.addActionListener(new myActionListener());
-			updateButton.setBounds(15, 420, 100, 20);
-			updateButton.setBackground(Color.WHITE);
-			updateButton.addActionListener(new myActionListener());
-			backButton.setBounds(150, 420, 100, 20);
-			backButton.setBackground(Color.WHITE);
-			backButton.addActionListener(new myActionListener());
-		
-		createAccountPanel.add(usernameLabel);
-		createAccountPanel.add(usernameField);
-		createAccountPanel.add(passwordLabel);
-		createAccountPanel.add(passwordField);
-		createAccountPanel.add(firstNameLabel);
-		createAccountPanel.add(firstNameField);
-		createAccountPanel.add(lastNameLabel);
-		createAccountPanel.add(lastNameField);
-		createAccountPanel.add(mailingAddressLabel);
-		createAccountPanel.add(streetLabel);
-		createAccountPanel.add(streetField);
-		createAccountPanel.add(cityLabel);
-		createAccountPanel.add(cityField);
-		createAccountPanel.add(stateLabel);
-		createAccountPanel.add(stateComboBox);	
-		createAccountPanel.add(zipCodeLabel);
-		createAccountPanel.add(zipCodeField);
-		createAccountPanel.add(phoneLabel);
-		createAccountPanel.add(phoneField);
-		createAccountPanel.add(createButton);
-		createAccountPanel.add(updateButton);
-		createAccountPanel.add(backButton);
+		createAccountPanel.add(titlePanel);
+		createAccountPanel.add(userPanel);
+		createAccountPanel.add(namePanel);
+		createAccountPanel.add(addressPanel);
+		createAccountPanel.add(streetPanel);
+		createAccountPanel.add(zipPanel);
+		createAccountPanel.add(phonePanel);
+		createAccountPanel.add(buttonPanel);
 		createAccountPanel.setVisible(false);
 	}
 	
 	public static void createAccountMethod() {
-		CustomerAccount.customersPanel.setVisible(false);
+		//CustomerAccount.customersPanel.setVisible(false);
 		createAccountPanel.setVisible(true);
 		createButton.setVisible(true);
-		passwordField.setVisible(true);
+		passwordField.setVisible(false);
+		passwordLabel.setVisible(false);
 		updateButton.setVisible(false);
 	}
 	
 	public static void editAccountMethod() {
-		CustomerAccount.customersPanel.setVisible(false);
+		
 		createAccountPanel.setVisible(true);
 		createButton.setVisible(false);
 		passwordField.setVisible(false);
+		passwordLabel.setVisible(false);
 		updateButton.setVisible(true);
 		usernameField.setText(CustomerAccount.getInfo("username", CustomerAccount.selectedAccountId));
 		firstNameField.setText(CustomerAccount.getInfo("firstName", CustomerAccount.selectedAccountId));
@@ -194,6 +254,7 @@ public class CreateAccount {
 					String stateCode = stateComboBox.getItemAt(stateComboBox.getSelectedIndex());
 					String zipCode = zipCodeField.getText();
 					String phone = phoneField.getText();
+					phone.replaceAll("\\D","");
 					if(check(username, password,firstName,lastName,street,city,zipCode,phone,stateCode)) {
 						insertData(username,password,firstName,lastName,street,city,stateCode,zipCode,phone);//inserts fields into database
 						JOptionPane.showMessageDialog(null,"Customer Added");
@@ -220,6 +281,7 @@ public class CreateAccount {
 					String stateCode = stateComboBox.getItemAt(stateComboBox.getSelectedIndex());
 					String zipCode = zipCodeField.getText();
 					String phone = phoneField.getText();
+					phone.replaceAll("\\D","");
 					if(check(username, password,firstName,lastName,street,city,zipCode,phone,stateCode)) {
 						updateData(username,password,firstName,lastName,street,city,stateCode,zipCode,phone);//inserts fields into database
 						createAccountPanel.setVisible(false);
@@ -290,7 +352,7 @@ public class CreateAccount {
 	//queries database and returns true if user name is already in use. FOR ACTION LISTENER
 	private static Boolean checkUsername(String username) {
 		String sql = "SELECT username FROM staffAccounts";
-		try(Connection conn = Database.connect("BLOP.db");
+		try(Connection conn = Database.connect();
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql)){
 			
@@ -311,7 +373,7 @@ public class CreateAccount {
 	private static void insertData(String username,char[] password,String firstName,String lastName,String street,String city,String stateCode,String zipCode,String phone) {
 		String sql = "INSERT INTO customerAccounts(username,password,firstName,lastName,street,city,stateCode,zipCode,phone)VALUES(?,?,?,?,?,?,?,?,?)";
 		
-		try(Connection conn = Database.connect("BLOP.db");
+		try(Connection conn = Database.connect();
 			PreparedStatement pstmt = conn.prepareStatement(sql)){
 			
 			pstmt.setString(1, username);
@@ -335,7 +397,7 @@ public class CreateAccount {
 		private static void updateData(String username,char[] password,String firstName,String lastName,String street,String city,String stateCode,String zipCode,String phone) {
 			
 			String sql = "UPDATE customerAccounts SET username = ?,firstName = ?, lastName = ?, street = ?, city = ?, stateCode = ?, zipCode = ?, phone = ? where AccountId = "+CustomerAccount.selectedAccountId;
-			try(Connection conn = Database.connect("BLOP.db");
+			try(Connection conn = Database.connect();
 				PreparedStatement pstmt = conn.prepareStatement(sql)){
 				
 				pstmt.setString(1, username);
