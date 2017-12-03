@@ -123,8 +123,9 @@ public class AddReservation {
 				customerNameLabel.setPreferredSize(new Dimension(300,25));
 			customerPanel.add(customerNameLabel);
 			
-			datePanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
+			datePanel.setLayout(new FlowLayout(10,10,FlowLayout.LEFT));
 			datePanel.setBackground(Home.myColor);
+			datePanel.setPreferredSize(new Dimension(5,200));
 			
 				checkInDateLabel.setPreferredSize(new Dimension(100,25));
 				checkInDateLabel.setFont(Home.Serif.deriveFont(20f));
@@ -339,6 +340,7 @@ public class AddReservation {
 				boardBasis = (String) boardBasisComboBox.getSelectedItem();
 				adults = Integer.parseInt(adultsField.getText());
 				children = Integer.parseInt(childField.getText());
+				addReservationPanel.setVisible(false);
 				addReservationMethod();
 			}
 			else if(event.getSource() == completeButton) {
@@ -348,6 +350,8 @@ public class AddReservation {
 				else {
 					insertCustomerRes();
 					JOptionPane.showMessageDialog(null,"Reservation Added");
+					addReservationPanel.setVisible(false);
+					Reservations.reservationsPanel.setVisible(false);
 				}
 				
 			}
@@ -369,7 +373,7 @@ public class AddReservation {
 			JOptionPane.showMessageDialog(null,"No rooms available");
 		}
 		else {
-			roomNums[0+roomsBooked] = i;
+			roomNums[roomsBooked] = i;
 			roomsBooked++;
 			JOptionPane.showMessageDialog(null,"Room Added");
 			ready = true;

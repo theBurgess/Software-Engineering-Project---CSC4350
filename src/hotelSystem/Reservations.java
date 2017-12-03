@@ -32,7 +32,7 @@ import javax.swing.event.ListSelectionEvent;
 public class Reservations {
 	
 	
-	static int selectedAccountId;
+	static int selectedAccountId = 0;
 	//***********************************************************************************
 	// Attributes used by reservationsPanel
 	
@@ -57,7 +57,13 @@ public class Reservations {
 					static JPanel buttonPanel = new JPanel();	
 						static JButton addReservationButton = new JButton("Add Reservation");
 						static JButton editReservationButton = new JButton("Edit Reservation");
-						static JButton deleteReservationButton = new JButton("Delete Reservation");			
+						static JButton deleteReservationButton = new JButton("Delete Reservation");	
+					
+				static JPanel customerReservationsPanel = new JPanel();
+					static JLabel customerReservationsLabel = new JLabel("Current Reservations: ");
+					static JList<String> reservationsList = new JList<String>(listModel);
+					static JScrollPane reservationsScrollPane = new JScrollPane(reservationsList);
+					
 				
 	//***********************************************************************************
 	
@@ -95,7 +101,6 @@ public class Reservations {
 			customerInfoPanel.setLayout(new BoxLayout(customerInfoPanel,BoxLayout.PAGE_AXIS));
 			customerInfoPanel.setBackground(Home.myColor);
 			customerInfoPanel.setBorder(border);
-			customerInfoPanel.setPreferredSize(new Dimension(5,180));
 				customerNamePanel.setLayout(new FlowLayout(5,5,FlowLayout.LEFT));
 				customerNamePanel.setBackground(Home.myColor);
 					customerNameLabel.setForeground(Home.fontColor);
@@ -104,10 +109,23 @@ public class Reservations {
 				customerAddressArea.setFont(Home.Serif.deriveFont(20f));
 				customerAddressArea.setForeground(Home.fontColor);
 				customerAddressArea.setBackground(Home.myColor);
+				customerAddressArea.setPreferredSize(new Dimension(5,180));
 				customerAddressArea.setEditable(false);
 			customerInfoPanel.add(customerNamePanel);
 			customerInfoPanel.add(customerAddressArea);
 			customerInfoPanel.add(buttonPanel);
+			
+			customerReservationsPanel.setLayout(new BoxLayout(customerReservationsPanel,BoxLayout.PAGE_AXIS));
+			customerReservationsPanel.setBackground(Home.myColor);
+			customerReservationsPanel.setBorder(border);
+			customerReservationsPanel.setPreferredSize(new Dimension(5,180));
+				customerReservationsLabel.setFont(Home.Serif.deriveFont(20f));
+				customerReservationsLabel.setForeground(Home.fontColor);
+				reservationsScrollPane.setPreferredSize(new Dimension(5,50));
+					reservationsList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+			customerReservationsPanel.add(customerReservationsLabel);
+			customerReservationsPanel.add(reservationsScrollPane);
+			
 			
 			buttonPanel.setLayout(new FlowLayout(5,40,FlowLayout.LEADING));
 			buttonPanel.setBackground(Home.myColor);
@@ -126,8 +144,9 @@ public class Reservations {
 		reservationsPanel.add(searchCustomerPanel);
 		reservationsPanel.add(resultsScrollPane);
 		reservationsPanel.add(customerInfoPanel);
+		reservationsPanel.add(customerReservationsPanel);
 		reservationsPanel.add(buttonPanel);
-		reservationsPanel.add(Box.createVerticalGlue());
+
 	}
 	
 	public static void searchCustomerMethod(String search) {
@@ -178,11 +197,16 @@ public class Reservations {
 				searchCustomerMethod(search);
 			}
 			else if(event.getSource() == addReservationButton) {
+				if(selectedAccountId > 0) {
+					AddReservation.addReservationPanel.setVisible(true);
+					AddReservation.name = "Customer: "+CustomerAccount.getInfo("firstName",selectedAccountId)+" "+CustomerAccount.getInfo("lastName",selectedAccountId);
+					AddReservation.customerNameLabel.setText(AddReservation.name);
+					AddReservation.AccountId = selectedAccountId;
+				}
+				else {
+					JOptionPane.showMessageDialog(null,"Please select a valid account.");
+				}
 				
-				AddReservation.addReservationPanel.setVisible(true);
-				AddReservation.name = "Customer: "+CustomerAccount.getInfo("firstName",selectedAccountId)+" "+CustomerAccount.getInfo("lastName",selectedAccountId);
-				AddReservation.customerNameLabel.setText(AddReservation.name);
-				AddReservation.AccountId = selectedAccountId;
 				
 			}
 					

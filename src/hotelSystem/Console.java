@@ -54,7 +54,7 @@ public class Console {
 		
 		 //gets screen resolution;
 		//System.out.println(Home.screenSize);
-		Home.run(-1);
+		Home.run(1);
 		
 			
 		//Testing:

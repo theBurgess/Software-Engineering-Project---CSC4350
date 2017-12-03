@@ -80,7 +80,8 @@ public class Database {
 					+" roomType text NOT NULL, \n"
 					+" isOccupied BOOLEAN NOT NULL DEFAULT(0), \n"
 					+" housekeeping BOOLEAN NOT NULL DEFAULT(0), \n"
-					+" capacity INTEGER NOT NULL\n"
+					+" capacity INTEGER NOT NULL, \n"
+					+" datesBooked INTEGER NOT NULL Default(0)\n"
 					+");";
 			
 			try(Connection conn = DriverManager.getConnection(dbLoc);
