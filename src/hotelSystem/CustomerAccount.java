@@ -40,7 +40,6 @@ public class CustomerAccount {
 	static TitledBorder border = new TitledBorder(BorderFactory.createEtchedBorder(Home.fontColor,new Color(210,180,140)),"",TitledBorder.LEFT,TitledBorder.TOP,Home.Serif);
 	
 			static JPanel customersPanel = new JPanel();
-			static JScrollPane scroll = new JScrollPane(customersPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 				static JPanel titlePanel = new JPanel();
 				static JLabel customerLabel = new JLabel("Customer Accounts Manager: ");
 				static ArrayList<Integer> searchResults = new ArrayList<Integer>();
@@ -54,8 +53,8 @@ public class CustomerAccount {
 				static JPanel searchCustomerPanel = new JPanel();
 				static JPanel customerInfoPanel = new JPanel();
 					static JPanel customerNamePanel = new JPanel();
-					static JLabel customerNameLabel = new JLabel();
-					static JTextArea customerAddressArea = new JTextArea();
+						static JLabel customerNameLabel = new JLabel();
+						static JTextArea customerAddressArea = new JTextArea();
 					static JPanel buttonPanel = new JPanel();
 						static JButton createAccountButton = new JButton("Create Account");
 						static JButton editAccountButton = new JButton("Edit Account");
@@ -71,7 +70,7 @@ public class CustomerAccount {
 		border.setTitleColor(Home.fontColor);
 		customersPanel.setLayout(new BoxLayout(customersPanel,BoxLayout.PAGE_AXIS));
 		customersPanel.setBackground(Home.myColor);
-		customersPanel.setPreferredSize(Home.panelSize);
+		
 					
 			titlePanel.setLayout(new FlowLayout(0,20,FlowLayout.LEADING));
 			titlePanel.setBackground(Home.myColor);
@@ -112,7 +111,7 @@ public class CustomerAccount {
 			customerInfoPanel.add(customerAddressArea);
 			customerInfoPanel.add(buttonPanel);
 			
-			buttonPanel.setLayout(new FlowLayout(5,200,FlowLayout.LEADING));
+			buttonPanel.setLayout(new FlowLayout(5,160,FlowLayout.LEADING));
 			buttonPanel.setBackground(Home.myColor);
 			buttonPanel.setBorder(border);
 				editAccountButton.setBackground(Color.WHITE);
@@ -123,11 +122,7 @@ public class CustomerAccount {
 				createAccountButton.addActionListener(new myActionListener());
 			buttonPanel.add(editAccountButton);
 			buttonPanel.add(deleteAccountButton);
-			buttonPanel.add(createAccountButton);
-			
-			
-			
-			
+			buttonPanel.add(createAccountButton);	
 		
 		customersPanel.add(titlePanel);
 		customersPanel.add(searchCustomerPanel);
@@ -135,20 +130,17 @@ public class CustomerAccount {
 		customersPanel.add(customerInfoPanel);
 		customersPanel.add(buttonPanel);
 		customersPanel.add(Box.createVerticalGlue());
-		customersPanel.setVisible(true);
-
+		customersPanel.setVisible(false);
 	}
 	
 	public static void searchCustomerMethod(String search) {
 		
 		resultsList.clearSelection();		
 		searchResults.clear();
-		//customerAddressArea.setVisible(false);
-		//customerNamePanel.setVisible(false);
 		searchCustomer(search);
 		
 		if(searchResults.isEmpty()) {
-			JOptionPane.showMessageDialog(null,"Username not found.");
+			JOptionPane.showMessageDialog(null,"Account not found.");
 			searchCustomerField.requestFocus();
 		}
 		else {

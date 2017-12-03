@@ -75,7 +75,6 @@ public class Restaurant {
 	public static void roomServicePanel() {
 		// Main Panel 2
 		roomService.setLayout(new BoxLayout(roomService,BoxLayout.PAGE_AXIS));
-		roomService.setVisible(false);
 		roomService.setBackground(Home.myColor);
 		
 		roomServiceTitle.setFont(roomServiceTitle.getFont().deriveFont(20f));
@@ -194,7 +193,7 @@ public class Restaurant {
 		restaurantPanel.add(back);
 		restaurantPanel.add(ReservationSeats);
 		restaurantPanel.add(lableSeats);
-		
+	restaurantPanel.setVisible(false);
 			
 	}
 	

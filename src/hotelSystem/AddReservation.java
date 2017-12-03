@@ -11,6 +11,9 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Scanner;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
 import java.time.LocalDate;
@@ -21,6 +24,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -49,28 +53,37 @@ public class AddReservation {
 	
 	static JPanel addReservationPanel = new JPanel();
 		
-	
-		static String name = "Customer: ";
+		static JPanel titlePanel = new JPanel();
+			static JLabel titleLabel = new JLabel("New Reservation: ");
+			
+		
+		static JPanel customerPanel = new JPanel();
+			static String name = "Customer: ";
+			static JLabel customerNameLabel = new JLabel(name);
+		
 		static JPanel datePanel = new JPanel();
 		
-			static JLabel customerNameLabel = new JLabel(name);
 			static JXDatePicker checkInDatePicker = new JXDatePicker();
 			static JLabel checkInDateLabel = new JLabel("Check In: ");
 			static JXDatePicker checkOutDatePicker = new JXDatePicker();
 			static JLabel checkOutDateLabel = new JLabel("Check Out: ");
+			
+		static JPanel buttonPanel = new JPanel();
+		
 			static JButton addRoomButton = new JButton("Add Room");
 			static JButton backButton1 = new JButton("Back");
 			static JButton completeButton = new JButton("Complete");
 		
 		static JPanel roomPanel = new JPanel();
-		
+		static JPanel roomTypePanel =new JPanel();
 			static JLabel boardBasisLabel = new JLabel("Board Basis: ");
 			static String[] board = {"Bed & Breakfast", "Half Board","Full Board"};
 			static JComboBox<String> boardBasisComboBox = new JComboBox<String>(board);
-			static JLabel roomTypeLabel = new JLabel("Room Type ");
+			static JLabel roomTypeLabel = new JLabel("Room Type: ");
 			static String[] rooms = {"Single", "Double","Twin Double","Suite"};
 			static JComboBox<String> roomTypeComboBox = new JComboBox<String>(rooms);
-			
+		
+		static JPanel guestsPanel = new JPanel();	
 			static ImageIcon minusIcon = new ImageIcon("resource/minus.png");
 			static ImageIcon plusIcon = new ImageIcon("resource/plus.png"); 
 			
@@ -84,122 +97,163 @@ public class AddReservation {
 			static JTextField childField = new JTextField("0");		
 			static JButton plusButton2 = new JButton(plusIcon);
 			
+		static JPanel buttonPanel2 = new JPanel();
 			static JButton confirmButton = new JButton("Confirm");
 			static JButton backButton2 = new JButton("Back");
 	
 		
 	public static void addReservationPanel(){
-		
-		addReservationPanel.setLayout(null);
+		Dimension labelSize = new Dimension(140,25);
+			
+		addReservationPanel.setLayout(new BoxLayout(addReservationPanel,BoxLayout.PAGE_AXIS));
 		addReservationPanel.setBackground(Home.myColor);
-		addReservationPanel.setBounds(170,100,540,540);
-		addReservationPanel.setVisible(false);
+		addReservationPanel.setBorder(CustomerAccount.border);
+		
+			titlePanel.setBackground(Home.myColor);
+			titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+			titlePanel.setBorder(CustomerAccount.border);
+				titleLabel.setFont(Home.Serif.deriveFont(30f));
+				titleLabel.setForeground(Home.fontColor);
+			titlePanel.add(titleLabel);
 			
-			customerNameLabel.setBounds(10,10,520,30);
-			customerNameLabel.setFont(customerNameLabel.getFont().deriveFont(25f));
-			datePanel.setLayout(null);
+			customerPanel.setBackground(Home.myColor);
+			customerPanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
+				customerNameLabel.setFont(Home.Serif.deriveFont(25f));
+				customerNameLabel.setForeground(Home.fontColor);
+				customerNameLabel.setPreferredSize(new Dimension(300,25));
+			customerPanel.add(customerNameLabel);
+			
+			datePanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
 			datePanel.setBackground(Home.myColor);
-			datePanel.setBounds(10,40,520,240);
-			datePanel.setVisible(true);
 			
-				checkInDateLabel.setBounds(20,40,120,25);
-				checkInDateLabel.setFont(checkInDateLabel.getFont().deriveFont(20f));
-				checkInDatePicker.setBounds(20,70,200,40);
+				checkInDateLabel.setPreferredSize(new Dimension(100,25));
+				checkInDateLabel.setFont(Home.Serif.deriveFont(20f));
+				checkInDateLabel.setForeground(Home.fontColor);
 				checkInDatePicker.setFormats(sdf);
 				checkInDatePicker.setDate(Calendar.getInstance().getTime());
-				checkInDatePicker.setFont(checkInDatePicker.getFont().deriveFont(20f));
+				checkInDatePicker.setFont(Home.Serif.deriveFont(20f));
 				checkInDatePicker.requestFocus();
-				checkOutDateLabel.setBounds(260,40,120,25);
-				checkOutDateLabel.setFont(checkOutDateLabel.getFont().deriveFont(20f));
-				checkOutDatePicker.setBounds(260,70,220,40);
+				checkOutDateLabel.setPreferredSize(new Dimension(100,25));
+				checkOutDateLabel.setFont(Home.Serif.deriveFont(20f));
+				checkOutDateLabel.setForeground(Home.fontColor);
 				checkOutDatePicker.setFormats(sdf);
 				Calendar cal = Calendar.getInstance();
 				cal.add(Calendar.DATE, 1);
 				checkOutDatePicker.setDate(cal.getTime());
-				checkOutDatePicker.setFont(checkOutDatePicker.getFont().deriveFont(20f));
+				checkOutDatePicker.setFont(Home.Serif.deriveFont(20f));
 				checkOutDatePicker.requestFocus();
-				addRoomButton.setBounds(10,180,140,30);
-				addRoomButton.setFont(addRoomButton.getFont().deriveFont(20f));
-				addRoomButton.setBackground(Color.WHITE);
-				addRoomButton.addActionListener(new myActionListener2());
-				backButton1.setBounds(170,180,140,30);
-				backButton1.setFont(addRoomButton.getFont().deriveFont(20f));
-				backButton1.setBackground(Color.WHITE);
-				backButton1.addActionListener(new myActionListener2());
-				completeButton.setBounds(330,180,140,30);
-				completeButton.setFont(addRoomButton.getFont().deriveFont(20f));
-				completeButton.setBackground(Color.WHITE);
-				completeButton.addActionListener(new myActionListener2());
 				
 			datePanel.add(checkInDateLabel);
 			datePanel.add(checkInDatePicker);
 			datePanel.add(checkOutDateLabel);
 			datePanel.add(checkOutDatePicker);
-			datePanel.add(addRoomButton);
-			datePanel.add(backButton1);
-			datePanel.add(completeButton);
 			
-			roomPanel.setLayout(null);
+			buttonPanel.setBackground(Home.myColor);
+			buttonPanel.setBorder(CustomerAccount.border);
+			buttonPanel.setLayout(new FlowLayout(5,40,FlowLayout.LEADING));
+			
+				addRoomButton.setPreferredSize(labelSize);
+				addRoomButton.setFont(Home.Serif.deriveFont(20f));
+				addRoomButton.setForeground(Home.fontColor);
+				addRoomButton.setBackground(Color.WHITE);
+				addRoomButton.addActionListener(new myActionListener2());
+				backButton1.setPreferredSize(labelSize);
+				backButton1.setFont(Home.Serif.deriveFont(20f));
+				backButton1.setForeground(Home.fontColor);
+				backButton1.setBackground(Color.WHITE);
+				backButton1.addActionListener(new myActionListener2());
+				completeButton.setPreferredSize(labelSize);
+				completeButton.setFont(Home.Serif.deriveFont(20f));
+				completeButton.setForeground(Home.fontColor);
+				completeButton.setBackground(Color.WHITE);
+				completeButton.addActionListener(new myActionListener2());
+				
+			buttonPanel.add(addRoomButton);
+			buttonPanel.add(backButton1);
+			buttonPanel.add(completeButton);
+			
+			roomPanel.setLayout(new GridLayout(8,2,0,5));
 			roomPanel.setBackground(Home.myColor);
-			roomPanel.setBounds(10,40,520,520);
 			roomPanel.setVisible(false);
-				
-				boardBasisLabel.setBounds(200,30,140,25);
-				boardBasisLabel.setFont(boardBasisLabel.getFont().deriveFont(20f));
-				boardBasisComboBox.setBounds(200,60,140,25);
-				roomTypeLabel.setBounds(20,30,140,25);
-				roomTypeLabel.setFont(boardBasisLabel.getFont().deriveFont(20f));
-				roomTypeComboBox.setBounds(20,60,140,25);
-				
-				adultsLabel.setBounds(20,120,80,25);
-				adultsLabel.setFont(adultsLabel.getFont().deriveFont(20f));
-				minusButton1.setBounds(30,150,25,25);
-				minusButton1.addActionListener(new myActionListener1());
-				adultsField.setBounds(55,150,25,25);
-				adultsField.setHorizontalAlignment(JTextField.CENTER);
-				adultsField.setEditable(false);
-				plusButton1.setBounds(80,150,25,25);
-				plusButton1.addActionListener(new myActionListener1());
-				
-				childLabel.setBounds(190,120,120,25);
-				childLabel.setFont(adultsLabel.getFont().deriveFont(20f));
-				minusButton2.setBounds(200,150,25,25);
-				minusButton2.addActionListener(new myActionListener1());
-				childField.setBounds(225,150,25,25);
-				childField.setHorizontalAlignment(JTextField.CENTER);
-				childField.setEditable(false);
-				plusButton2.setBounds(250,150,25,25);
-				plusButton2.addActionListener(new myActionListener1());
-				
-				confirmButton.setBounds(40,200,140,30);
-				confirmButton.setFont(confirmButton.getFont().deriveFont(20f));
-				confirmButton.setBackground(Color.WHITE);
-				confirmButton.addActionListener(new myActionListener2());
-				
-				backButton2.setBounds(200,200,140,30);
-				backButton2.setFont(confirmButton.getFont().deriveFont(20f));
-				backButton2.setBackground(Color.WHITE);
-				backButton2.addActionListener(new myActionListener2());
-				
-				
-			roomPanel.add(boardBasisLabel);
-			roomPanel.add(boardBasisComboBox);
-			roomPanel.add(roomTypeLabel);
-			roomPanel.add(roomTypeComboBox);
-			roomPanel.add(adultsLabel);
-			roomPanel.add(minusButton1);
-			roomPanel.add(adultsField);
-			roomPanel.add(plusButton1);
-			roomPanel.add(childLabel);
-			roomPanel.add(minusButton2);
-			roomPanel.add(childField);
-			roomPanel.add(plusButton2);
-			roomPanel.add(confirmButton);
-			roomPanel.add(backButton2);
 			
-		addReservationPanel.add(customerNameLabel);	
+				roomTypePanel.setLayout(new FlowLayout(5,20,FlowLayout.LEADING));
+				roomTypePanel.setBackground(Home.myColor);
+					
+					boardBasisLabel.setPreferredSize(new Dimension(120,25));
+					boardBasisLabel.setFont(Home.Serif.deriveFont(20f));
+					boardBasisLabel.setForeground(Home.fontColor);
+					roomTypeLabel.setPreferredSize(new Dimension(120,25));
+					roomTypeLabel.setFont(Home.Serif.deriveFont(20f));
+					roomTypeLabel.setForeground(Home.fontColor);
+					
+					
+				roomTypePanel.add(roomTypeLabel);
+				roomTypePanel.add(roomTypeComboBox);	
+				roomTypePanel.add(boardBasisLabel);
+				roomTypePanel.add(boardBasisComboBox);
+
+				guestsPanel.setLayout(new FlowLayout(5,20,FlowLayout.LEADING));
+				guestsPanel.setBackground(Home.myColor);
+
+					adultsLabel.setFont(Home.Serif.deriveFont(20f));
+					adultsLabel.setForeground(Home.fontColor);
+					minusButton1.addActionListener(new myActionListener1());
+					minusButton1.setPreferredSize(new Dimension(25,25));
+					adultsField.setHorizontalAlignment(JTextField.CENTER);
+					adultsField.setEditable(false);
+					adultsField.setPreferredSize(new Dimension(25,25));
+					plusButton1.addActionListener(new myActionListener1());
+					plusButton1.setPreferredSize(new Dimension(25,25));
+					
+					childLabel.setFont(Home.Serif.deriveFont(20f));
+					childLabel.setForeground(Home.fontColor);
+					minusButton2.addActionListener(new myActionListener1());
+					minusButton2.setPreferredSize(new Dimension(25,25));
+					childField.setHorizontalAlignment(JTextField.CENTER);
+					childField.setEditable(false);
+					childField.setPreferredSize(new Dimension(25,25));
+					plusButton2.addActionListener(new myActionListener1());
+					plusButton2.setPreferredSize(new Dimension(25,25));
+					
+				guestsPanel.add(adultsLabel);
+				guestsPanel.add(minusButton1);
+				guestsPanel.add(adultsField);
+				guestsPanel.add(plusButton1);
+				guestsPanel.add(childLabel);
+				guestsPanel.add(minusButton2);
+				guestsPanel.add(childField);
+				guestsPanel.add(plusButton2);
+				
+				buttonPanel2.setLayout(new FlowLayout(5,80,FlowLayout.LEADING));
+				buttonPanel2.setBackground(Home.myColor);
+				buttonPanel.setBorder(CustomerAccount.border);
+
+					confirmButton.setFont(Home.Serif.deriveFont(20f));
+					confirmButton.setForeground(Home.fontColor);
+					confirmButton.setBackground(Color.WHITE);
+					confirmButton.addActionListener(new myActionListener2());
+					confirmButton.setPreferredSize(labelSize);
+					
+					backButton2.setFont(Home.Serif.deriveFont(20f));
+					backButton2.setForeground(Home.fontColor);
+					backButton2.setBackground(Color.WHITE);
+					backButton2.addActionListener(new myActionListener2());
+					backButton2.setPreferredSize(labelSize);
+					
+				buttonPanel2.add(confirmButton);
+				buttonPanel2.add(backButton2);		
+					
+			roomPanel.add(roomTypePanel);
+			roomPanel.add(guestsPanel);
+			roomPanel.add(buttonPanel2);
+			
+		
+		addReservationPanel.add(titlePanel);
+		addReservationPanel.add(customerPanel);	
 		addReservationPanel.add(datePanel);
+		addReservationPanel.add(buttonPanel);
 		addReservationPanel.add(roomPanel);
+		addReservationPanel.setVisible(false);
 		
 		
 	}
@@ -228,6 +282,9 @@ public class AddReservation {
 					adults = Integer.toString(++adult);
 					adultsField.setText(adults);
 				}
+				else {
+					JOptionPane.showMessageDialog(null,"Maximum Occupancy Reached");
+				}
 			} 
 			else if(event.getSource() == minusButton2) {
 				if(child>0) {
@@ -240,6 +297,9 @@ public class AddReservation {
 				if(child<max&&sum<max) { 
 					children = Integer.toString(++child);
 					childField.setText(children);
+				}
+				else {
+					JOptionPane.showMessageDialog(null,"Maximum Occupancy Reached");
 				}
 			} 			
 		}

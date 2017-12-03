@@ -1,23 +1,26 @@
 package hotelSystem;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.border.TitledBorder;
 
 
 public class Menu {
 
 		static Color transparent = new Color(0,0,0,0);	
 		static JPanel menuPanel = new JPanel();
-		static JScrollPane menuScroll = new JScrollPane(menuPanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		
+
+		static TitledBorder border = new TitledBorder(BorderFactory.createEtchedBorder(Home.fontColor,new Color(210,180,140)),"Menu: ",TitledBorder.LEFT,TitledBorder.TOP,Home.Serif);
+	
 		
 			static ImageIcon checkInIcon = new ImageIcon("resource/checkIn.png"); 
 			static ImageIcon customersIcon = new ImageIcon("resource/customers.png"); 
@@ -26,7 +29,7 @@ public class Menu {
 			static ImageIcon roomServiceIcon = new ImageIcon("resource/roomService.png");
 			static ImageIcon restaurantIcon = new ImageIcon("resource/restaurant.png"); 
 			
-			
+			static Dimension buttonSize = new Dimension(80,80);
 			static JButton checkInButton = new JButton(checkInIcon);
 			static JButton customersButton = new JButton(customersIcon);
 			static JButton reservationsButton = new JButton(reservationsIcon);
@@ -41,47 +44,42 @@ public class Menu {
 			
 			menuPanel.setLayout(new BoxLayout(menuPanel,BoxLayout.PAGE_AXIS));
 			menuPanel.setBackground(Home.myColor);
-			
+			border.setTitleColor(Home.fontColor);
+			menuPanel.setBorder(border);
+			//menuPanel.setPreferredSize(new Dimension(80,0));
 				
-				checkInButton.setBackground(Home.myColor);
-				checkInButton.setBounds(5,60,100,100);
 				checkInButton.setToolTipText("Check-in Manager");
+				checkInButton.setPreferredSize(buttonSize);
 				checkInButton.addActionListener(new myActionListener());
 			
-				customersButton.setBackground(Home.myColor);
-				customersButton.setBounds(5,210,100,100);
 				customersButton.setToolTipText("Customer Manager");
 				customersButton.addActionListener(new myActionListener());
-			
-				reservationsButton.setBackground(Home.myColor);
-				reservationsButton.setBounds(5,360,100,100);
+				customersButton.setPreferredSize(buttonSize);
+				
 				reservationsButton.setToolTipText("Reservation Manager");
 				reservationsButton.addActionListener(new myActionListener());
-
-				housekeepingButton.setBackground(Home.myColor);
-				housekeepingButton.setBounds(5,510,100,100);
+				reservationsButton.setPreferredSize(buttonSize);
+				
 				housekeepingButton.setToolTipText("Housekeeping");
 				housekeepingButton.addActionListener(new myActionListener());
-				
-				roomServiceButton.setBackground(Home.myColor);
-				roomServiceButton.setBounds(5,660,100,100);
+				housekeepingButton.setPreferredSize(buttonSize);
+
 				roomServiceButton.setToolTipText("Room Service");
 				roomServiceButton.addActionListener(new myActionListener());
-							
-				restaurantButton.setBackground(Home.myColor);
-				restaurantButton.setBounds(5,810,100,100);
+				roomServiceButton.setPreferredSize(buttonSize);
+
 				restaurantButton.setToolTipText("Restaurant Manager");
 				restaurantButton.addActionListener(new myActionListener());
-				
+				restaurantButton.setPreferredSize(buttonSize);
 				
 			menuPanel.add(Box.createVerticalGlue());	
 			menuPanel.add(checkInButton);
 			menuPanel.add(Box.createVerticalGlue());
-			menuPanel.add(customersButton);
+			menuPanel.add(housekeepingButton);
 			menuPanel.add(Box.createVerticalGlue());
 			menuPanel.add(reservationsButton);	
 			menuPanel.add(Box.createVerticalGlue());
-			menuPanel.add(housekeepingButton);
+			menuPanel.add(customersButton);
 			menuPanel.add(Box.createVerticalGlue());
 			menuPanel.add(roomServiceButton);
 			menuPanel.add(Box.createVerticalGlue());
@@ -97,46 +95,63 @@ public class Menu {
 			public void actionPerformed(ActionEvent event){
 				
 				if(event.getSource() == checkInButton) {
-					Housekeeping.housekeepingPanel.setVisible(false);
-					CheckIn.checkInPanel.setVisible(true);
+					if(CheckIn.checkInPanel.isVisible()) {
+						CheckIn.checkInPanel.setVisible(false);
+					}
+					else {
+						Housekeeping.housekeepingPanel.setVisible(false);
+						CheckIn.checkInPanel.setVisible(true);
+					}
 					
 				}
 				else if(event.getSource() == customersButton) {
-					//CheckIn.checkInPanel.setVisible(false);
-					CustomerAccount.customersPanel.setVisible(true);
-					CustomerAccount.searchCustomerField.requestFocus();
-					Reservations.reservationsPanel.setVisible(false);
-					AddReservation.addReservationPanel.setVisible(false);
-					Housekeeping.housekeepingPanel.setVisible(false);
-					Restaurant.roomService.setVisible(false);
-					Restaurant.restaurantPanel.setVisible(false);
+					if(CustomerAccount.customersPanel.isVisible()) {
+						CustomerAccount.customersPanel.setVisible(false);
+					}
+					else {
+						Reservations.reservationsPanel.setVisible(false);
+						CustomerAccount.customersPanel.setVisible(true);
+						CustomerAccount.searchCustomerField.requestFocus();
+					}
+					
 				}
 				else if(event.getSource() == reservationsButton) {
-					CheckIn.checkInPanel.setVisible(false);
-					CustomerAccount.customersPanel.setVisible(false);
-					Reservations.reservationsPanel.setVisible(true);
-					AddReservation.addReservationPanel.setVisible(false);
-					Reservations.searchCustomerField.requestFocus();
-					Housekeeping.housekeepingPanel.setVisible(false);
-					Restaurant.roomService.setVisible(false);
-					Restaurant.restaurantPanel.setVisible(false);
+					if(Reservations.reservationsPanel.isVisible()) {
+						Reservations.reservationsPanel.setVisible(false);
+					}
+					else {
+						CustomerAccount.customersPanel.setVisible(false);
+						Reservations.reservationsPanel.setVisible(true);
+						AddReservation.addReservationPanel.setVisible(false);
+						Reservations.searchCustomerField.requestFocus();
+					}
 				}
 				else if(event.getSource() == housekeepingButton) {
-					CheckIn.checkInPanel.setVisible(false);
-					Housekeeping.housekeepingPanel.setVisible(true);
+					if(Housekeeping.housekeepingPanel.isVisible()) {
+						Housekeeping.housekeepingPanel.setVisible(false);
+					}
+					else {
+						CheckIn.checkInPanel.setVisible(false);
+						Housekeeping.housekeepingPanel.setVisible(true);
+					}
 				}
 				else if(event.getSource() == roomServiceButton) {
-					Restaurant.roomService.setVisible(true);
-					Restaurant.restaurantPanel.setVisible(false);
+					if(Restaurant.roomService.isVisible()) {
+						Restaurant.roomService.setVisible(false);
+					}
+					else {
+						Restaurant.restaurantPanel.setVisible(false);
+						Restaurant.roomService.setVisible(true);
+					}
 				}
 				else if(event.getSource() == restaurantButton) {
-					CheckIn.checkInPanel.setVisible(false);
-					CustomerAccount.customersPanel.setVisible(false);
-					Reservations.reservationsPanel.setVisible(false);
-					AddReservation.addReservationPanel.setVisible(false);
-					Housekeeping.housekeepingPanel.setVisible(false);
-					Restaurant.roomService.setVisible(false);
-					Restaurant.restaurantPanel.setVisible(true);
+					if(Restaurant.restaurantPanel.isVisible()) {
+						Restaurant.restaurantPanel.setVisible(false);
+					}
+					else {
+						Restaurant.roomService.setVisible(false);
+						Restaurant.restaurantPanel.setVisible(true);
+					}
 				}			
 			}
 		}

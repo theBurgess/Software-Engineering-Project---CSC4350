@@ -1,8 +1,6 @@
 package hotelSystem;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,6 +12,7 @@ import javax.swing.border.TitledBorder;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -33,7 +32,7 @@ public class Home {
 	static int AccountId;    //this is important: keeps track of who current user is
 	
 	static Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	static Dimension panelSize = new Dimension(600,1);
+	
 	
 	
 	static Font Serif = new Font("Serif",3,15);
@@ -50,7 +49,7 @@ public class Home {
 	static JPanel homePanel = new JPanel();									//when user is logged in
 	static JPanel mainPanel = new JPanel();									//center of homePanel where function panels will appear
 	
-	static JScrollPane scroll = new JScrollPane(introPanel,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+	static JScrollPane scroll = new JScrollPane(introPanel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 	
 		//***************************************************************************
 		// Attributes used by activePanel		
@@ -69,98 +68,94 @@ public class Home {
 				
 				
 	//parameter indicates whether user is currently logged in
-	public static void run(int id) {
-		
-		AccountId = id;
-		
-		frame.setLayout(new BorderLayout());
-		frame.setIconImage(Icon.getImage()); 						//sets program icon	
-		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);				
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);	//sets close action
-		frame.addWindowListener(new WindowAdapter() {				//logs user out on close
-			  	public void windowClosing(WindowEvent we) {
-			  		Login.logOutMethod();
-			  		System.exit(0);
-			  	}
-		});
-		
-		frame.setContentPane(scroll);			//sets program background		
-		
-				introPanel.setLayout(new BorderLayout());
-				introPanel.add(backPanel,BorderLayout.CENTER);
-				backPanel.add(label);
+	public static void run(int id) {	
+		EventQueue.invokeLater(new Runnable() { public void run() {
 			
-				//LOGIN SECTION:.........................................
-				Login.loginPanel();
-				introPanel.add(Login.loginPanel, BorderLayout.PAGE_START);
-				
-				//ACTIVE-PANEL SECTION.................................
-				homePanel.setLayout(new BorderLayout());
-				activePanel();
-				homePanel.add(activePanel,BorderLayout.PAGE_START);
-				activePanel.setBackground(myColor);
-				
-				//MENU SECTION:..........................................
-				Menu.menuPanel();
-				homePanel.add(Menu.menuScroll, BorderLayout.LINE_START);
-				
-				
-				//MAIN-PANEL SECTION
-				MainPanel.mainPanel();
-				homePanel.add(MainPanel.mainPanel, BorderLayout.CENTER);
-				
-				
-				//CHECK-IN SECTION
-				CheckIn.checkInPanel();
-				MainPanel.mainOne.add(CheckIn.checkInPanel);
-				
-				//CUSTOMER ACCOUNT SECTION.................................
-				CustomerAccount.customersPanel();
-				MainPanel.mainTwo.add(CustomerAccount.scroll);
-				
-				//CREATE ACCOUNT SECTION
-				CreateAccount.createAccountPanel();
-				CustomerAccount.customersPanel.add(CreateAccount.createAccountPanel);
-				CustomerAccount.customersPanel.add(Box.createVerticalGlue());
-				
-				//RESERVATIONS SECTION
-				Reservations.reservationsPanel();
-				//panel4.add(Reservations.reservationsPanel);
-				AddReservation.addReservationPanel();
-				//panel4.add(AddReservation.addReservationPanel);
-								
-				//CREATE RESTAURANT SECTION   <<<
-				Restaurant.restaurantPanel();
-				//panel4.add(Restaurant.restaurantPanel);
-				
-				//CREATE ROOM SERVICE SECTION <<<
-				Restaurant.roomServicePanel();
-				MainPanel.mainThree.add(Restaurant.roomService);
-				
-				//Housekeeping SECTION
-				Housekeeping.housekeepingPanel();
-				MainPanel.mainOne.add(Housekeeping.housekeepingPanel);
-				
-			frame.pack();	
-			frame.setVisible(true);
+			AccountId = id;
 			
-		//if no user is logged in: (ON PROGRAM START)..............
-		if(AccountId == -1) {	
-			Login.passwordField.requestFocus();
-		}
-		else if(AccountId == 0) {
-			JOptionPane.showMessageDialog(null,"SQL Error");
-		}
-		//if user is logged in
-		else{
-			activePanel.setVisible(true);
-			Menu.menuPanel.setVisible(true);
-			scroll.setViewportView(homePanel);
-		}
-		//.....................................................
+			frame.setLayout(new BorderLayout());
+			frame.setIconImage(Icon.getImage()); 						//sets program icon	
+			frame.setExtendedState(JFrame.MAXIMIZED_BOTH);				
+			frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);	//sets close action
+			frame.addWindowListener(new WindowAdapter() {				//logs user out on close
+				  	public void windowClosing(WindowEvent we) {
+				  		Login.logOutMethod();
+				  		System.exit(0);
+				  	}
+			});
 			
+			frame.setContentPane(scroll);			//sets program background		
+			
+					introPanel.setLayout(new BorderLayout());
+					introPanel.add(backPanel,BorderLayout.CENTER);
+					backPanel.add(label);
+				
+					//LOGIN SECTION:.........................................
+					Login.loginPanel();
+					introPanel.add(Login.loginPanel, BorderLayout.PAGE_START);
+					
+					//ACTIVE-PANEL SECTION.................................
+					homePanel.setLayout(new BorderLayout());
+					activePanel();
+					homePanel.add(activePanel,BorderLayout.PAGE_START);
+					activePanel.setBackground(myColor);
+					
+					//MENU SECTION:..........................................
+					Menu.menuPanel();
+					homePanel.add(Menu.menuPanel, BorderLayout.LINE_START);
+					
+					//CHECK-IN SECTION
+					CheckIn.checkInPanel();
+					//MainPanel.mainOne.add(CheckIn.checkInPanel);
+					
+					//RESERVATIONS SECTION
+					Reservations.reservationsPanel();
+	
+						AddReservation.addReservationPanel();
+						Reservations.reservationsPanel.add(AddReservation.addReservationPanel);	
+					
+					//CREATE ROOM SERVICE SECTION <<<
+					Restaurant.roomServicePanel();
+	
+					//Housekeeping SECTION
+					Housekeeping.housekeepingPanel();
+	
+					//CUSTOMER ACCOUNT SECTION.................................
+					CustomerAccount.customersPanel();
+					
+						CreateAccount.createAccountPanel();
+						CustomerAccount.customersPanel.add(CreateAccount.createAccountPanel);
+									
+					//CREATE RESTAURANT SECTION   <<<
+					Restaurant.restaurantPanel();
+					
+					//MAIN-PANEL SECTION
+					MainPanel.mainPanel();
+					homePanel.add(MainPanel.mainPanel, BorderLayout.CENTER);
+				
+					
+				
+					
+				frame.pack();	
+				frame.setVisible(true);
+				
+			//if no user is logged in: (ON PROGRAM START)..............
+			if(AccountId == -1) {	
+				Login.passwordField.requestFocus();
+			}
+			else if(AccountId == 0) {
+				JOptionPane.showMessageDialog(null,"SQL Error");
+			}
+			//if user is logged in
+			else{
+				activePanel.setVisible(true);
+				Menu.menuPanel.setVisible(true);
+				scroll.setViewportView(homePanel);
+			}
+			//.....................................................
+				
 
-		
+		}});
 	}
 
 	

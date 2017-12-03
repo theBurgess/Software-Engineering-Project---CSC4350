@@ -72,7 +72,7 @@ public class CreateAccount {
 			titlePanel.setBackground(Home.myColor);
 			titlePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 			titlePanel.setBorder(CustomerAccount.border);
-				titleLabel.setFont(Home.Serif.deriveFont(25f));
+				titleLabel.setFont(Home.Serif.deriveFont(30f));
 				titleLabel.setForeground(Home.fontColor);
 			titlePanel.add(titleLabel);
 			

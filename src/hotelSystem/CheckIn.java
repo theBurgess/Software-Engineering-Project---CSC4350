@@ -37,7 +37,6 @@ public class CheckIn {
 		checkInPanel.add(checkInLabel);
 		checkInPanel.add(checkOutLabel);
 		checkInPanel.add(checkInSplitPane);
-		checkInPanel.setVisible(false);
 		
 		
 	}
