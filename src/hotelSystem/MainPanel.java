@@ -33,7 +33,7 @@ public class MainPanel {
 			mainOne.setLayout(new BoxLayout(mainOne,BoxLayout.LINE_AXIS));
 			mainOne.setPreferredSize(panelSize);
 			mainOne.add(CheckIn.checkInPanel);
-			mainOne.add(Housekeeping.housekeepingPanel);
+			mainOne.add(HousekeepingView.housekeepingPanel);
 		
 		mainPanel.add(Box.createHorizontalGlue());
 		mainPanel.add(scrollTwo);

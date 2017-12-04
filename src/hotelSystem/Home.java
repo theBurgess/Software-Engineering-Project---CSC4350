@@ -118,7 +118,7 @@ public class Home {
 					Restaurant.roomServicePanel();
 	
 					//Housekeeping SECTION
-					Housekeeping.housekeepingPanel();
+					HousekeepingView.housekeepingPanel();
 	
 					//CUSTOMER ACCOUNT SECTION.................................
 					CustomerAccount.customersPanel();

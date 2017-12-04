@@ -99,7 +99,7 @@ public class Menu {
 						CheckIn.checkInPanel.setVisible(false);
 					}
 					else {
-						Housekeeping.housekeepingPanel.setVisible(false);
+						HousekeepingView.housekeepingPanel.setVisible(false);
 						CheckIn.checkInPanel.setVisible(true);
 					}
 					
@@ -127,12 +127,12 @@ public class Menu {
 					}
 				}
 				else if(event.getSource() == housekeepingButton) {
-					if(Housekeeping.housekeepingPanel.isVisible()) {
-						Housekeeping.housekeepingPanel.setVisible(false);
+					if(HousekeepingView.housekeepingPanel.isVisible()) {
+						HousekeepingView.housekeepingPanel.setVisible(false);
 					}
 					else {
 						CheckIn.checkInPanel.setVisible(false);
-						Housekeeping.housekeepingPanel.setVisible(true);
+						HousekeepingView.housekeepingPanel.setVisible(true);
 					}
 				}
 				else if(event.getSource() == roomServiceButton) {
