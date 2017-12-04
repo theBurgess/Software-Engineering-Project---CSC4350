@@ -126,7 +126,7 @@ public class AddReservation {
 			
 			datePanel.setLayout(new FlowLayout(10,10,FlowLayout.LEFT));
 			datePanel.setBackground(Home.myColor);
-			datePanel.setPreferredSize(new Dimension(5,200));
+			//datePanel.setPreferredSize(new Dimension(5,200));*****************************
 			
 				checkInDateLabel.setPreferredSize(new Dimension(100,25));
 				checkInDateLabel.setFont(Home.Serif.deriveFont(20f));
@@ -347,7 +347,11 @@ public class AddReservation {
 				addReservationMethod();
 			}
 			else if(event.getSource() == completeButton) {
-				if(ready == false) {
+				
+				if(StaffAccount.getInfo("loggedIn", Home.AccountId).equals("0")) {
+		            	JOptionPane.showMessageDialog(null,"Must be Logged In");
+		        }
+				else if(ready == false) {
 					JOptionPane.showMessageDialog(null,"Reservation not valid");
 				}
 				else {

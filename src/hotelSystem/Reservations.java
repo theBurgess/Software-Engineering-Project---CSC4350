@@ -20,6 +20,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JList;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
@@ -58,6 +59,7 @@ public class Reservations {
 				
 					static JPanel customerNamePanel = new JPanel();
 						static JLabel customerNameLabel = new JLabel();
+					static JPanel customerAddressPanel = new JPanel();
 						static JTextArea customerAddressArea = new JTextArea();
 					static JPanel buttonPanel = new JPanel();	
 						static JButton addReservationButton = new JButton("Add Reservation");
@@ -113,14 +115,19 @@ public class Reservations {
 				customerNamePanel.setBackground(Home.myColor);
 					customerNameLabel.setForeground(Home.fontColor);
 					customerNameLabel.setFont(Home.Serif.deriveFont(20f));
-				customerNamePanel.add(customerNameLabel);	
-				customerAddressArea.setFont(Home.Serif.deriveFont(20f));
-				customerAddressArea.setForeground(Home.fontColor);
-				customerAddressArea.setBackground(Home.myColor);
-				customerAddressArea.setPreferredSize(new Dimension(5,180));
-				customerAddressArea.setEditable(false);
+				customerNamePanel.add(customerNameLabel);
+				
+				customerAddressPanel.setLayout(new FlowLayout(5,5,FlowLayout.LEFT));
+				customerAddressPanel.setBackground(Home.myColor);
+					customerAddressArea.setFont(Home.Serif.deriveFont(20f));
+					customerAddressArea.setForeground(Home.fontColor);
+					customerAddressArea.setBackground(Home.myColor);
+					customerAddressArea.setLineWrap(true);
+					customerAddressArea.setWrapStyleWord(true);
+					customerAddressArea.setEditable(false);
+				customerAddressPanel.add(customerAddressArea);
 			customerInfoPanel.add(customerNamePanel);
-			customerInfoPanel.add(customerAddressArea);
+			customerInfoPanel.add(customerAddressPanel);
 			customerInfoPanel.add(buttonPanel);
 			
 			customerReservationsPanel.setLayout(new BoxLayout(customerReservationsPanel,BoxLayout.PAGE_AXIS));
@@ -129,11 +136,12 @@ public class Reservations {
 			customerReservationsPanel.setPreferredSize(new Dimension(5,150));
 				customerReservationsLabel.setFont(Home.Serif.deriveFont(20f));
 				customerReservationsLabel.setForeground(Home.fontColor);
-				reservationsScrollPane.setPreferredSize(new Dimension(5,50));
 					reservationsList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+					reservationsList.setPreferredSize(new Dimension(5,50));
 					lsm2.addListSelectionListener(new myListSelectionListener());
 			customerReservationsPanel.add(customerReservationsLabel);
 			customerReservationsPanel.add(reservationsScrollPane);
+			reservationsScrollPane.setPreferredSize(new Dimension(5,50));
 			
 			
 			buttonPanel.setLayout(new FlowLayout(5,40,FlowLayout.LEADING));
@@ -155,6 +163,7 @@ public class Reservations {
 		reservationsPanel.add(customerInfoPanel);
 		reservationsPanel.add(customerReservationsPanel);
 		reservationsPanel.add(buttonPanel);
+		reservationsPanel.add(Box.createVerticalGlue());
 
 	}
 	
@@ -259,7 +268,10 @@ public class Reservations {
 				searchCustomerMethod(search);
 			}
 			else if(event.getSource() == addReservationButton) {
-				if(selectedAccountId > 0) {
+				 if(StaffAccount.getInfo("loggedIn", Home.AccountId).equals("0")) {
+		            	JOptionPane.showMessageDialog(null,"Must be Logged In");
+		         }
+				 else if(selectedAccountId > 0) {
 					AddReservation.addReservationPanel.setVisible(true);
 					AddReservation.name = "Customer: "+CustomerAccount.getInfo("firstName",selectedAccountId)+" "+CustomerAccount.getInfo("lastName",selectedAccountId);
 					AddReservation.customerNameLabel.setText(AddReservation.name);
@@ -270,12 +282,20 @@ public class Reservations {
 				}
 			}
 			else if(event.getSource() == deleteReservationButton) {
-				if(selectedReservationId > 0) {
+				 if(StaffAccount.getInfo("loggedIn", Home.AccountId).equals("0")) {
+		            	JOptionPane.showMessageDialog(null,"Must be Logged In");
+		         }
+				 else if(selectedReservationId > 0) {
 					deleteReservation();
 				}
 				else {
 					JOptionPane.showMessageDialog(null,"Please select a reservation to delete.");
 				}
+			}
+			else if(event.getSource() == editReservationButton) {
+				 if(StaffAccount.getInfo("loggedIn", Home.AccountId).equals("0")) {
+		            	JOptionPane.showMessageDialog(null,"Must be Logged In");
+		         }
 			}
 					
 		}

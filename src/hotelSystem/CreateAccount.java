@@ -26,7 +26,9 @@ import javax.swing.JTextField;
 
 public class CreateAccount {
 	
+	
 	static JPanel createAccountPanel = new JPanel();
+
 		static JPanel titlePanel = new JPanel();
 			static JLabel titleLabel = new JLabel("Account Details: ");
 		static JPanel userPanel = new JPanel();
@@ -80,13 +82,13 @@ public class CreateAccount {
 			userPanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
 				usernameLabel.setFont(Home.Serif.deriveFont(20f));
 				usernameLabel.setForeground(Home.fontColor);
-				usernameLabel.setPreferredSize(labelSize);
+				//usernameLabel.setPreferredSize(labelSize);
 				usernameField.requestFocus();
-				usernameField.setPreferredSize(new Dimension(200,25));
+				usernameField.setPreferredSize(new Dimension(150,25));
 				passwordLabel.setFont(Home.Serif.deriveFont(20f));
 				passwordLabel.setForeground(Home.fontColor);
-				passwordLabel.setPreferredSize(labelSize);
-				passwordField.setPreferredSize(new Dimension(200,25));
+				//passwordLabel.setPreferredSize(labelSize);
+				passwordField.setPreferredSize(new Dimension(150,25));
 			userPanel.add(usernameLabel);
 			userPanel.add(usernameField);
 			userPanel.add(passwordLabel);
@@ -96,12 +98,12 @@ public class CreateAccount {
 			namePanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
 				firstNameLabel.setFont(Home.Serif.deriveFont(20f));
 				firstNameLabel.setForeground(Home.fontColor);
-				firstNameLabel.setPreferredSize(labelSize);
-				firstNameField.setPreferredSize(new Dimension(200,25));
+				//firstNameLabel.setPreferredSize(labelSize);
+				firstNameField.setPreferredSize(new Dimension(150,25));
 				lastNameLabel.setFont(Home.Serif.deriveFont(20f));
 				lastNameLabel.setForeground(Home.fontColor);
-				lastNameLabel.setPreferredSize(labelSize);
-				lastNameField.setPreferredSize(new Dimension(200,25));
+				//lastNameLabel.setPreferredSize(labelSize);
+				lastNameField.setPreferredSize(new Dimension(150,25));
 			namePanel.add(firstNameLabel);
 			namePanel.add(firstNameField);
 			namePanel.add(lastNameLabel);
@@ -117,12 +119,12 @@ public class CreateAccount {
 			streetPanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
 				streetLabel.setFont(Home.Serif.deriveFont(20f));
 				streetLabel.setForeground(Home.fontColor);
-				streetLabel.setPreferredSize(labelSize);
-				streetField.setPreferredSize(new Dimension(200,25));
+				//streetLabel.setPreferredSize(labelSize);
+				streetField.setPreferredSize(new Dimension(150,25));
 				cityLabel.setFont(Home.Serif.deriveFont(20f));
 				cityLabel.setForeground(Home.fontColor);
-				cityLabel.setPreferredSize(labelSize);
-				cityField.setPreferredSize(new Dimension(200,25));
+				//cityLabel.setPreferredSize(labelSize);
+				cityField.setPreferredSize(new Dimension(150,25));
 			streetPanel.add(streetLabel);
 			streetPanel.add(streetField);
 			streetPanel.add(cityLabel);
@@ -152,7 +154,7 @@ public class CreateAccount {
 			phonePanel.setBackground(Home.myColor);	
 				phoneLabel.setFont(phoneLabel.getFont().deriveFont(20f));
 				phoneLabel.setForeground(Home.fontColor);
-				phoneField.setPreferredSize(new Dimension(200,25));
+				phoneField.setPreferredSize(new Dimension(150,25));
 			phonePanel.add(phoneLabel);
 			phonePanel.add(phoneField);
 			
@@ -184,12 +186,13 @@ public class CreateAccount {
 	}
 	
 	public static void createAccountMethod() {
-		//CustomerAccount.customersPanel.setVisible(false);
+
 		createAccountPanel.setVisible(true);
 		createButton.setVisible(true);
 		passwordField.setVisible(false);
 		passwordLabel.setVisible(false);
 		updateButton.setVisible(false);
+		Home.frame.repaint();
 	}
 	
 	public static void editAccountMethod() {
@@ -222,9 +225,7 @@ public class CreateAccount {
 		public void actionPerformed(ActionEvent event){
 			
 			if(event.getSource() == backButton) {
-				//createAccountPanel.setVisible(false);
-				
-				//CustomerAccount.customersPanel.setVisible(true);
+				createAccountPanel.setVisible(false);	
 				usernameField.setText("");	// this resets all the fields after back button is clicked
 				passwordField.setText(""); 			
 				firstNameField.setText("");			
@@ -234,6 +235,7 @@ public class CreateAccount {
 				stateComboBox.setAction(null);
 				zipCodeField.setText("");
 				phoneField.setText("");
+				Home.frame.repaint();
 			}
 			else {
 				String username = usernameField.getText();
@@ -317,14 +319,14 @@ public class CreateAccount {
 		else if(lastName.matches("[a-zA-Z]+")==false) {
 			JOptionPane.showMessageDialog(null, "Invalid Last name");//Last name must be [a-z] or [A-Z}
 		}
-		else if(password.length<8||password.length==0) {
-			JOptionPane.showMessageDialog(null, "Password must be 8 characters long!"); //password must be 8 characters long
-		}
+		//else if(password.length<8||password.length==0) {
+		//	JOptionPane.showMessageDialog(null, "Password must be 8 characters long!"); //password must be 8 characters long
+		//}
 		else if(zipCode.length()!=5) {
 			JOptionPane.showMessageDialog(null, "Incorrect Zip Code (Must be 5 Digits)");	//Zip code must be 5 digits
 		}
 		else if(phone.length()!=10||phone.matches("[0-9]+")==false) {
-			JOptionPane.showMessageDialog(null, "Invalid Phone Number (Must be 10 Digits)");	//phone number must be 10 digits and between [0-9]
+			JOptionPane.showMessageDialog(null, "Invalid Phone Number (10 Digits, no - )");	//phone number must be 10 digits and between [0-9]
 			}
 		else {
 			return true;

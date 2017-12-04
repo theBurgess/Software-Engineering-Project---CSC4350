@@ -51,15 +51,9 @@ public class Console {
 		}
 		
 		//first action when program is run: Change to 1 to skip login screen
-		
-		 //gets screen resolution;
-		//System.out.println(Home.screenSize);
 		Home.run(-1);
 		
-			
-		//Testing:
-		//Housekeeping.housekeepingPanel.setVisible(true);
-		//AddReservation.addReservationPanel.setVisible(true);
+		
 		
 	}
 	

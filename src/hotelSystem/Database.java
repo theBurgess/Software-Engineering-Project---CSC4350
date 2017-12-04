@@ -29,7 +29,6 @@ public class Database {
 			previousLoginTable("previousLogin");
 			ReservationTable_resturant("restaurantReservations");
 			RoomService("roomService");
-			housekeepingTable("housekeeping");
 		}
 				
 		//this will create database and confirm connection
@@ -74,35 +73,15 @@ public class Database {
 			
 		}
 		
-		
-		private static void housekeepingTable(String tableName) {
-			
-			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
-					+" id INTEGER PRIMARY KEY NOT NULL, \n"
-					+" roomNumber INTEGER NOT NULL, \n"
-					+" status TEXT NOT NULL DEFAULT(0), \n"
-					+" assignment TEXT NOT NULL\n"
-					+");";
-			
-			try(Connection conn = DriverManager.getConnection(dbLoc);
-					Statement stmt = conn.createStatement()){
-				stmt.execute(sql);
-			}
-			catch(SQLException e) {
-				System.out.println(e.getMessage());
-			}
-			
-			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
-		}
-		
-		
+
 		private static void guestRoomsTable(String tableName) {
 					
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
 					+" roomNumber INTEGER PRIMARY KEY NOT NULL, \n"
 					+" roomType text NOT NULL, \n"
 					+" isOccupied BOOLEAN NOT NULL DEFAULT(0), \n"
-					+" housekeeping BOOLEAN NOT NULL DEFAULT(0), \n"
+					+" status BOOLEAN NOT NULL DEFAULT(0), \n"
+					+" assignment TEXT NOT NULL DEFAULT(0), \n"
 					+" capacity INTEGER NOT NULL, \n"
 					+" datesBooked INTEGER NOT NULL Default(0)\n"
 					+");";
@@ -200,7 +179,13 @@ public class Database {
 					+" username text NOT NULL, \n"
 					+" password text NOT NULL, \n"
 					+" firstName text NOT NULL, \n"
-					+" lastName text NOT NULL\n"
+					+" lastName text NOT NULL, \n"
+					+" street text NOT NULL, \n"
+					+" city text NOT NULL, \n"
+					+" stateCode text NOT NULL, \n"
+					+" zipCode text NOT NULL, \n"
+					+" phone text NOT NULL, \n"
+					+" admin Boolean NOT NULL DEFAULT (0)\n"
 					+");";
 			
 			try(Connection conn = DriverManager.getConnection(dbLoc);
@@ -218,7 +203,7 @@ public class Database {
 		//adds row with default administrator account to staffAccounts table.
 		private static void createAdmin() {
 			
-				String sql = "INSERT INTO staffAccounts(username,password,firstName,lastName)VALUES(?,?,?,?)";
+				String sql = "INSERT INTO staffAccounts(username,password,firstName,lastName,street,city,stateCode,zipCode,phone,admin)VALUES(?,?,?,?,?,?,?,?,?,?)";
 				
 				try(Connection conn = connect();
 					PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -227,6 +212,12 @@ public class Database {
 					pstmt.setString(2, "[a, d, m, i, n, 1, 2, 3, 4]");
 					pstmt.setString(3, "System");
 					pstmt.setString(4, "Administrator");
+					pstmt.setString(5, "n/a");
+					pstmt.setString(6, "n/a");
+					pstmt.setString(7, "n/a");
+					pstmt.setString(8, "n/a");
+					pstmt.setString(9, "n/a");
+					pstmt.setBoolean(10, true);
 					pstmt.executeUpdate();
 				}
 				catch(SQLException e) {
@@ -234,9 +225,6 @@ public class Database {
 				}
 				System.out.println("userAccount: administrator - added to table: staffAccounts.");
 		}
-		
-		
-		
 
 		//this will add a table representing customer accounts
 		private static void customerAccountsTable(String tableName) {

@@ -1,8 +1,6 @@
 package hotelSystem;
 
 
-import java.awt.Dimension;
-
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -11,7 +9,6 @@ import javax.swing.JScrollPane;
 public class MainPanel {
 
 	static JPanel mainPanel = new JPanel();									//center of homePanel where function panels will appear
-	static Dimension panelSize = new Dimension(560,1);
 	
 		static JPanel mainOne = new JPanel();
 			static JScrollPane scrollOne = new JScrollPane(mainOne,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
@@ -30,7 +27,6 @@ public class MainPanel {
 		mainPanel.add(scrollOne);
 			
 			mainOne.setLayout(new BoxLayout(mainOne,BoxLayout.LINE_AXIS));
-			mainOne.setPreferredSize(panelSize);
 			mainOne.add(CheckIn.checkInPanel);
 			mainOne.add(HousekeepingView.housekeepingPanel);
 		
@@ -38,7 +34,6 @@ public class MainPanel {
 		mainPanel.add(scrollTwo);
 
 			mainTwo.setLayout(new BoxLayout(mainTwo,BoxLayout.LINE_AXIS));
-			mainTwo.setPreferredSize(panelSize);
 			mainTwo.add(Reservations.reservationsPanel);
 			mainTwo.add(CustomerAccount.customersPanel);
 		
@@ -46,17 +41,10 @@ public class MainPanel {
 		mainPanel.add(scrollThree);
 
 			mainThree.setLayout(new BoxLayout(mainThree,BoxLayout.LINE_AXIS));
-			mainThree.setPreferredSize(panelSize);
 			mainThree.add(Restaurant.roomService);
 			mainThree.add(Restaurant.restaurantPanel);
 
 		mainPanel.add(Box.createHorizontalGlue());	
-
-		
-			
-		
-		
-		
 
 	}
 }

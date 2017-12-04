@@ -54,6 +54,7 @@ public class CustomerAccount {
 				static JPanel customerInfoPanel = new JPanel();
 					static JPanel customerNamePanel = new JPanel();
 						static JLabel customerNameLabel = new JLabel();
+					static JPanel customerAddressPanel = new JPanel();
 						static JTextArea customerAddressArea = new JTextArea();
 					static JPanel buttonPanel = new JPanel();
 						static JButton createAccountButton = new JButton("Create Account");
@@ -70,8 +71,7 @@ public class CustomerAccount {
 		border.setTitleColor(Home.fontColor);
 		customersPanel.setLayout(new BoxLayout(customersPanel,BoxLayout.PAGE_AXIS));
 		customersPanel.setBackground(Home.myColor);
-		
-					
+			
 			titlePanel.setLayout(new FlowLayout(0,20,FlowLayout.LEADING));
 			titlePanel.setBackground(Home.myColor);
 			titlePanel.setBorder(border);
@@ -103,12 +103,17 @@ public class CustomerAccount {
 					customerNameLabel.setFont(Home.Serif.deriveFont(20f));
 					customerNameLabel.setForeground(Home.fontColor);
 				customerNamePanel.add(customerNameLabel);	
-				customerAddressArea.setFont(Home.Serif.deriveFont(20f));
-				customerAddressArea.setForeground(Home.fontColor);
-				customerAddressArea.setBackground(Home.myColor);
-				customerAddressArea.setEditable(false);
+				customerAddressPanel.setLayout(new FlowLayout(5,5,FlowLayout.LEFT));
+				customerAddressPanel.setBackground(Home.myColor);
+					customerAddressArea.setFont(Home.Serif.deriveFont(20f));
+					customerAddressArea.setForeground(Home.fontColor);
+					customerAddressArea.setBackground(Home.myColor);
+					customerAddressArea.setLineWrap(true);
+					customerAddressArea.setWrapStyleWord(true);
+					customerAddressArea.setEditable(false);
+				customerAddressPanel.add(customerAddressArea);
 			customerInfoPanel.add(customerNamePanel);
-			customerInfoPanel.add(customerAddressArea);
+			customerInfoPanel.add(customerAddressPanel);
 			customerInfoPanel.add(buttonPanel);
 			
 			buttonPanel.setLayout(new FlowLayout(5,60,FlowLayout.LEADING));
@@ -182,10 +187,18 @@ public class CustomerAccount {
 					searchCustomerMethod(search);
 				}
 				else if(event.getSource() == createAccountButton) {
-					CreateAccount.createAccountMethod();
+					if(StaffAccount.getInfo("loggedIn", Home.AccountId).equals("0")) {
+		            	JOptionPane.showMessageDialog(null,"Must be Logged In");
+					}
+					else {
+						CreateAccount.createAccountMethod();
+					}
 				}
 				else if(event.getSource() == editAccountButton) {
-					if(selectedAccountId<1) {
+					if(StaffAccount.getInfo("loggedIn", Home.AccountId).equals("0")) {
+		            	JOptionPane.showMessageDialog(null,"Must be Logged In");
+					}
+					else if(selectedAccountId<1) {
 						JOptionPane.showMessageDialog(null,"No Customer Selected");
 					}
 					else {
@@ -193,16 +206,21 @@ public class CustomerAccount {
 					}
 				}
 				else if(event.getSource() == deleteAccountButton) {
+					if(StaffAccount.getInfo("loggedIn", Home.AccountId).equals("0")) {
+		            	JOptionPane.showMessageDialog(null,"Must be Logged In");
+					}
+					else {
 					
-					resultsList.clearSelection();
-					resultsList.setListData(blank);
-					
-					//searchResults.clear();
-					deleteCustomerMethod(selectedAccountId);
-					customerNameLabel.setText("");
-					customerAddressArea.setText("");
-					searchCustomerField.setText("");
-					selectedAccountId = 0;
+						resultsList.clearSelection();
+						resultsList.setListData(blank);
+						
+						//searchResults.clear();
+						deleteCustomerMethod(selectedAccountId);
+						customerNameLabel.setText("");
+						customerAddressArea.setText("");
+						searchCustomerField.setText("");
+						selectedAccountId = 0;
+					}
 					
 				}
 						

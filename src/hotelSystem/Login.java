@@ -101,6 +101,9 @@ public class Login  {
 		setLoggedIn(false,Home.AccountId);
 		passwordField.setText("");
 		passwordField.requestFocus();
+		HousekeepingView.housekeepingPanel.setVisible(false);
+		CustomerAccount.customersPanel.setVisible(false);
+		Restaurant.restaurantPanel.setVisible(false);
 		Home.scroll.setViewportView(Home.introPanel);	
 	}
 	

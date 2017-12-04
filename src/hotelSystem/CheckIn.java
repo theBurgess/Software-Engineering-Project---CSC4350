@@ -82,7 +82,9 @@ public class CheckIn {
 				titlePanel.setBackground(Home.myColor);
 				titlePanel.setBorder(border);
 					checkInLabel.setFont(Home.Serif.deriveFont(20f));
+					checkInLabel.setForeground(Home.fontColor);
 					checkOutLabel.setFont(Home.Serif.deriveFont(20f));
+					checkOutLabel.setForeground(Home.fontColor);
 				titlePanel.add(checkInLabel);
 				titlePanel.add(checkOutLabel);
 				

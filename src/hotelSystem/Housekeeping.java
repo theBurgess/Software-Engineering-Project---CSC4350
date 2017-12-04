@@ -1,18 +1,21 @@
 package hotelSystem;
 
 public class Housekeeping {
-	private int id;
+	
+	
+
 	private int roomId;
+	private String roomType;
 	private String status;
 	private String asssignment;
 	
 	
 	
 	
-	public Housekeeping(int id, int roomId, String status, String asssignment) {
+	public Housekeeping(int roomId, String roomType, String status, String asssignment) {
 		super();
-		this.id = id;
 		this.roomId = roomId;
+		this.roomType = roomType;
 		this.status = status;
 		this.asssignment = asssignment;
 		
@@ -20,12 +23,12 @@ public class Housekeeping {
 
 
 
-	public int getId() {
-		return id;
+	public String getRoomType() {
+		return roomType;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setRoomType(String roomType) {
+		this.roomType = roomType;
 	}
 
 	public int getRoomId() {

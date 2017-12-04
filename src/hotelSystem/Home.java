@@ -11,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
 
 import java.awt.Color;
@@ -44,12 +43,13 @@ public class Home {
 	static Font Serif = new Font("Serif",3,15);
 	static Color fontColor = new Color(139,69,19);
 	
+	static String pic1 = new String();
 	
 	static ImageIcon Icon = new ImageIcon("resource/icon.png"); 			//program icon
-	static ImageIcon Background = new ImageIcon("resource/hotel.jpg");
+	static ImageIcon Background;
 	static Color myColor= new Color(255,228,196);							//panel background color;								
 	static JFrame frame = new JFrame("Hotel Management System");			//title bar text
-	static JLabel label = new JLabel(Background);
+	static JLabel label = new JLabel();
 	static JPanel introPanel = new JPanel(); 								//when user is logged out
 	static JPanel backPanel = new JPanel();									//""
 	static JPanel homePanel = new JPanel();									//when user is logged in
@@ -67,22 +67,24 @@ public class Home {
 			static JButton logOutButton = new JButton("Log out");
 			static ImageIcon settingsIcon = new ImageIcon("resource/settings.png");
 			static JButton settingsButton = new JButton(settingsIcon);		//for administrator settings
-			static JToolBar toolBar = new JToolBar();
 			static JPopupMenu popup = new JPopupMenu();
 			
 		
 		
 		//***************************************************************************		
 	public static void createPopup() {
-		popup.add(new JMenuItem(new AbstractAction("Create User Accounts") {
-            public void actionPerformed(ActionEvent e) {
-               
-               CreateAccount.createAccountPanel();
-               CreateAccount.createAccountPanel.setVisible(true);
-               JOptionPane.showOptionDialog(null,CreateAccount.createAccountPanel, "Create Account ",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
-               //JOptionPane.showOptionDialog(null, "Hello","Empty?", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
-              
+		popup.add(new JMenuItem(new AbstractAction("Create User Accounts: ") {
+            public void actionPerformed(ActionEvent e) { 
+            if(!StaffAccount.getInfo("admin", AccountId).equals("1")) {
+            	JOptionPane.showMessageDialog(null,"Requires Administrator Privileges");
             }
+            else {
+               StaffAccount.createAccountPanel();
+               StaffAccount.createAccountPanel.setVisible(true);
+               JOptionPane.showOptionDialog(null,StaffAccount.createAccountPanel, "Create Account ",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
+
+            } 
+        }
         }));
         popup.add(new JMenuItem(new AbstractAction("Option 2") {
             public void actionPerformed(ActionEvent e) {
@@ -96,11 +98,18 @@ public class Home {
             }
         });
         
-        toolBar.add(settingsButton);
 	}
 				
 	//parameter indicates whether user is currently logged in
-	public static void run(int id) {	
+	public static void run(int id) {
+		if(screenSize.getWidth() < 1500) {
+			pic1 = "resource/hotel1.jpg";
+		}
+		else {
+			pic1 = "resource/hotel2.jpg";
+		}
+		Background = new ImageIcon(pic1);
+		label.setIcon(Background);
 		EventQueue.invokeLater(new Runnable() { public void run() {
 			
 			AccountId = id;
@@ -164,10 +173,7 @@ public class Home {
 					//MAIN-PANEL SECTION
 					MainPanel.mainPanel();
 					homePanel.add(MainPanel.mainPanel, BorderLayout.CENTER);
-				
-					
-				
-					
+	
 				frame.pack();	
 				frame.setVisible(true);
 				
@@ -241,7 +247,7 @@ public class Home {
 				settingsButton.addActionListener(new myActionListener());
 				createPopup();
 				
-			settingsPanel.add(toolBar);
+			settingsPanel.add(settingsButton);
 		
 		activePanel.add(userPanel);
 		activePanel.add(logOutPanel);
