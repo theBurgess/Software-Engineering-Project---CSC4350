@@ -1,13 +1,17 @@
 package hotelSystem;
 
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
 
 import java.awt.Color;
@@ -20,6 +24,8 @@ import java.awt.BorderLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -61,11 +67,37 @@ public class Home {
 			static JButton logOutButton = new JButton("Log out");
 			static ImageIcon settingsIcon = new ImageIcon("resource/settings.png");
 			static JButton settingsButton = new JButton(settingsIcon);		//for administrator settings
-		
+			static JToolBar toolBar = new JToolBar();
+			static JPopupMenu popup = new JPopupMenu();
+			
 		
 		
 		//***************************************************************************		
-				
+	public static void createPopup() {
+		popup.add(new JMenuItem(new AbstractAction("Create User Accounts") {
+            public void actionPerformed(ActionEvent e) {
+               
+               CreateAccount.createAccountPanel();
+               CreateAccount.createAccountPanel.setVisible(true);
+               JOptionPane.showOptionDialog(null,CreateAccount.createAccountPanel, "Create Account ",JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
+               //JOptionPane.showOptionDialog(null, "Hello","Empty?", JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
+              
+            }
+        }));
+        popup.add(new JMenuItem(new AbstractAction("Option 2") {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(frame, "Option 2 selected");
+            }
+        }));
+        
+        settingsButton.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                popup.show(e.getComponent(), e.getX(), e.getY());
+            }
+        });
+        
+        toolBar.add(settingsButton);
+	}
 				
 	//parameter indicates whether user is currently logged in
 	public static void run(int id) {	
@@ -106,6 +138,7 @@ public class Home {
 					
 					//CHECK-IN SECTION
 					CheckIn.checkInPanel();
+					//MainPanel.mainOne.add(CheckIn.checkInPanel);
 					
 					//RESERVATIONS SECTION
 					Reservations.reservationsPanel();
@@ -117,7 +150,7 @@ public class Home {
 					Restaurant.roomServicePanel();
 	
 					//Housekeeping SECTION
-					Housekeeping.housekeepingPanel();
+					HousekeepingView.housekeepingPanel();
 	
 					//CUSTOMER ACCOUNT SECTION.................................
 					CustomerAccount.customersPanel();
@@ -156,7 +189,7 @@ public class Home {
 
 		}});
 	}
-
+	
 	
 	//describes what happens when button is clicked
 	public static class myActionListener implements ActionListener {
@@ -206,7 +239,9 @@ public class Home {
 		
 				settingsButton.setToolTipText("Settings");
 				settingsButton.addActionListener(new myActionListener());
-			settingsPanel.add(settingsButton);
+				createPopup();
+				
+			settingsPanel.add(toolBar);
 		
 		activePanel.add(userPanel);
 		activePanel.add(logOutPanel);

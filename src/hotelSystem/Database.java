@@ -28,7 +28,8 @@ public class Database {
 			functionRoomsTable("functionRooms");
 			previousLoginTable("previousLogin");
 			ReservationTable_resturant("restaurantReservations");
-			
+			RoomService("roomService");
+			housekeepingTable("housekeeping");
 		}
 				
 		//this will create database and confirm connection
@@ -73,6 +74,28 @@ public class Database {
 			
 		}
 		
+		
+		private static void housekeepingTable(String tableName) {
+			
+			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
+					+" id INTEGER PRIMARY KEY NOT NULL, \n"
+					+" roomNumber INTEGER NOT NULL, \n"
+					+" status TEXT NOT NULL DEFAULT(0), \n"
+					+" assignment TEXT NOT NULL\n"
+					+");";
+			
+			try(Connection conn = DriverManager.getConnection(dbLoc);
+					Statement stmt = conn.createStatement()){
+				stmt.execute(sql);
+			}
+			catch(SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			
+			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
+		}
+		
+		
 		private static void guestRoomsTable(String tableName) {
 					
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
@@ -100,7 +123,7 @@ public class Database {
 			
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
 					+" reservationId INTEGER PRIMARY KEY NOT NULL, \n"
-					+" AccountId INTEGER PRIMARY KEY NOT NULL, \n"
+					+" AccountId INTEGER NOT NULL, \n"
 					+" roomsBooked text NOT NULL DEFAULT(0), \n"
 					+" checkIn DATE NOT NULL, \n"
 					+" checkOut DATE NOT NULL, \n"
@@ -289,18 +312,15 @@ public class Database {
 			}
 			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
 
-
 		}
 		
-		/**private static void ReservationTable_reservation(String tableName) {
+		private static void RoomService(String tableName) {
+			String dbLoc = "jdbc:sqlite:db/BLOP.db";
 
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
-					+" firstName text NOT NULL, \n"
-					+" lastName text NOT NULL, \n"
-					+" seats int NOT NULL, \n"
-					+" date text NOT NULL, \n"
-					+" time text NOT NULL, \n"
-					+" time2 text\n"
+					+" room text NOT NULL, \n"
+					+" meal text NOT NULL, \n"
+					+" spInstructions text NULL \n"
 					+");";
 
 			try(Connection conn = DriverManager.getConnection(dbLoc);
@@ -312,8 +332,6 @@ public class Database {
 			}
 			
 			System.out.println("Table: "+tableName+" - added to database: BLOP.db");
-
-
 		}
-	*/
+	
 }
