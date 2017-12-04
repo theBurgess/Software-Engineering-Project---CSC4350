@@ -102,8 +102,8 @@ public class Database {
 					+" reservationId INTEGER PRIMARY KEY NOT NULL, \n"
 					+" AccountId INTEGER PRIMARY KEY NOT NULL, \n"
 					+" roomsBooked text NOT NULL DEFAULT(0), \n"
-					+" checkIn text NOT NULL, \n"
-					+" checkOut text NOT NULL, \n"
+					+" checkIn DATE NOT NULL, \n"
+					+" checkOut DATE NOT NULL, \n"
 					+" nights INTEGER NOT NULL\n"
 					+");";
 			

@@ -427,7 +427,6 @@ public class AddReservation {
 		try(Connection conn = Database.connect();
 			PreparedStatement pstmt = conn.prepareStatement(sql)){
 			
-			System.out.println("In: "+checkIn);
 			pstmt.setInt(1, AccountId);
 			pstmt.setString(2, Arrays.toString(roomNums)); 
 			pstmt.setDate(3, checkIn);
