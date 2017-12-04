@@ -106,7 +106,6 @@ public class Home {
 					
 					//CHECK-IN SECTION
 					CheckIn.checkInPanel();
-					//MainPanel.mainOne.add(CheckIn.checkInPanel);
 					
 					//RESERVATIONS SECTION
 					Reservations.reservationsPanel();

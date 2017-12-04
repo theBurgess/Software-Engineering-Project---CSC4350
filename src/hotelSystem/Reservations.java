@@ -1,7 +1,6 @@
 package hotelSystem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,6 +8,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -34,7 +34,9 @@ public class Reservations {
 	
 	
 	static int selectedAccountId = 0;
-	static ArrayList<String> reservations = new ArrayList<String>();				//list of reservations for this customer
+	static int selectedReservationId = 0;
+	static ArrayList<String> reservations = new ArrayList<String>();				
+	static ArrayList<Integer> resId = new ArrayList<Integer>();					//list of reservations for this customer
 	static ArrayList<String> roomList = new ArrayList<String>();              //list of rooms under this reservation
 	//***********************************************************************************
 	// Attributes used by reservationsPanel
@@ -66,7 +68,8 @@ public class Reservations {
 					static JLabel customerReservationsLabel = new JLabel("Current Reservations: ");
 					static DefaultListModel<String> listModel2 = new DefaultListModel<String>();
 					static JList<String> reservationsList = new JList<String>(listModel2);
-					static ListSelectionModel lsm2 = resultsList.getSelectionModel();
+					
+					static ListSelectionModel lsm2 = reservationsList.getSelectionModel();
 					static JScrollPane reservationsScrollPane = new JScrollPane(reservationsList);
 					
 				
@@ -123,11 +126,12 @@ public class Reservations {
 			customerReservationsPanel.setLayout(new BoxLayout(customerReservationsPanel,BoxLayout.PAGE_AXIS));
 			customerReservationsPanel.setBackground(Home.myColor);
 			customerReservationsPanel.setBorder(border);
-			customerReservationsPanel.setPreferredSize(new Dimension(5,180));
+			customerReservationsPanel.setPreferredSize(new Dimension(5,150));
 				customerReservationsLabel.setFont(Home.Serif.deriveFont(20f));
 				customerReservationsLabel.setForeground(Home.fontColor);
 				reservationsScrollPane.setPreferredSize(new Dimension(5,50));
 					reservationsList.setSelectionMode(DefaultListSelectionModel.SINGLE_SELECTION);
+					lsm2.addListSelectionListener(new myListSelectionListener());
 			customerReservationsPanel.add(customerReservationsLabel);
 			customerReservationsPanel.add(reservationsScrollPane);
 			
@@ -193,11 +197,10 @@ public class Reservations {
 				for(int i=0;i<r.length;i++) {
 					r[i] = reservations.get(i);
 				}
-				System.out.println(Arrays.toString(r));
-				System.out.println("check");
 				reservationsList.setListData(r);
 			}
-			else if(event.getSource() == reservationsList) {
+			else if(event.getSource() == lsm2) {
+				selectedReservationId = resId.get(lsm2.getLeadSelectionIndex());
 				
 			}
 			
@@ -207,9 +210,11 @@ public class Reservations {
 	private static void getReservations() {
 		if(!reservations.isEmpty()) {
 			reservations.clear();
+			resId.clear();
 			roomList.clear();
+			
 		}
-		String sql = "SELECT roomsBooked, checkIn, checkOut, nights FROM customerReservations WHERE AccountId = "+selectedAccountId;
+		String sql = "SELECT reservationId, roomsBooked, checkIn, checkOut, nights FROM customerReservations WHERE AccountId = "+selectedAccountId;
 		try(Connection conn = Database.connect()){
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(sql);
@@ -223,12 +228,13 @@ public class Reservations {
 				for(int i = 0; i<50;i++) {
 					String r = scan.next();
 					if(!r.equals("0")) {
-						System.out.print(r+" ");
 						roomList.add(r);
 					}
 				}
 				scan.close();
-				reservations.add(reservationToString(rs.getString("checkIn"),rs.getString("checkOut"),rs.getString("nights"),roomList.size()));
+				reservations.add(reservationToString(AddReservation.sdf.format(rs.getString("checkIn")),AddReservation.sdf.format(rs.getString("checkOut")),rs.getString("nights"),roomList.size()));
+				int res = rs.getInt("reservationId");
+				resId.add(res);
 			}
 		}
 		catch(SQLException e) {
@@ -241,6 +247,7 @@ public class Reservations {
 		return name+": "+checkIn+" - "+checkOut+". Nights: "+nights+". Rooms: "+roomsBooked+".";
 		
 	}
+	
 	
 	//describes what happens when button is clicked
 	private static class myActionListener implements ActionListener {
@@ -261,11 +268,36 @@ public class Reservations {
 				else {
 					JOptionPane.showMessageDialog(null,"Please select a valid account.");
 				}
-				
-				
+			}
+			else if(event.getSource() == deleteReservationButton) {
+				if(selectedReservationId > 0) {
+					deleteReservation();
+				}
+				else {
+					JOptionPane.showMessageDialog(null,"Please select a reservation to delete.");
+				}
 			}
 					
 		}
+	}
+	
+	private static void deleteReservation() {
+			
+			String sql = "DELETE FROM customerReservations WHERE reservationId = ?";
+	 
+	        try (Connection conn = Database.connect()){
+	        	
+	            PreparedStatement pstmt = conn.prepareStatement(sql);
+	 
+	            pstmt.setInt(1, selectedReservationId);
+	            pstmt.executeUpdate();
+	            JOptionPane.showMessageDialog(null,"Reservation deleted.");
+	 
+	        } 
+	        catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	        }
+		
 	}
 	
 	//searches database for matches and adds to arrayList

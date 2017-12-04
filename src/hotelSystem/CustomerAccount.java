@@ -216,7 +216,7 @@ public class CustomerAccount {
 		}
 		else {
 			String sql = "DELETE FROM customerAccounts WHERE AccountId = ?";
-	 
+			String sql2 = "DELETE FROM customerReservations WHERE AccountId = ?";
 	        try (Connection conn = Database.connect()){
 	        	
 	            PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -224,6 +224,17 @@ public class CustomerAccount {
 	            pstmt.setInt(1, i);
 	            pstmt.executeUpdate();
 	 
+	        } 
+	        catch (SQLException e) {
+	            System.out.println(e.getMessage());
+	        }
+	        try (Connection conn = Database.connect()){
+	        	
+	            PreparedStatement pstmt = conn.prepareStatement(sql2);
+	 
+	            pstmt.setInt(1, i);
+	            pstmt.executeUpdate();
+	            JOptionPane.showMessageDialog(null,"Customer Deleted");
 	        } 
 	        catch (SQLException e) {
 	            System.out.println(e.getMessage());

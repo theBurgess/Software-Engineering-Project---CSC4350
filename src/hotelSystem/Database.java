@@ -99,6 +99,7 @@ public class Database {
 		private static void customerResTable(String tableName) {
 			
 			String sql = "CREATE TABLE IF NOT EXISTS " +tableName+ "(\n"
+					+" reservationId INTEGER PRIMARY KEY NOT NULL, \n"
 					+" AccountId INTEGER PRIMARY KEY NOT NULL, \n"
 					+" roomsBooked text NOT NULL DEFAULT(0), \n"
 					+" checkIn text NOT NULL, \n"
@@ -225,7 +226,7 @@ public class Database {
 					+" firstName text NOT NULL, \n"
 					+" lastName text NOT NULL, \n"
 					+" street text NOT NULL, \n"
-					+" city text, \n"
+					+" city text NOT NULL, \n"
 					+" stateCode text NOT NULL, \n"
 					+" zipCode text NOT NULL, \n"
 					+" phone text NOT NULL\n"

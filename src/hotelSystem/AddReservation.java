@@ -2,6 +2,7 @@ package hotelSystem;
 
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -36,11 +37,11 @@ public class AddReservation {
 	
 	static Boolean ready = false;
 	static int AccountId;
-	static SimpleDateFormat sdf =  new SimpleDateFormat("MM/dd/yyyy");
+	static SimpleDateFormat sdf =  new SimpleDateFormat("MM-dd-yyyy");
 	
-	static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
-	static String checkIn;
-	static String checkOut;
+	static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM-dd-yyyy");
+	static Date checkIn;
+	static Date checkOut;
 	static int nights = 0;
 	
 	static String roomType;
@@ -315,6 +316,7 @@ public class AddReservation {
 				Reservations.reservationsPanel.setVisible(true);
 			}
 			else if(event.getSource() == addRoomButton) {
+				
 				nights = checkDates();
 				if(nights<1) {
 					JOptionPane.showMessageDialog(null,"Selected Dates are Invalid");
@@ -323,8 +325,8 @@ public class AddReservation {
 				else {
 					datePanel.setVisible(false);
 					roomPanel.setVisible(true);
-					checkIn = sdf.format(checkInDatePicker.getDate());
-					checkOut = sdf.format(checkOutDatePicker.getDate());
+					checkIn = new Date(checkInDatePicker.getDate().getTime());
+					checkOut = new Date(checkOutDatePicker.getDate().getTime());
 				}
 			}
 			else if(event.getSource() == backButton2) {
@@ -340,7 +342,8 @@ public class AddReservation {
 				boardBasis = (String) boardBasisComboBox.getSelectedItem();
 				adults = Integer.parseInt(adultsField.getText());
 				children = Integer.parseInt(childField.getText());
-				addReservationPanel.setVisible(false);
+				datePanel.setVisible(true);
+				roomPanel.setVisible(false);
 				addReservationMethod();
 			}
 			else if(event.getSource() == completeButton) {
@@ -351,7 +354,6 @@ public class AddReservation {
 					insertCustomerRes();
 					JOptionPane.showMessageDialog(null,"Reservation Added");
 					addReservationPanel.setVisible(false);
-					Reservations.reservationsPanel.setVisible(false);
 				}
 				
 			}
@@ -425,10 +427,11 @@ public class AddReservation {
 		try(Connection conn = Database.connect();
 			PreparedStatement pstmt = conn.prepareStatement(sql)){
 			
+			System.out.println("In: "+checkIn);
 			pstmt.setInt(1, AccountId);
 			pstmt.setString(2, Arrays.toString(roomNums)); 
-			pstmt.setString(3, checkIn);
-			pstmt.setString(4, checkOut);
+			pstmt.setDate(3, checkIn);
+			pstmt.setDate(4,checkOut);
 			pstmt.setInt(5, nights);
 			
 			pstmt.executeUpdate();

@@ -77,31 +77,31 @@ public class CreateAccount {
 			titlePanel.add(titleLabel);
 			
 			userPanel.setBackground(Home.myColor);
-			userPanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
+			userPanel.setLayout(new FlowLayout(5,10,FlowLayout.LEFT));
 				usernameLabel.setFont(Home.Serif.deriveFont(20f));
 				usernameLabel.setForeground(Home.fontColor);
 				usernameLabel.setPreferredSize(labelSize);
 				usernameField.requestFocus();
-				usernameField.setPreferredSize(new Dimension(200,25));
+				usernameField.setPreferredSize(new Dimension(120,25));
 				passwordLabel.setFont(Home.Serif.deriveFont(20f));
 				passwordLabel.setForeground(Home.fontColor);
 				passwordLabel.setPreferredSize(labelSize);
-				passwordField.setPreferredSize(new Dimension(200,25));
+				passwordField.setPreferredSize(new Dimension(120,25));
 			userPanel.add(usernameLabel);
 			userPanel.add(usernameField);
 			userPanel.add(passwordLabel);
 			userPanel.add(passwordField);	
 			
 			namePanel.setBackground(Home.myColor);
-			namePanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
+			namePanel.setLayout(new FlowLayout(5,10,FlowLayout.LEFT));
 				firstNameLabel.setFont(Home.Serif.deriveFont(20f));
 				firstNameLabel.setForeground(Home.fontColor);
 				firstNameLabel.setPreferredSize(labelSize);
-				firstNameField.setPreferredSize(new Dimension(200,25));
+				firstNameField.setPreferredSize(new Dimension(120,25));
 				lastNameLabel.setFont(Home.Serif.deriveFont(20f));
 				lastNameLabel.setForeground(Home.fontColor);
 				lastNameLabel.setPreferredSize(labelSize);
-				lastNameField.setPreferredSize(new Dimension(200,25));
+				lastNameField.setPreferredSize(new Dimension(120,25));
 			namePanel.add(firstNameLabel);
 			namePanel.add(firstNameField);
 			namePanel.add(lastNameLabel);
@@ -114,15 +114,15 @@ public class CreateAccount {
 			addressPanel.add(mailingAddressLabel);
 			
 			streetPanel.setBackground(Home.myColor);
-			streetPanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
+			streetPanel.setLayout(new FlowLayout(5,10,FlowLayout.LEFT));
 				streetLabel.setFont(Home.Serif.deriveFont(20f));
 				streetLabel.setForeground(Home.fontColor);
 				streetLabel.setPreferredSize(labelSize);
-				streetField.setPreferredSize(new Dimension(200,25));
+				streetField.setPreferredSize(new Dimension(120,25));
 				cityLabel.setFont(Home.Serif.deriveFont(20f));
 				cityLabel.setForeground(Home.fontColor);
 				cityLabel.setPreferredSize(labelSize);
-				cityField.setPreferredSize(new Dimension(200,25));
+				cityField.setPreferredSize(new Dimension(120,25));
 			streetPanel.add(streetLabel);
 			streetPanel.add(streetField);
 			streetPanel.add(cityLabel);
@@ -148,17 +148,17 @@ public class CreateAccount {
 			zipPanel.add(zipCodeLabel);
 			zipPanel.add(zipCodeField);
 			
-			phonePanel.setLayout(new FlowLayout(5,20,FlowLayout.LEFT));
+			phonePanel.setLayout(new FlowLayout(5,10,FlowLayout.LEFT));
 			phonePanel.setBackground(Home.myColor);	
 				phoneLabel.setFont(phoneLabel.getFont().deriveFont(20f));
 				phoneLabel.setForeground(Home.fontColor);
-				phoneField.setPreferredSize(new Dimension(200,25));
+				phoneField.setPreferredSize(new Dimension(120,25));
 			phonePanel.add(phoneLabel);
 			phonePanel.add(phoneField);
 			
 			buttonPanel.setBackground(Home.myColor);
 			buttonPanel.setBorder(CustomerAccount.border);
-			buttonPanel.setLayout(new FlowLayout(20,200,FlowLayout.LEADING));
+			buttonPanel.setLayout(new FlowLayout(20,60,FlowLayout.LEADING));
 				createButton.setBackground(Color.WHITE);
 				createButton.setPreferredSize(labelSize);
 				createButton.addActionListener(new myActionListener());
