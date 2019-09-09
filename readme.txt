@@ -18,6 +18,10 @@ Group Members:
 	Smit Patel
 	Stephen Burgess
 	
+Goal was to develop a software product in java following an Agile based project life cycle that involves; Idea conception and Team Building, COCOMO, Requirements elicitation (problem statements, use cases, etc.), Implementation, Design Rationale, User Guide, Implementation, Testing and Validation. 
+
+Implementation: A Hotel Management system was completed in Java featuring tiered user accounts, login system, full interaction with SQLite database, guest booking, employee management, service management, and a robust searching functionality.
+	
 
 
 
