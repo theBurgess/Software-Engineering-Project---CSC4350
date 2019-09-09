@@ -11,14 +11,9 @@ Group: B.L.O.P
 
 
 Project Topic: Hotel Management System
-
-
-Group Coordinator: 
-
-	Tobi Ogunyale
-
+ 
 Group Members:
-
+	Tobi Ogunyale
 	Johnathan Lackwood
 	Smit Patel
 	Stephen Burgess
